@@ -1,0 +1,8 @@
+#ifndef __CONFIG_H__
+#define __CONFIG_H__
+
+#define VERSION "${VERSION}"
+#define ICONV_CONST ${ICONV_CONST}
+#cmakedefine HAVE_ERRNO_H
+
+#endif
