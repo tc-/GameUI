@@ -9,3 +9,4 @@ config.h
 *.a
 Makefile.*
 test/gameuitest
+docs/Doxygen/*
