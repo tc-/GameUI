@@ -2,11 +2,11 @@ CMakeFiles
 CMakeCache.txt
 *.cbp
 *.layout
-Makefile
 cmake_install.cmake
 config.h
 *~
 *.a
 Makefile.*
 test/gameuitest
+gameuitest
 docs/Doxygen/*

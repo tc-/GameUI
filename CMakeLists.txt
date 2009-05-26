@@ -39,8 +39,8 @@ ENDIF(NOT SDLIMAGE_FOUND)
 # This should be done in a better way.
 set(VERSION "0.2.1")
 
-configure_file(config.h.in src/config.h)
-configure_file(config.h.in test/config.h)
+configure_file(config.h.in ${PROJECT_SOURCE_DIR}/src/config.h)
+configure_file(config.h.in ${PROJECT_SOURCE_DIR}/test/config.h)
 
 add_subdirectory(src)
 add_subdirectory(test)
