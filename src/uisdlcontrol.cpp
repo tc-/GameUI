@@ -1,22 +1,24 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Tommy Carlsson   *
- *   tc@coderworld.net   *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2005-2009 by Tommy Carlsson
+ *
+ * This file is part of GameUI.
+ *
+ * GameUI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * GameUI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with GameUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
+
 #include "uisdlcontrol.h"
 #include "uitimer.h"
 #include "uisdltimercontrol.h"
@@ -29,7 +31,7 @@ SDLControl::SDLControl( Gui* g )
   setGui( g );
   pTerminated = false;
   pKeyboard.setRepeat( -1 );
-	
+
 }
 
 
@@ -52,7 +54,7 @@ bool SDLControl::initializeLibrary()
     printf( "Error: %s\n", SDL_GetError() );
     return false;
   }
-	
+
   if( TTF_Init() == -1 ) {
     printf( "Error: %s\n", TTF_GetError() );
     return false;
@@ -60,14 +62,14 @@ bool SDLControl::initializeLibrary()
   SDL_EnableUNICODE( 1 );
 
 	ImageObject::setObjectFactory( &SDLImageObject::sdlImageObjectFactory );
-	
+
 	TimerControl::setCreateTimerControl( &SDLTimerControl::createTimerControl );
 	TimerControl::setDestroyTimerControl( &SDLTimerControl::destroyTimerControl );
-	
+
 	MouseCursor::setMouseCursorFactory( &SDLMouseCursor::createSDLMouseCursor );
-	
+
 	Font::setFontFactory( &SDLFont::sdlFontFactory );
-	
+
   return true;
 }
 
@@ -143,11 +145,11 @@ void SDLControl::doHandleEvents( const bool& clearEvs )
   }
 
   if ( handleSysEvents() ) {
-//    f = ( f | ( SDL_EVENTMASK(SDL_QUIT) | SDL_EVENTMASK(SDL_ACTIVEEVENT ) | SDL_EVENTMASK(SDL_SYSWMEVENT) | 
+//    f = ( f | ( SDL_EVENTMASK(SDL_QUIT) | SDL_EVENTMASK(SDL_ACTIVEEVENT ) | SDL_EVENTMASK(SDL_SYSWMEVENT) |
 //        SDL_EVENTMASK(SDL_VIDEORESIZE) | SDL_EVENTMASK(SDL_VIDEOEXPOSE) ) );
 
     SDL_Event event;
-    while ( SDL_PeepEvents(&event, 1, SDL_GETEVENT, ( SDL_EVENTMASK(SDL_QUIT) | SDL_EVENTMASK(SDL_ACTIVEEVENT ) | SDL_EVENTMASK(SDL_SYSWMEVENT) | 
+    while ( SDL_PeepEvents(&event, 1, SDL_GETEVENT, ( SDL_EVENTMASK(SDL_QUIT) | SDL_EVENTMASK(SDL_ACTIVEEVENT ) | SDL_EVENTMASK(SDL_SYSWMEVENT) |
             SDL_EVENTMASK(SDL_VIDEORESIZE) | SDL_EVENTMASK(SDL_VIDEOEXPOSE) ) ) > 0 ) {
       if ( event.type == SDL_QUIT ) {
         pTerminated = true;
@@ -161,7 +163,7 @@ void SDLControl::doHandleEvents( const bool& clearEvs )
 	if ( handleTimers() ) {
 		SDLTimerControl::handleSDLTimers();
 	}
-	
+
   if ( clearEvs )
     SDLControl::clearEvents();
 }

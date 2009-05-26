@@ -1,22 +1,24 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Tommy Carlsson   *
- *   tc@coderworld.net   *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2005-2009 by Tommy Carlsson
+ *
+ * This file is part of GameUI.
+ *
+ * GameUI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * GameUI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with GameUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
+
 #include "uitheme.h"
 
 #include <uiborder.h>
@@ -38,7 +40,7 @@ Theme::Theme()
   pDCButton = Color( 0,0,0 );
   pDCSelect = Color( 0,0,0 );
   pDCBorderLine = Color( 0,0,0 );
-	
+
 	pUpdated = false;
 	pDontUpdate = 0;
 }
@@ -323,21 +325,21 @@ bool Theme::loadTheme( const string fname, const ThemeLoadOptions& op )
 					Utils::fromString( inis->keyStringValue( "transparentcolor", "0,0,255" ), tc );
 					Utils::fromString( inis->keyStringValue( "invertcolor", "255,0,0" ), ic );
 					int hotx, hoty;
-					hotx = inis->keyIntValue( "hotspotx", 0 ); 
-					hoty = inis->keyIntValue( "hotspoty", 0 ); 
+					hotx = inis->keyIntValue( "hotspotx", 0 );
+					hoty = inis->keyIntValue( "hotspoty", 0 );
 					MouseCursor* mc = MouseCursor::createMouseCursor();
-					
+
 					if ( mc != NULL ) {
-						
+
 						mc->load( *img, hotx, hoty, tc, ic );
 						if ( mc->isLoaded() ) {
-							
+
 							setCursor( iname, mc, false );
 							if ( iname == "default" )
 								setDefaultCursor( mc );
-							
+
 						} else {
-							Utils::setError( "Could not load cursor into cursor object", true );					
+							Utils::setError( "Could not load cursor into cursor object", true );
 						}
 					} else {
 						Utils::setError( "Could not create cursor object", true );
@@ -583,5 +585,5 @@ void Theme::endUpdate()
 		updated();
 	}
 }
-	
+
 }

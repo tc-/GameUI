@@ -1,22 +1,23 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Tommy Carlsson   *
- *   tc@coderworld.net   *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2005-2009 by Tommy Carlsson
+ *
+ * This file is part of GameUI.
+ *
+ * GameUI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * GameUI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with GameUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
 
 /**
 @file
@@ -47,7 +48,7 @@ Gui::Gui( int width, int height )
   pMousePressedWidget = NULL;
 	pMouseDragWidget = NULL;
 	pChannelPopup = NULL;
-	
+
   pBgWidget = NULL;
   pFgFrame = NULL;
   pTopFrame = NULL;
@@ -319,7 +320,7 @@ void Gui::render(  )
 
         tmpL.get( i2 )->renderBorder( screen() );
 
-        screen().setRelativePoint( tmpL.get( i2 )->absoluteXPos() + tmpL.get( i2 )->borderLeft(), 
+        screen().setRelativePoint( tmpL.get( i2 )->absoluteXPos() + tmpL.get( i2 )->borderLeft(),
                                   tmpL.get( i2 )->absoluteYPos() + tmpL.get( i2 )->borderTop() );
         Rect r3( r2.left - tmpL.get( i2 )->absoluteXPos() - tmpL.get( i2 )->borderLeft(), r2.top - tmpL.get( i2 )->absoluteYPos() - tmpL.get( i2 )->borderTop(), r2.width, r2.height );
         tmpL.get( i2 )->render( screen(), r3 );
@@ -400,7 +401,7 @@ void Gui::removePopup( Popup* p )
 void Gui::mouseMove( int x, int y, MouseButtons mb )
 {
 //  cout << "Ui::Gui::mouseMove(  )"  << endl;
-	
+
 	if ( pChannelPopup != NULL ) {
 		pChannelPopup->mouseMove( x, y, mb );
 		if ( pChannelPopup != NULL ) {
@@ -408,7 +409,7 @@ void Gui::mouseMove( int x, int y, MouseButtons mb )
 				return;
 		}
 	}
-	
+
   if ( pMouseChannelWidget != NULL ) {
 
 		Widget* o =  pMouseChannelWidget->mouseMove( x - pMouseChannelWidget->absoluteXPos(), y - pMouseChannelWidget->absoluteYPos(), mb );
@@ -453,7 +454,7 @@ void Gui::mouseMove( int x, int y, MouseButtons mb )
           pLastMouseOver = NULL;
         }
 
-//        if ( o != &frame ) 
+//        if ( o != &frame )
         o->mouseIn( mb );
 
         pLastMouseOver = o;
@@ -477,7 +478,7 @@ void Gui::mouseMove( int x, int y, MouseButtons mb )
 				d->popup( x - (d->width() / 2), y - (d->height() / 2), *this );
 				if ( mouseChannelWidget() != NULL )
 					unsetMouseChannelWidget( *mouseChannelWidget() );
-				
+
 				d->mousePressed( x, y, mb );
 			}
 			pMouseDragWidget->onDestroy.disconnect( this );
@@ -491,7 +492,7 @@ void Gui::mouseMove( int x, int y, MouseButtons mb )
 void Gui::mousePressed( int x, int y, MouseButtons mb )
 {
 	cout << "Ui::Gui::mousePressed( " << x << ", " << y << " )"  << endl;
-	
+
 	if ( pChannelPopup != NULL ) {
 		pChannelPopup->mousePressed( x, y, mb );
 		if ( pChannelPopup != NULL ) {
@@ -499,7 +500,7 @@ void Gui::mousePressed( int x, int y, MouseButtons mb )
 				return;
 		}
 	}
-	
+
   if ( pMouseChannelWidget != NULL ) {
 
     if ( pMousePressedWidget != NULL ) {
@@ -530,11 +531,11 @@ void Gui::mousePressed( int x, int y, MouseButtons mb )
       if ( pMousePressedWidget != NULL ) {
         pMousePressedWidget->onDestroy.disconnect( this );
       }
-			
+
 			if ( pMouseDragWidget != NULL ) {
 				pMouseDragWidget->onDestroy.disconnect( this );
 			}
-			
+
       pMousePressedWidget = o;
       pMousePressedWidget->onDestroy.connect( this, &Gui::objectDestroyed );
 			pMouseDragWidget = o;
@@ -556,7 +557,7 @@ void Gui::mousePressed( int x, int y, MouseButtons mb )
 void Gui::mouseReleased( int x, int y, MouseButtons mb )
 {
   cout << "Ui::Gui::mouseReleased( " << x << ", " << y << " )"  << endl;
-	
+
 	if ( pChannelPopup != NULL ) {
 		pChannelPopup->mouseReleased( x, y, mb );
 		if ( pChannelPopup != NULL ) {

@@ -1,22 +1,24 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Tommy Carlsson   *
- *   tc@coderworld.net   *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2005-2009 by Tommy Carlsson
+ *
+ * This file is part of GameUI.
+ *
+ * GameUI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * GameUI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with GameUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
+
 #include "uiwindow.h"
 
 namespace Ui {
@@ -30,19 +32,19 @@ Window::Window()
 	pResizeTRBL = NULL;
 	pActiveBorder = NULL;
 	pInactiveBorder = NULL;
-	
+
 	pCapFont = NULL;
-	
+
 	pCapColor = Color( 255, 255, 255 );
-	
+
 	pTitleHeight = 22;
 	pDoResize = 0;
 	pResizeable = true;
 	pResizeX = 0;
 	pResizeY = 0;
-	
+
 	pCapAlign = halignCenter;
-	
+
 	pCaption = L"";
 
 }
@@ -56,19 +58,19 @@ Window::Window( Frame* parent )
 	pResizeTRBL = NULL;
 	pActiveBorder = NULL;
 	pInactiveBorder = NULL;
-	
+
 	pCapFont = NULL;
-	
+
 	pCapColor = Color( 255, 255, 255 );
-	
+
 	pTitleHeight = 22;
 	pDoResize = 0;
 	pResizeable = true;
 	pResizeX = 0;
 	pResizeY = 0;
-	
+
 	pCapAlign = halignCenter;
-	
+
 	pCaption = L"";
 }
 
@@ -80,23 +82,23 @@ Window::~Window()
 void Window::setTheme( Theme& t, const string prefix )
 {
   beginUpdate();
-	
+
   setBorder( t.getBorder( prefix+"window" ) );
 	setTitleBorderActive( t.getBorder( prefix+"window_title_active" ) );
 	setTitleBorderInactive( t.getBorder( prefix+"window_title_inactive" ) );
-	
+
   setFont( t.getFont( prefix+"window" ) );
 	setCaptionFont( t.getFont( prefix+"window_caption" ) );
-	
+
 	setFontColor( t.getColor( prefix+"window_font" ) );
 	setCaptionColor( t.getColor( prefix+"window_caption_font" ) );
-	
+
 	setCursor( t.getCursor( prefix+"window" ) );
 	setResizeCursorRL( t.getCursor( prefix+"window_rl" ) );
 	setResizeCursorTB( t.getCursor( prefix+"window_tb" ) );
 	setResizeCursorTRBL( t.getCursor( prefix+"window_trbl" ) );
 	setResizeCursorTLBR( t.getCursor( prefix+"window_tlbr" ) );
-	
+
 	endUpdate();
 }
 
@@ -132,7 +134,7 @@ Widget* Window::mouseMove(int x, int y, MouseButtons mb)
 		} else if ( pDoResize == 8 ) {
 			setBounds( relativeLeft() + x, relativeTop(), width() - x, height() );
 		}
-    
+
 		return this;
 	} else {
 		int area = resizeArea( x, y );
@@ -184,14 +186,14 @@ int Window::resizeArea( const int& x, const int& y )
 					return 1;
 				else if ( y > height() - 16 )
 					return 7;
-				else 
+				else
 					return 8;
 			} else if ( x > width() - 16 ) {
 				if ( y < 16 )
 					return 3;
 				else if ( y > height() - 16 )
 					return 5;
-				else 
+				else
 					return 4;
 			} else {
 				if ( y < 16 )
@@ -244,7 +246,7 @@ void Window::render( ImageObject& img, const Rect& r )
 	Font* f = captionFont();
 	if ( (pCaption != L"") && (f != NULL) ) {
 		img.outText( pCaption, *f, Utils::align( width() - borderLeft() - borderRight(), f->textWidth( pCaption ), pCapAlign ), 0-borderTop()+Utils::align( pTitleHeight, f->textHeight(), alignCenter ), pCapColor );
-		
+
 	}
 	WindowFrame::render( img, r );
 }

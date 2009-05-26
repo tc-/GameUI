@@ -1,22 +1,23 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Tommy Carlsson   *
- *   tc@coderworld.net   *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2005-2009 by Tommy Carlsson
+ *
+ * This file is part of GameUI.
+ *
+ * GameUI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * GameUI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with GameUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
 
 /**
 @file
@@ -157,7 +158,7 @@ wstring Edit::renderText()
 {
 
   assert ( font() != NULL );
-  if ( pText.length() == 0 ) 
+  if ( pText.length() == 0 )
     return L"";
   wstring rs = pText.substr( pDrawIndex, pText.length() - pDrawIndex );
 
@@ -171,8 +172,8 @@ wstring Edit::renderText()
     rs.erase( rs.length() - 1 );//  = res.substr( 0, res.length() - 1 );
   }
  // cout << "!!! renderText len: " << res.length() << endl;
- 
- 
+
+
   //wstring rs = L"WWWWWWWWWWWWWWWWWWWWWWWWWWW";
   return rs;
 //  return L"cvbc";
@@ -337,7 +338,7 @@ int Edit::cursorPos(  )
 
       if ( pCursorIndex < pDrawIndex ) {
         pDrawIndex = pCursorIndex - 3;
-        if ( pDrawIndex < 0 ) 
+        if ( pDrawIndex < 0 )
           pDrawIndex = 0;
         updated();
       }
@@ -450,7 +451,7 @@ Widget* Edit::keyPressed( Key key )
         pSelStart = cursorIndex();
         pSelEnd = cursorIndex();
       }
-			if ( pSelEnd < (int)pText.length() ) 
+			if ( pSelEnd < (int)pText.length() )
         pSelEnd++;
       updated();
       setCursorIndex ( pCursorIndex + 1 );
@@ -466,7 +467,7 @@ Widget* Edit::keyPressed( Key key )
         pSelStart = cursorIndex();
         pSelEnd = cursorIndex();
       }
-      if ( pSelEnd > 0 ) 
+      if ( pSelEnd > 0 )
         pSelEnd--;
       updated();
       setCursorIndex ( pCursorIndex - 1 );

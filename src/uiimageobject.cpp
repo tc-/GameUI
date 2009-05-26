@@ -1,23 +1,24 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Tommy Carlsson   *
- *   tc@coderworld.net   *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
- 
+/******************************************************************************
+ * Copyright (C) 2005-2009 by Tommy Carlsson
+ *
+ * This file is part of GameUI.
+ *
+ * GameUI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * GameUI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with GameUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
+
  /**
 @file
 Implementation of the Ui::ImageObject class
@@ -60,16 +61,16 @@ void ImageObject::line ( double x1, double y1, double x2, double y2, const Color
 	double tmp, gradient, xend, yend, xgap, ygap, xpxl1, ypxl1, xpx1l, intery, xpxl2, ypxl2;
 	double deltaX = x2 - x1;
 	double deltaY = y2 - y1;
-	
+
 	Rect r = Utils::getRect( (int)x1, (int)y1, (int)x2, (int)y2 );
 //	r.debug( "" );
 	ImageObject* img = ImageObject::createImageObject( r.width, r.height );
-	
-	
-	
+
+
+
 	if ( fabs(deltaY) < fabs(deltaX) ) {
 //		printf("Horizontal line\n");
-			
+
 		if( x2 < x1 ) {
 			// Swap x1 and x2
 			tmp = x1;
@@ -86,13 +87,13 @@ void ImageObject::line ( double x1, double y1, double x2, double y2, const Color
 		}
 
 		gradient = deltaY/deltaX;
-		
+
 		// handle first endpoint
 		xend = round(x1);
 		yend = y1 + gradient * (xend - x1);
-		
+
 		xgap = rfpart(x1 + 0.5);
-		
+
 		xpxl1 = xend;  // this will be used in the main loop
 		ypxl1 = ipart(yend);
 
@@ -134,7 +135,7 @@ void ImageObject::line ( double x1, double y1, double x2, double y2, const Color
 		}
 
 		gradient = deltaX/deltaY;
-		
+
 		// handle first endpoint
 		yend = round(y1);
 		xend = x1 + gradient * (yend - y1);
@@ -151,7 +152,7 @@ void ImageObject::line ( double x1, double y1, double x2, double y2, const Color
 		ygap = rfpart(y2 - 0.5);
 		xpxl2 = ipart(xend);
 		ypxl2 = yend;
-		
+
 		img->putPixel( (int)xpxl2 - r.left, (int)ypxl2 - r.top, Color( color.getR(), color.getG(), color.getB(), (unsigned char)(255.0 * rfpart(xend) * ygap)) );
 		img->putPixel( (int)(xpxl2 + 1) - r.left, (int)ypxl2 - r.top, Color( color.getR(), color.getG(), color.getB(), (unsigned char)(255.0 * fpart(xend) * ygap)) );
 

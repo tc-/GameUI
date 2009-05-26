@@ -1,22 +1,23 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Tommy Carlsson   *
- *   tc@coderworld.net   *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2005-2009 by Tommy Carlsson
+ *
+ * This file is part of GameUI.
+ *
+ * GameUI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * GameUI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with GameUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
 
 /**
 @file
@@ -34,22 +35,22 @@ KeyCursor* KeyCursor::pKeyCursorObject = NULL;
 
 KeyCursor::KeyCursor()
 {
-	
+
 	pEnabled = false;
   pVisible = false;
 
 	pShow = 700;
 	pHide = 400;
-	
+
 	pXPos = 0;
 	pYPos = 0;
 	pWidth = 2;
   pHeight = 16;
-	
+
   pColor = Color( 0, 0, 0 );
 
 	pDM = DM_OPAQUE;
-	
+
 	pWidget = NULL;
 	pTimer.onTimer.connect( this, &KeyCursor::onTimerTick );
 
@@ -79,7 +80,7 @@ void KeyCursor::setFocusedWidget( Widget* widget )
 {
 	setEnabled( false );
 	setVisible( false );
-	
+
 	if ( widget != NULL ) {
 		cout << " -- Ui::KeyCursor::setFocusedWidget( " << widget->name() << " )" << endl;
 		pWidget = widget;
@@ -123,7 +124,7 @@ void KeyCursor::setDrawmode( const Drawmode dm )
 }
 
 
-	
+
 bool KeyCursor::shouldRenderBg() const
 {
 	if ( pDM == DM_TRANSPARENT )
@@ -200,7 +201,7 @@ void KeyCursor::setTop( const int t )
 }
 
 
-	
+
 int KeyCursor::width() const
 {
 	return pWidth;

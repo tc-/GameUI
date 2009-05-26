@@ -1,22 +1,23 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Tommy Carlsson   *
- *   tc@coderworld.net   *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2005-2009 by Tommy Carlsson
+ *
+ * This file is part of GameUI.
+ *
+ * GameUI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * GameUI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with GameUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
 
 /**
 @file
@@ -87,7 +88,7 @@ void Frame::setGui( Gui* s )
 void Frame::childUpdated( Widget& o )
 {
 	if ( &o == pCur ) return;
-	
+
   arrangeChildren();
 	updated();
 }
@@ -115,7 +116,7 @@ void Frame::arrangeChildren(  )
 //	Rect clientArea = getClientRect();//( 0, 0, clientWidth(), clientHeight() );
 	Rect clientArea(0, 0, clientWidth(), clientHeight() );
 	List< Widget* > wl;
-	
+
 	// Widgets Aligned -TOP-
 	for ( int i = 0; i < pChildList.count(); i++ ) {
 		Widget* w = pChildList.get( i );
@@ -129,18 +130,18 @@ void Frame::arrangeChildren(  )
 		w->beginUpdate();
 		//pCur = w;
 		int h = w->height();
-		
+
 		if ( w->anchorBottom() )
 			h = ( clientHeight() - w->relativeTop() ) - w->anchorBottomValue();
-		
+
 		w->setBounds( clientArea.left, clientArea.top, clientArea.width, h );
 		w->endUpdate( false );
-		
+
 		clientArea.top += w->height();
 		clientArea.height -= w->height();
 	}
 	wl.clear();
-	
+
 	// Widgets Aligned -BOTTOM-
 	for ( int i = 0; i < pChildList.count(); i++ ) {
 		Widget* w = pChildList.get( i );
@@ -153,16 +154,16 @@ void Frame::arrangeChildren(  )
 		w->beginUpdate();
 		pCur = w;
 		int h = w->height();
-		
+
 		if ( w->anchorTop() )
 			h = ( clientHeight() - w->relativeTop() ) - w->anchorTopValue();
-		
+
 		w->setBounds( clientArea.left, clientArea.top + clientArea.height - h, clientArea.width, h );
 		w->endUpdate( );
 		clientArea.height -= w->height();
 	}
 	wl.clear();
-	
+
 	// Widgets Aligned -LEFT-
 	for ( int i = 0; i < pChildList.count(); i++ ) {
 		Widget* w = pChildList.get( i );
@@ -175,17 +176,17 @@ void Frame::arrangeChildren(  )
 		wi->beginUpdate();
 		pCur = wi;
 		int w = wi->width();
-		
+
 		if ( wi->anchorRight() )
 			w = clientWidth() - wi->relativeLeft() - wi->anchorRightValue();
-		
+
 		wi->setBounds( clientArea.left, clientArea.top, w, clientArea.height );
 		wi->endUpdate( );
 		clientArea.left += wi->width();
 		clientArea.width -= wi->width();
 	}
 	wl.clear();
-	
+
 	// Widgets Aligned -RIGHT-
 	for ( int i = 0; i < pChildList.count(); i++ ) {
 		Widget* w = pChildList.get( i );
@@ -198,16 +199,16 @@ void Frame::arrangeChildren(  )
 		wi->beginUpdate();
 		pCur = wi;
 		int w = wi->width();
-		
+
 		if ( wi->anchorRight() )
 			w = clientWidth() - wi->relativeLeft() - wi->anchorLeftValue();
-		
+
 		wi->setBounds( clientArea.left + clientArea.width - w, clientArea.top, w, clientArea.height );
 		wi->endUpdate( );
 		clientArea.width -= wi->width();
 	}
 	wl.clear();
-	
+
 	// Widgets Aligned -CLIENT-
 	for ( int i = 0; i < pChildList.count(); i++ ) {
 		Widget* w = pChildList.get( i );
@@ -225,7 +226,7 @@ void Frame::arrangeChildren(  )
 	}
 	wl.clear();
 
-	
+
 	// Widgets With No Align But Uses -ANCHORS-
 	for ( int i = 0; i < pChildList.count(); i++ ) {
 		Widget* w = pChildList.get( i );
@@ -239,7 +240,7 @@ void Frame::arrangeChildren(  )
 		int l = wi->relativeLeft();
 		int w = wi->width();
 		int h = wi->height();
-		
+
 		if ( ( wi->anchorLeft() ) && ( wi->anchorRight() ) ) {
 			l = wi->anchorLeftValue();
 			w = clientWidth() - wi->anchorLeftValue() - wi->anchorRightValue();
@@ -251,13 +252,13 @@ void Frame::arrangeChildren(  )
 				l = l - Utils::inMiddle( wi->minWidth(), w );
 				w = wi->minWidth();
 			}
-			
+
 		} else {
 			if ( wi->anchorLeft() )
 				l = wi->anchorLeftValue();
 			else if ( wi->anchorRight() )
-				l = clientWidth() - wi->width() - wi->anchorRightValue();			
-		}		
+				l = clientWidth() - wi->width() - wi->anchorRightValue();
+		}
 		if ( ( wi->anchorTop() ) && ( wi->anchorBottom() ) ) {
 			t = wi->anchorTopValue();
 			h = clientHeight() - wi->anchorTopValue() - wi->anchorBottomValue();
@@ -279,7 +280,7 @@ void Frame::arrangeChildren(  )
 		wi->setBounds( l, t, w, h );
 	}
 	wl.clear();
-	
+
 	pCur = NULL;
 }
 
@@ -350,7 +351,7 @@ Widget* Frame::getWidgetAt( int x, int y, bool recursive )
     o = child( i );
     assert( o != NULL );
 
-		if (( o->relativeTop() <= y ) && ( o->relativeLeft() <= x ) && 
+		if (( o->relativeTop() <= y ) && ( o->relativeLeft() <= x ) &&
 						( o->relativeLeft()+o->width() >= x ) && ( o->relativeTop() + o->height() >= y ) )
     {
 			if ( o->visible() ) {

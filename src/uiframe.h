@@ -1,22 +1,23 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Tommy Carlsson   *
- *   tc@coderworld.net   *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2005-2009 by Tommy Carlsson
+ *
+ * This file is part of GameUI.
+ *
+ * GameUI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * GameUI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with GameUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
 
 /**
 @file
@@ -65,7 +66,7 @@ public:
   //virtual void updateRegion( const Rect& r );
   virtual void updated(  );
   virtual void renderBackground( const Rect& r );
-	
+
 	virtual void resize( int newwidth, int newheight );
 
   virtual int scrollX( ) const { return 0; }
@@ -103,7 +104,7 @@ public:
       setZIndex( zIndex() );
     }
   }
-  
+
   virtual Widget* child( int index ) const {
     return pChildList.get( index );
   }
@@ -140,7 +141,7 @@ public:
   virtual int numChildren() const {
     return pChildList.count();
   }
-  
+
   signal1<Widget*> onChildAdded;
   signal1<Widget*> onChildRemoved;
 
@@ -148,7 +149,7 @@ private:
 
   //WidgetList pChildList;
 	Widget* pCur;
-	
+
 	static bool sortWidgetsByLeft(List< Widget* > & l, int i1, int i2);
 	static bool sortWidgetsByTop(List< Widget* > & l, int i1, int i2);
 

@@ -1,22 +1,23 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Tommy Carlsson   *
- *   tc@coderworld.net   *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2005-2009 by Tommy Carlsson
+ *
+ * This file is part of GameUI.
+ *
+ * GameUI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * GameUI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with GameUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
 
 /**
 @file
@@ -41,7 +42,7 @@ using std::string;
 using namespace sigslot;
 
 namespace Ui {
-	
+
 class MouseCursor;
 class DragObject;
 class Tooltip;
@@ -74,7 +75,7 @@ class Widget;
 /**
  * Class used internally to keep track of Objects to be updated
  * @author Tommy Carlsson
- */ 
+ */
 class UpdateWidget {
   public:
     Widget* o;
@@ -119,10 +120,10 @@ public:
 	virtual MouseCursor* cursor() const;
 	virtual void setCursor( MouseCursor* mc );
 	virtual MouseCursor* getCursor( const int& x, const int& y ) { return pCursor; }
-	
+
 	virtual WidgetAlignType align() const { return pAlign; }
 	virtual void setAlign( const WidgetAlignType& al ) { pAlign = al; if ( isManaged() ) sizeChanged( Rect( 0 - borderLeft(), 0 - borderTop(), width(), height() ) ); }
-	
+
 	virtual bool anchorLeft() const { return pAnchorL; }
 	virtual bool anchorRight() const { return pAnchorR; }
 	virtual bool anchorTop() const { return pAnchorT; }
@@ -131,13 +132,13 @@ public:
 	virtual void setAnchorRight( const bool& a = true );
 	virtual void setAnchorTop( const bool& a = true );
 	virtual void setAnchorBottom( const bool& a = true );
-	
+
 	virtual int anchorLeftValue() const { return pAnchorLV; }
 	virtual int anchorRightValue() const { return pAnchorRV; }
 	virtual int anchorTopValue() const { return pAnchorTV; }
-	virtual int anchorBottomValue() const { return pAnchorBV; }	
+	virtual int anchorBottomValue() const { return pAnchorBV; }
 	virtual void setAnchors( const bool& l, const bool& r, const bool& t, const bool& b );
-	
+
   virtual int minWidth(  ) const { return pMinWidth; }
   virtual void setMinWidth( int mw );
 
@@ -171,7 +172,7 @@ public:
 	 */
   virtual int left(  ) const;
 	virtual int relativeLeft(  ) const;
-	
+
 	virtual void setLeft( int l );
 
   /**
@@ -302,7 +303,7 @@ public:
 
   virtual wstring tooltip(  ) const { return pToolTip; }
 	virtual void setTooltip( wstring t ) { pToolTip = t; }
- 
+
 	virtual void render( ImageObject& img, const Rect& r );
   virtual void renderBorder( ImageObject& img );
 	/**
@@ -323,7 +324,7 @@ public:
 	 */
 	virtual void beginUpdate(  );
 	/**
-	 * Resumes automatic render() calls. 
+	 * Resumes automatic render() calls.
 	 *
 	 * Calls render() when beginUpdate() and endUpdate() has been called the same number of times.
 	 * @note Make sure you call beginUpdate() and endUpdate() the same number of times, otherwise automatic render() will stop working completly.
@@ -380,7 +381,7 @@ public:
   static void updatedWidget( Widget* o, const Rect r = NULL_RECT );
 //  static void updatedWidget( Widget* o );
   static void clearUpdatedWidgets();
-  static List<UpdateWidget*>& updatedWidgets(  ) 
+  static List<UpdateWidget*>& updatedWidgets(  )
   {
     static List<UpdateWidget*> pUpdatedWidgets;
     return pUpdatedWidgets;
@@ -409,13 +410,13 @@ public:
 private:
 
   string pName;
-	
+
 	WidgetAlignType pAlign;
-	
+
 	bool pAnchorL;
 	bool pAnchorR;
 	bool pAnchorT;
-	bool pAnchorB;	
+	bool pAnchorB;
 	int pAnchorLV;
 	int pAnchorRV;
 	int pAnchorTV;
@@ -436,7 +437,7 @@ private:
   Frame* pParent;
   Gui* pGui;
 	MouseCursor* pCursor;
-	
+
 	Theme* pTheme;
 	string pThemePrefix;
 
@@ -449,11 +450,11 @@ private:
 	bool pToldParentUpdate;
 
   void* pTag;
-	
+
 	wstring pToolTip;
 	Timer* pToolTipTimer;
 	Tooltip* pToolTipObject;
-	
+
 	int pLastX;
 	int pLastY;
 
@@ -462,7 +463,7 @@ private:
   Color pBgColor;
   Border* pBorder;
 //  DrawInterface* pInterface;
-	
+
 	void tooltipTimerCallback( Timer& t, int& to );
 
 protected:

@@ -1,22 +1,24 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Tommy Carlsson                                      *
- *   tc@coderworld.net                                                               *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2005-2009 by Tommy Carlsson
+ *
+ * This file is part of GameUI.
+ *
+ * GameUI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * GameUI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with GameUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
+
 #ifndef UIUIWINDOW_H
 #define UIUIWINDOW_H
 
@@ -62,17 +64,17 @@ public:
   virtual Widget* mouseReleased(int x, int y, MouseButtons mb);
 
 	virtual MouseCursor* getCursor( const int& x, const int& y )
-	{ 
-		return getCursorFromArea( resizeArea( x, y ) ); 
+	{
+		return getCursorFromArea( resizeArea( x, y ) );
 	}
-	
+
 	virtual void sizeChanged( const Rect& news );
-			
+
 	virtual bool resizable() { return pResizeable; }
 	virtual void setResizeable( const bool& r = true ) { pResizeable = r; }
-	
+
 	virtual bool isResizing() { return ( pDoResize != 0 ); }
-	
+
 	virtual MouseCursor* resizeCursorRL() { return pResizeRL; }
 	virtual void setResizeCursorRL( MouseCursor* mc ) { pResizeRL = mc; }
 	virtual MouseCursor* resizeCursorTB() { return pResizeTB; }
@@ -93,7 +95,7 @@ public:
 
 	virtual int titleHeight( ) const { return pTitleHeight; };
 	virtual void setTitleHeight( const int th ) { pTitleHeight = th; updated(); }
-	
+
 	virtual wstring caption() const { return pCaption; }
 	virtual void setCaption( wstring c ) { pCaption = c; }
 
@@ -102,51 +104,51 @@ public:
 
 	virtual Color captionColor() const { return pCapColor; }
 	virtual void setCaptionColor( const Color c ) { pCapColor = c; updated(); }
-	
+
 	virtual HAlignType captionAlignment() const { return pCapAlign; }
 	virtual void setCaptionAlignment( HAlignType al ) { pCapAlign = al; updated();}
 
 	virtual int borderTop( ) const { if ( pTitleHeight > WindowFrame::borderTop() ) return pTitleHeight; else return WindowFrame::borderTop(); }
 //	virtual int clientHeight( ) { return WindowFrame::clientHeight() - pTitleHeight + WindowFrame::borderTop(); }
-	
+
 	virtual int clientVisibleWidth( );
 	virtual int clientVisibleHeight( );
-	
+
 //	virtual Rect getClientRect();
 //	virtual Rect getClientVisibleRect();
-	
+
 	virtual void render( ImageObject& img, const Rect& r );
-	
+
 //  virtual Rect getClientRect();
 
 private:
 
 	int resizeArea( const int& x, const int& y );
 	MouseCursor* getCursorFromArea( const int& a );
-	
+
 	MouseCursor* pResizeRL;
 	MouseCursor* pResizeTB;
 	MouseCursor* pResizeTLBR;
 	MouseCursor* pResizeTRBL;
-	
+
 	Font* pCapFont;
-	
+
 	Border* pActiveBorder;
 	Border* pInactiveBorder;
-	
+
 	Color pCapColor;
-	
+
 	bool pResizeable;
-	
+
 	int pDoResize;
 	int pResizeX;
 	int pResizeY;
 	int pTitleHeight;
-	
+
 	HAlignType pCapAlign;
-	
+
 	wstring pCaption;
-	
+
 };
 
 }

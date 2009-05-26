@@ -1,22 +1,24 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Tommy Carlsson                                      *
- *   tc@coderworld.net                                                               *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2005-2009 by Tommy Carlsson
+ *
+ * This file is part of GameUI.
+ *
+ * GameUI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * GameUI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with GameUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
+
 #ifndef UIUITIMER_H
 #define UIUITIMER_H
 
@@ -38,7 +40,7 @@ typedef void (*TimerControlDestroyer)( TimerControl* );
  * Abstract class that is used by the Timer class to interface with various timer interfaces.
  * @see Timer
  * @author Tommy Carlsson
- */ 
+ */
 class TimerControl {
 public:
 	TimerControl( ) { }
@@ -72,7 +74,7 @@ public:
 	 * @see TimerControl::assignTimer() Timer::destroyTimerControl()
 	 */
 	virtual void removeTimer( Timer* t ) = 0;
-	
+
 	/**
 	 * Wrapper that creates a TimerControl class.
 	 * @return a pointer to a TimerControl class created.
@@ -105,7 +107,7 @@ private:
 	static TimerControlFactory pTCC;
 
 };
-	
+
 /**
  * A timer class that emits a signal when it times out.
  * @see Timer::timeout() Timer::tick() Timer::onTimer Timer::enabled() TimerControl
@@ -131,7 +133,7 @@ public:
 	 * @see Timer::destroyDelayed()
 	 */
 	virtual bool isDestroying() { return pDestroy; }
-	
+
   /**
    * Returns the number of milliseconds until the next "tick".
 	 * If the timer is disabled it will allways return timeout() instead.
@@ -161,7 +163,7 @@ public:
 	/**
 	 * Return true if the timer is enabled and false if the timer is disabled.
 	 * @return true if the timer is enabled and false if the timer is disabled.
-	 * @see Timer::setEnabled() 
+	 * @see Timer::setEnabled()
 	 */
 	virtual bool enabled() { return pEnabled; }
 	/**
@@ -183,7 +185,7 @@ public:
 	 * @see Timer::timerControl()
 	 */
 	virtual void setTimerControl( TimerControl* tc );
-	
+
 	/**
 	 * Returns a user definable pointer.
 	 * If you want to associate something with this timer, use this property to do that. The Timer::tcTag() property is ONLY for use by the TimerControl classes.
@@ -197,7 +199,7 @@ public:
 	 * @see Timer::tag()
 	 */
 	virtual void setTag( void* p ) { pTag = p; }
-	
+
 	/**
 	 * Returns a pointer used by the TimerControl returned by Timer::timerControl().
 	 * @note This property should ONLY be used by the TimerControl returned by Timer::timerControl(), the data stored in this pointer can vary from one TimerControl class to another.
@@ -222,28 +224,28 @@ public:
 
 	virtual int drift() { return pDrift; }
 	virtual void setDrift( int d ) { pDrift = d; }
-	
+
 	/**
 	 * onTimer Event - Run every time the timer "ticks".
-	 * 
+	 *
 	 * @param 1 Reference to Timer that started the event.
 	 * @param 2 Reference to the current timeout, this can be changed by the event handler.
 	 * @see Timer::tick() Timer::timeLeft() Timer::timeout()
-	 */ 
+	 */
 	signal2<Timer&,int&> onTimer;
 	/**
 	 * onEnabled Event - Run when timer is enabled or disabled.
-	 * 
+	 *
 	 * @param 1 Reference to Timer that started the event.
 	 * @param 2 Indicates if the timer has been enabled( true ) or disabled( false ).
 	 * @see Timer::enabled(), Timer::setEnabled()
-	 */ 
+	 */
 	signal2<Timer&,bool> onEnabled;
 
 private:
 
 	bool pDestroy;
-	
+
 	int pDrift;
   int pTimeout;
 	bool pEnabled;

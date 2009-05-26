@@ -1,22 +1,23 @@
-/***************************************************************************
- *   Copyright (C) 2007 by Christian Antila                                *
- *   chille@chille.se                                                      *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2005-2009 by Tommy Carlsson
+ *
+ * This file is part of GameUI.
+ *
+ * GameUI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * GameUI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with GameUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
 
 #include <uigraph.h>
 
@@ -43,7 +44,7 @@ Graph::Graph( Frame* parent )
 	hColorFade2.setColor ( 120, 120, 120 );
 	hStyle        = GRAPH_GRID_FADE | GRAPH_GRID_SOLID;
 	hGridSize     = 40;
-	
+
 	vGridColor.setColor  ( 160, 160, 160 );
 	vStyle        = GRAPH_GRID_DOTTED;
 	vGridSize     = 10;
@@ -52,19 +53,19 @@ Graph::Graph( Frame* parent )
 
 	setBgColor ( Color( 127, 127, 127 ) );
 	*/
-	
+
 	hGridColor.setColor  ( 140, 140, 200 );
 	hStyle        = GRAPH_GRID_SOLID;
 	hGridSize     = 500;
 	hGridDotSize  = 1;
 	hGridDotSpace = 1;
-	
+
 	vGridColor.setColor  ( 140, 140, 200 );
 	vStyle        = GRAPH_GRID_SOLID;
 	vGridSize     = 5;
 	vGridDotSize  = 1;
 	vGridDotSpace = 1;
-	
+
 	setBgColor ( Color( 30, 30, 80 ) );
 
 //	setDrawmode( DM_TRANSPARENT );
@@ -207,7 +208,7 @@ void Graph::render( ImageObject& img, const Rect& r )
 		}
 	}
 */
-	
+
 	// Draw a dotted grid over the horizontal axle
 	/*
 	//TODO: this isn't correct anymore
@@ -250,7 +251,7 @@ void Graph::render( ImageObject& img, const Rect& r )
 //		}
 	}
 */
-	
+
 	// Draw a dotted grid over the vertical axle
 	/*
 	//TODO: this isn't correct anymore

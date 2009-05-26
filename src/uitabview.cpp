@@ -1,22 +1,24 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Tommy Carlsson   *
- *   tc@coderworld.net   *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2005-2009 by Tommy Carlsson
+ *
+ * This file is part of GameUI.
+ *
+ * GameUI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * GameUI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with GameUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
+
 #include "uitabview.h"
 
 namespace Ui {
@@ -91,7 +93,7 @@ void TabView::setActiveTab( Widget* w )
 	w->setVisible( true );
 	updated();
 }
-		
+
 void TabView::childAdded( Widget* o )
 {
 	if ( o == NULL ) return;
@@ -106,33 +108,33 @@ void TabView::childAdded( Widget* o )
 void TabView::render( ImageObject& img, const Rect& r )
 {
 	if ( !visible() ) return;
-	
+
 	int posx = 0;
-	
+
 	for( int i = 0; i < numChildren(); i++ ) {
 		Widget* w = child( i );
 		if ( w == NULL ) continue;
-		
+
 		int theight = 0;
 		int twidth = 0;
 		if ( (font() != NULL) && ( w->name() != "" ) ) {
 			theight = font()->textHeight();
 			twidth = font()->textWidth( Utils::toWString( w->name() ) );
 		}
-		
+
 		Border* b = NULL;
 		if ( ( w == activeTab() ) || ( (w == pButtonPressed) && (pMouseInside) ) )
 			b = tabButtonActiveBorder();
 		else
 			b = tabButtonBorder();
-		
+
 		if ( b != NULL ) {
 			b->render( Rect( posx, 0-tabHeight(), twidth + b->widthLeft + b->widthRight + 8, tabHeight() ), img );
 		}
-		
+
 		if ( font() != NULL ) {
 			int t = 0; int l = 0;
-			if ( b != NULL ) 
+			if ( b != NULL )
 				l =	posx + Utils::inMiddle( twidth + b->widthLeft + b->widthRight + 8, twidth );
 			else
 				l = posx + 4;
@@ -140,8 +142,8 @@ void TabView::render( ImageObject& img, const Rect& r )
 
 			img.outText( Utils::toWString( w->name() ), *font(), l, t, fontColor() );
 		}
-		
-		if ( b != NULL ) 
+
+		if ( b != NULL )
 			posx += twidth + b->widthLeft + b->widthRight + 8;
 		else
 			posx += twidth + 8;
@@ -156,22 +158,22 @@ Widget* TabView::getTabButtonAt( const int x )
 	for( int i = 0; i < numChildren(); i++ ) {
 		Widget* w = child( i );
 		if ( w == NULL ) continue;
-		
+
 		int twidth = 0;
 		if ( (font() != NULL) && ( w->name() != "" ) )
 			twidth = font()->textWidth( Utils::toWString( w->name() ) );
-    
+
 		Border* b = NULL;
 		if ( w == activeTab() )
 			b = tabButtonActiveBorder();
 		else
 			b = tabButtonBorder();
-		
-		if ( b != NULL ) 
+
+		if ( b != NULL )
 			posx += twidth + b->widthLeft + b->widthRight + 8;
 		else
 			posx += twidth + 8;
-		
+
 		if ( x <= posx )
 			return w;
 	}

@@ -1,22 +1,24 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Tommy Carlsson   *
- *   tc@coderworld.net   *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2005-2009 by Tommy Carlsson
+ *
+ * This file is part of GameUI.
+ *
+ * GameUI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * GameUI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with GameUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
+
 #include "uivscrollbar.h"
 #include "uiwidget.h"
 #include "uiframe.h"
@@ -144,7 +146,7 @@ int VScrollbar::scrollerPos() const
 void VScrollbar::setScrollerPos( const int pos )
 {
   int old = pScrollerPos;
-  if ( pos < 0 ) 
+  if ( pos < 0 )
     pScrollerPos = 0;
 	else if ( pos > Utils::max( 0, scrollerMaxPos() - pageSize() ) )
 		pScrollerPos = Utils::max( 0, scrollerMaxPos() - pageSize() );
@@ -285,7 +287,7 @@ void VScrollbar::render( ImageObject& img, const Rect& r )
 
   int ud = 0;
   if ( pButtonUpPressed ) {
-    b = buttonPressedBorder(); 
+    b = buttonPressedBorder();
   } else {
     b = buttonBorder();
     ud = -1;
@@ -315,7 +317,7 @@ void VScrollbar::render( ImageObject& img, const Rect& r )
 	if ( ( scrollerBorder() != NULL ) && ( scrollerSize() < scrollArea() ) ) {
 		scrollerBorder()->render( Rect( 0 - borderLeft(), width() + scrollerTop() - borderTop(), width(), scrollerSize() ), img );
   }
-	
+
 }
 
 
@@ -374,7 +376,7 @@ int VScrollbar::elementAt( const int x, const int y ) const
   if ( (x >= 0) && ( y >= height()-width()) && ( x <= width()) && ( y <= height() ) )
     return 3;
   // On ScrollArea
-  if ( y < width() + scrollerTop() ) 
+  if ( y < width() + scrollerTop() )
     return 10; // Above Scroller
   else
     return 11; // Below Scroller

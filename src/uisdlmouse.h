@@ -1,22 +1,24 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Tommy Carlsson                                      *
- *   tc@coderworld.net                                                               *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2005-2009 by Tommy Carlsson
+ *
+ * This file is part of GameUI.
+ *
+ * GameUI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * GameUI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with GameUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
+
 #ifndef UIUISDLMOUSE_H
 #define UIUISDLMOUSE_H
 
@@ -32,13 +34,13 @@ namespace Ui {
 /**
  * MouseCursor object used with the SDL lib
  * @author Tommy Carlsson
- */ 
+ */
 class SDLMouseCursor {
 public:
-	
+
 	SDLMouseCursor() { pCursor = NULL; pImage = NULL; }
 	virtual ~SDLMouseCursor() { if ( isSystem() ) SDL_FreeCursor( pCursor ); }
-	
+
 	/**
 	 *  Loads a cursor from an image.
 	 * @note If image only contains the colors black, white, transparentColor and invertColor it will be loaded as a system cursor, and will then enjoy hardware accelleration.
@@ -54,22 +56,22 @@ public:
 	virtual bool imageIsSystemCursor( ImageObject* img );
 	virtual bool isSystem() { return ( pCursor != NULL ); }
 	virtual bool isLoaded();
-	
+
 	virtual ImageObject* getImageObject() { return pImage; }
 	virtual SDL_Cursor* getSDLCursorObject() { return pCursor; }
-	
+
 	/**
 	 *  Creates a SDLMouseCursor object.
 	 * @return pointer to a SDLMouseCursor object.
 	 * @see MouseCursor::createMouseCursor(), and MouseCursor::setMouseCursorFactory()
 	 */
 	static MouseCursor* createSDLMouseCursor();
-	
+
 private:
-	
+
 	SDL_Cursor* pCursor;
 	ImageObject* pImage;
-	
+
 };
 
 
@@ -90,14 +92,14 @@ public:
   virtual MouseButtons mouseButtons();
   virtual void mousePos(int& x, int& y);
   virtual void update();
-	
+
   virtual MouseButtons translateMouseButtons( const Uint8& sdlButton );
-	
+
 	virtual MouseCursor* cursor();
 	virtual void setCursor( MouseCursor* mc );
 
 private:
-	
+
 	SDLMouseCursor* pCursor;
 	Widget* pLastMouseOver;
 };

@@ -1,22 +1,23 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Tommy Carlsson   *
- *   tc@coderworld.net   *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2005-2009 by Tommy Carlsson
+ *
+ * This file is part of GameUI.
+ *
+ * GameUI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * GameUI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with GameUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
 
 /**
 @file
@@ -38,7 +39,7 @@ namespace Ui {
 
 //int stringToInt( const string& cs );
 
-  
+
 /**
 Class representing a color.
 
@@ -56,20 +57,20 @@ const unsigned char ColorTransparent = 0;
 /**
  * Union used as a common way to store and set color information.
  * @author Tommy Carlsson
- */ 
+ */
 union ColorType {
   unsigned long c;
   unsigned char rgba[4];
 
   ColorType (  ) { c = 0; };
   ColorType ( const unsigned long col ) { c = col; };
-  ColorType ( const unsigned char r, const unsigned char g, const unsigned char b ) { 
+  ColorType ( const unsigned char r, const unsigned char g, const unsigned char b ) {
     rgba[ColorType_r] = r;
     rgba[ColorType_g] = g;
     rgba[ColorType_b] = b;
     rgba[ColorType_a] = ColorOpaque;
   };
-  ColorType ( const unsigned char r, const unsigned char g, const unsigned char b, const unsigned char a ) { 
+  ColorType ( const unsigned char r, const unsigned char g, const unsigned char b, const unsigned char a ) {
     rgba[ColorType_r] = r;
     rgba[ColorType_g] = g;
     rgba[ColorType_b] = b;
@@ -80,7 +81,7 @@ union ColorType {
 /**
  * Class used to store information on a specific color.
  * @author Tommy Carlsson
- */ 
+ */
 class Color {
 public:
 
@@ -95,7 +96,7 @@ public:
   };
   virtual ~Color() { };
 
-  virtual void setColor( const unsigned char R, const unsigned char G, const unsigned char B, const unsigned char A = ColorOpaque ) { 
+  virtual void setColor( const unsigned char R, const unsigned char G, const unsigned char B, const unsigned char A = ColorOpaque ) {
     c.rgba[ColorType_r] = R;
     c.rgba[ColorType_g] = G;
     c.rgba[ColorType_b] = B;
@@ -126,7 +127,7 @@ public:
 
   virtual unsigned long getColor(  ) const { return c.c; }
   virtual ColorType getColorType(  ) const { return c; }
-	
+
 	virtual bool operator==( const Color& c2 ) const {
 		return ( ( getR() == c2.getR() ) && ( getG() == c2.getG() ) && ( getB() == c2.getB() ) && ( getA() == c2.getA() ) );
 	}

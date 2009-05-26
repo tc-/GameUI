@@ -1,22 +1,24 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Tommy Carlsson   *
- *   tc@coderworld.net   *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2005-2009 by Tommy Carlsson
+ *
+ * This file is part of GameUI.
+ *
+ * GameUI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * GameUI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with GameUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
+
 #include "uisdlmouse.h"
 
 namespace Ui {
@@ -24,20 +26,20 @@ namespace Ui {
 void SDLMouseCursor::load( ImageObject& img, const int& hotspotX, const int& hotspotY, const Color& transparentColor, const Color& invertColor )
 {
 	if ( imageIsSystemCursor( &img ) ) {
-		
+
 		Uint8* data = new Uint8[ (int)ceil( (double)(img.width() * img.height()) / 8 ) ];
 		Uint8* mask = new Uint8[ (int)ceil( (double)(img.width() * img.height()) / 8 ) ];
-		
+
 		int bit = 1;
 		int i = -1;
-		
+
 		Color black( 0, 0, 0 );
 		Color white( 255, 255, 255 );
 		//cout << "Cursor:" << endl;
 		for( int y = 0; y < img.height(); y++ ) {
 			for( int x = 0; x < img.width(); x++ ) {
 				Color c = img.getPixel( x, y );
-				
+
 				if ( bit == 128 ) {
 					bit = 64;
 				}
@@ -59,7 +61,7 @@ void SDLMouseCursor::load( ImageObject& img, const int& hotspotX, const int& hot
 					data[i] = 0;
 					mask[i] = 0;
 				}
-				
+
 				if ( c == white ) {
 					//cout << ".";
 					mask[i] |= bit;
@@ -77,10 +79,10 @@ void SDLMouseCursor::load( ImageObject& img, const int& hotspotX, const int& hot
 			//cout << endl;
 		}
 		pCursor = SDL_CreateCursor( data, mask, img.width(), img.height(), hotspotX, hotspotY );
-		
+
 		delete[] mask;
 		delete[] data;
-		
+
 	} else {
 	}
 }
@@ -135,7 +137,7 @@ void SDLMouse::update()
   SDL_Event event;
 
 	SDL_PumpEvents();
-	
+
   while ( SDL_PeepEvents(&event, 1, SDL_GETEVENT, ( SDL_EVENTMASK(SDL_MOUSEBUTTONDOWN) | SDL_EVENTMASK(SDL_MOUSEBUTTONUP) | SDL_EVENTMASK(SDL_MOUSEMOTION) ) ) > 0  )
   {
     if ( event.type == SDL_MOUSEBUTTONDOWN ) {
@@ -216,14 +218,14 @@ MouseCursor* SDLMouse::cursor()
 void SDLMouse::setCursor( MouseCursor* mc )
 {
 	pCursor = (SDLMouseCursor*)mc;
-	
+
 	if ( pCursor != NULL ) {
 		if ( pCursor->isSystem() ) {
 			SDL_SetCursor( pCursor->getSDLCursorObject() );
 		} else {
 		}
 	}
-	
+
 }
 
 

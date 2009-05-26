@@ -1,22 +1,24 @@
-/***************************************************************************
- *   Copyright (C) 2005 by Tommy Carlsson                                      *
- *   tc@coderworld.net                                                               *
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- *   This program is distributed in the hope that it will be useful,       *
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
- *   GNU General Public License for more details.                          *
- *                                                                         *
- *   You should have received a copy of the GNU General Public License     *
- *   along with this program; if not, write to the                         *
- *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
- ***************************************************************************/
+/******************************************************************************
+ * Copyright (C) 2005-2009 by Tommy Carlsson
+ *
+ * This file is part of GameUI.
+ *
+ * GameUI is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * GameUI is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with GameUI.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ ******************************************************************************/
+
+
 #ifndef UITHEME_H
 #define UITHEME_H
 
@@ -222,7 +224,7 @@ public:
    *  Add a Image into the Theme.
    * @param name Name of the Image.
    * @param img The ImageObject object itself.
-   * @param clone 
+   * @param clone
 	 * @see Theme::getImage()
    */
   void setImage( const string name, ImageObject* img, const bool clone = false );
@@ -255,7 +257,7 @@ public:
    *  Add a Color to the Theme.
    * @param name Name of the Color.
    * @param c The Color itself.
-   * @param clone 
+   * @param clone
 	 * @see Theme::getColor()
    */
   void setColor( const string name, const Color c, const bool clone = false );
@@ -271,7 +273,7 @@ public:
    *  Get a Font added to the Theme.
    * @param name Name of the Font.
    * @return The font Requested or default Font if not found.
-	 * @see Theme::setFont() 
+	 * @see Theme::setFont()
    */
   Font* getFont( const string name );
 	/**
@@ -285,14 +287,14 @@ public:
 	 *  Add a Font to the Theme.
 	 * @param name Name of the Font.
 	 * @param f The Font object itself.
-	 * @param clone 
+	 * @param clone
 	 * @see Theme::getFont(), Theme::freeFonts()
 	 */
 	void setFont( const string name, Font* f, const bool clone = false );
   /**
    *  Set the default Font.
 	 * @param f The Font object itself.
-	 * @see Theme::setFont(), Theme::getFont(), Theme::freeFonts() 
+	 * @see Theme::setFont(), Theme::getFont(), Theme::freeFonts()
    */
   void setDefaultFont( Font* f ) { pDefaultFont = f; }
 
@@ -307,7 +309,7 @@ public:
 	 *  Add a Cursor to the Theme.
 	 * @param name Name of the Cursor.
 	 * @param c The Cursor object itself.
-	 * @param clone 
+	 * @param clone
 	 * @see Theme::getCursor(), Theme::freeCursors()
 	 */
 	void setCursor( const string& name, MouseCursor* c, const bool clone = false );
@@ -317,7 +319,7 @@ public:
 	 * @see Theme::setCursor(), Theme::getCursor(), Theme::freeCursors()
 	 */
 	void setDefaultCursor( MouseCursor* mc ) { pDefaultCursor = mc; }
-	
+
   bool loadTheme( const string fname, const string rootDir, LibControl& lc );
   bool loadTheme( const string fname, const string borderRoot, const string fontRoot, const string imageRoot, LibControl& lc );
 
@@ -415,12 +417,12 @@ public:
 	 * @see Theme::beginUpdate()
 	 */
 	void endUpdate();
-	
+
 	/**
 	 * Event emitted when Theme is uppdated.
    */
 	signal1<Theme&> onUpdated;
-	
+
 private:
 
   string pName;
