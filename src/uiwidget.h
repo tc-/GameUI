@@ -55,44 +55,32 @@ namespace Ui
 
 	enum WidgetAlignType { walignNone, walignLeft, walignRight, walignTop, walignBottom, walignClient };
 
+	/**
+	 * Struct repressenting Pressed mousebuttons.
+	 */
 	struct MouseButtons {
-		MouseButtons() {
-			left = false;
-			right = false;
-			middle = false;
-			wheelUp = false;
-			wheelDown = false;
-		}
+
 		bool left;
 		bool right;
 		bool middle;
 		bool wheelUp;
 		bool wheelDown;
 
+		MouseButtons() {
+			left = right = middle = wheelUp = wheelDown = false;
+		}
+
 		string toString() {
-			string ret = "(";
+			string ret = "[";
 			if ( left ) ret += "l";
 			if ( right ) ret += "r";
 			if ( middle ) ret += "m";
 			if ( wheelUp ) ret += "u";
 			if ( wheelDown ) ret += "d";
-			ret += ")";
+			ret += "]";
 			return ret;
 		}
 	};
-	//enum MouseButtons { MBT_NONE = 0, MBT_LEFT = 1, MBT_MIDDLE = 2, MBT_RIGHT = 4, MBT_WHEELUP = 8, MBT_WHEELDOWN = 16 };
-
-//	typedef int MouseButtons;
-//
-//	const int MBT_NONE = 0;
-//
-//	const int MBT_LEFT = 1;
-//	const int MBT_MIDDLE = 2;
-//	const int MBT_RIGHT = 4;
-//
-//	const int MBT_WHEELUP = 8;
-//	const int MBT_WHEELDOWN = 16;
-
 
 	enum Drawmode {
 		DM_OPAQUE,
@@ -134,9 +122,9 @@ namespace Ui
 			virtual ~Widget(  );
 
 			/**
-			 * Returns name of widget.
+			 * Name of widget, available for use by the application writer for easier debugging.
 			 * @note this property is not used by GameUI, it's only avaiable to simplify debugging.
-			 * @see Widget::setName()
+			 * @see setName()
 			 * @return name of widget.
 			 */
 			virtual string name() {
@@ -145,8 +133,9 @@ namespace Ui
 
 			/**
 			 * Setter for the name property.
-			 * @see Widget::name()
+			 *
 			 * @param s new value for name.
+			 * @see name().
 			 */
 			virtual void setName( const string& s ) {
 				pName = s;
@@ -154,15 +143,44 @@ namespace Ui
 
 			/**
 			 * Assign a Theme to this widget.
+			 *
+			 * @note Override this method if you want to add theme support to your custom widget.
 			 * @param t the Theme to use.
-			 * @param prefix prefix to add to theme property names, default ''
-			 * @see Theme
+			 * @param prefix prefix to add to theme property names, default ""
+			 * @see Ui::Theme.
 			 */
 			virtual void setTheme( Theme & t, const string prefix = "" );
+
+			/**
+			 * Reloads the theme, call if theme has been updated.
+			 *
+			 * @see setTheme().
+			 */
 			virtual void themeUpdated( Theme & t );
 
+			/**
+			 * The Ui::MouseCursor to be shown over this Widget.
+			 *
+			 * @see setCursor() Ui::MouseCursor::setCursor().
+			 */
 			virtual MouseCursor* cursor() const;
+
+			/**
+			 * Setter for the property
+			 *
+			 * @param mc the new Ui::MouseCursor.
+			 * @see cursor().
+			 */
 			virtual void setCursor( MouseCursor* mc );
+
+			/**
+			 * The Ui::MouseCursor to be shown over a certain area of this Widget.
+			 *
+			 * @todo When is this used instead of cursor()? Are both needed?
+			 * @param x the horizontal position relative to this Widget.
+			 * @param y the vertical position relative to this Widget.
+			 * @see cursor().
+			 */
 			virtual MouseCursor* getCursor( const int& x, const int& y ) {
 				return pCursor;
 			}
@@ -241,50 +259,75 @@ namespace Ui
 			virtual void setMaxHeight( int mh );
 
 			/**
-			 * Returns the position in the y axis of the widget relative to parent frame.
+			 * The position in the y axis of the widget relative to parent frame.
+			 *
 			 * @return the position in the y axis of the widget relative to parent frame.
-			 * @see Widget::setTop() Widget::parent() Widget::absoluteYPos() Widget::left() Widget::height()
+			 * @see setTop() parent() absoluteYPos() left() height()
 			 */
 			virtual int top(  ) const;
+
+			/**
+			 * The vertical position of this Widget relative to parent frame scroll.
+			 *
+			 * @note Same as top() but this also takes into account the parent's scroll values.
+			 * @see top() Ui::Frame::scrollY().
+			 */
 			virtual int relativeTop(  ) const;
 
 			/**
-			 * Set the position in the y axis of the widget relative to parent frame.
-			 * @param t the position in the y axis of the widget relative to parent frame.
-			 * @see Widget::top()
+			 * Setter for the top property.
+			 *
+			 * @param t the new top value.
+			 * @see top().
 			 */
 			virtual void setTop( int t );
 
 			/**
-			 * Returns the position in the x axis of the widget relative to parent frame.
+			 * The horizontal position of this Widget relative to parent frame.
+			 *
 			 * @return the position in the x axis of the widget relative to parent frame.
-			 * @see Widget::setLeft() Widget::parent() Widget::absoluteYPos() Widget::top() Widget;;width()
+			 * @see setLeft() parent() absoluteYPos() top() width() relativeLeft().
 			 */
 			virtual int left(  ) const;
+
+			/**
+			 * The horizontal position of this Widget relative to parent frame scroll.
+			 *
+			 * @note Same as left() but this also takes into account the parent's scroll values.
+			 * @see left() Ui::Frame::scrollX().
+			 */
 			virtual int relativeLeft(  ) const;
 
+			/**
+			 * Setter for the left property.
+			 *
+			 * @param l the new left value.
+			 * @see left().
+			 */
 			virtual void setLeft( int l );
 
 			/**
-			 * Returns the width of the widget.
-			 * @return  the width of the widget.
-			 * @see Widget::setWidth() Widget::height() Widget::left()
+			 * The width of this Widget.
+			 *
+			 * @see setWidth() height() left().
 			 */
 			virtual int width(  ) const {
 				return pWidth;
 			}
 
 			/**
-			 * Set the width of the widget.
-			 * @param w the width of the widget.
-			 * @see Widget::width()
+			 * Setter for the width property.
+			 *
+			 * @param w the new width of this Widget.
+			 * @see width().
 			 */
 			virtual void setWidth( int w );
 
 			/**
 			 * Returns the height of the widget.
+			 *
 			 * @return the height of the widget.
-			 * @see Widget::setHeight() Widget::width() Widget::top()
+			 * @see setHeight() width() top().
 			 */
 			virtual int height(  ) const {
 				return pHeight;
@@ -292,44 +335,50 @@ namespace Ui
 
 			/**
 			 * Set the height of the widget.
+			 *
 			 * @param h the height of the widget.
-			 * @see Widget::height()
+			 * @see height()
 			 */
 			virtual void setHeight( int h );
 
 			/**
-			 * Return Drawmode of the widget.
+			 * Drawmode of this Widget.
+			 *
 			 * Drawmode changes the way the widget is drawn. DM_TRANSPARENT can always be used but is slightly slower than DM_OPAQUE. In DM_OPAQUE mode the bgColor is also drawn behind the widget if no border is assigned while in DM_TRANSPARENT mode it's not.
 			 * @return Drawmode of the widget.
-			 * @see Ui::Drawmode Widget::setDrawmode() Widget::border() Widget::bgColor()
+			 * @see Ui::Drawmode setDrawmode() border() bgColor().
 			 */
 			virtual Drawmode drawmode(  ) const;
 
 			/**
 			 * Set Drawmode of the widget.
+			 *
 			 * @param dm Drawmode of the widget.
-			 * @see Widget::drawmode()
+			 * @see drawmode().
 			 */
 			virtual void setDrawmode( Drawmode dm );
 
 			/**
-			 * Returns the position of the widget in the x axis relative to the whole screen.
-			 * @return the position of the widget in the x axis relative to the whole screen.
-			 * @see Widget::absoluteYPos() Widget::top() Widget::left() Widget;;width() Widget::height()
+			 * The position of the widget in the x axis relative to the whole screen.
+			 *
+			 * @note This method is recursive and is not very effective, only use it if you have to.
+			 * @see absoluteYPos() top() left() width() height().
 			 */
 			virtual int absoluteXPos( ) const;
 
 			/**
-			 * Returns the position of the widget in the y axis relative to the whole screen.
-			 * @return the position of the widget in the y axis relative to the whole screen.
-			 * @see Widget::absoluteXPos() Widget::top() Widget::left() Widget;;width() Widget::height()
+			 * The position of the widget in the y axis relative to the whole screen.
+			 *
+			 * @note This method is recursive and is not very effective, only use it if you have to.
+			 * @see absoluteXPos() top() left() Widget;;width() height()
 			 */
 			virtual int absoluteYPos( ) const;
 
 			/**
 			 * - TO BE REMOVED - Returns a Ui::Rect object containing the visible area on the object.
+			 *
 			 * @return Ui::Rect object containing the visible area on the object.
-			 * @see Ui::Rect
+			 * @see Ui::Rect.
 			 */
 			virtual Rect getClipRect(  ) const;
 
@@ -345,8 +394,9 @@ namespace Ui
 			virtual void getWidgetsInRect( List<Widget*>& l, const Rect r, bool recursive = true );
 
 			/**
-			 * Returns the Widget located at the point (x;y).
-			 * @note Ui::Widget allways returns this but Ui::Frame can return Widgets inside itself.
+			 * Get the Widget located at the point (x;y).
+			 *
+			 * @note Widget allways returns this but Ui::Frame can return Widgets inside itself.
 			 * @param x the x position relative from Widget.
 			 * @param y the x position relative from Widget.
 			 * @return the Widget located at the point (x;y).
@@ -356,8 +406,9 @@ namespace Ui
 			}
 
 			/**
-			 * Parent that owns and contains this Ui::Widget.
-			 * @see Ui::Widget::hasParent() Ui::Widget::isManaged() Ui::Widget::setParent().
+			 * Parent that owns and contains this Widget.
+			 *
+			 * @see hasParent() isManaged() setParent().
 			 */
 			virtual Frame* parent(  ) const {
 				return pParent;
@@ -365,13 +416,15 @@ namespace Ui
 
 			/**
 			 * Setter for the parent property.
-			 * @see Ui::Widget::parent().
+			 *
+			 * @see parent().
 			 */
 			virtual void setParent( Frame* p );
 
 			/**
-			 * Returns true if this Ui::Widget is owned by a parent Ui::Frame.
-			 * @see Ui::Widget::parent().
+			 * Returns true if this Widget is owned by a parent Ui::Frame.
+			 *
+			 * @see parent().
 			 */
 			inline bool hasParent(  ) const {
 				return ( pParent != NULL );
@@ -379,34 +432,40 @@ namespace Ui
 
 			/**
 			 * Gives access to associated Ui::Gui object.
+			 *
 			 * @note If you only want to access the Ui::DrawInterface object, call the interface() function instead.
-			 * @warning This function can return NULL.
+			 * @todo It should not be possible to create a Widget without an Ui::Gui object attached.
+			 * @warning This property should never be NULL.
 			 * @return Ui::Gui associated with current object.
-			 * @see Ui::Widget::interface() Ui::Gui
+			 * @see interface() Ui::Gui
 			 */
 			virtual Gui& gui(  ) const;
 
 			/**
 			 * Setter for the gui property.
-			 * @see Ui::Widget:gui().
+			 *
+			 * @see gui().
 			 */
 			virtual void setGui( Gui* s );
 
 			/**
-			 * Indicates if this Ui::Widget is visible on screen or not.
-			 * @see Ui::Widget::setVisible().
+			 * Indicates if this Widget is visible on screen or not.
+			 *
+			 * @see setVisible().
 			 */
 			virtual bool visible(  ) const;
 
 			/**
 			 * Setter for the visible property.
-			 * @see Ui::Widget::visible().
+			 *
+			 * @see visible().
 			 */
 			virtual void setVisible( bool v );
 
 			/**
-			 * Indicates if this Ui::Widget can receive events.
-			 * @see Ui::Widget::setEnabled().
+			 * Indicates if this Widget can receive events.
+			 *
+			 * @see setEnabled().
 			 */
 			virtual bool enabled(  ) const {
 				return pEnabled;
@@ -414,13 +473,15 @@ namespace Ui
 
 			/**
 			 * Setter for the enabled property.
-			 * @see Ui::Widget::enabled().
+			 *
+			 * @see enabled().
 			 */
 			virtual void setEnabled( bool e );
 
 			/**
 			 * This property can be used by application writer and is not used by GameUI.
-			 * @see Ui::Widget::setTag().
+			 *
+			 * @see setTag().
 			 */
 			virtual void* tag(  ) const {
 				return pTag;
@@ -428,16 +489,18 @@ namespace Ui
 
 			/**
 			 * Setter for the tag property.
-			 * @see Ui::Widget::tag().
+			 *
+			 * @see tag().
 			 */
 			virtual void setTag( void* t ) {
 				pTag = t;
 			};
 
 			/**
-			 * The font that will be used when rendering text on this Ui::Widget.
+			 * The font that will be used when rendering text on this Widget.
+			 *
 			 * @todo Is this just a waste of a pointer? Some widgets will not use this at all.
-			 * @see Ui::Widget::setFont().
+			 * @see setFont().
 			 */
 			virtual Font* font(  ) const {
 				return pFont;
@@ -445,14 +508,16 @@ namespace Ui
 
 			/**
 			 * Setter for the font property.
-			 * @see Ui::Widget::font().
+			 *
+			 * @see font().
 			 */
 			virtual void setFont( Font* f );
 
 			/**
 			 * The color to be used on text rendered on this widget.
-			 * @todo Should this be removed for the same argument as Ui::Widget::font().
-			 * @see Ui::Widget::setFontColor().
+			 *
+			 * @todo Should this be removed for the same argument as font().
+			 * @see setFontColor().
 			 */
 			virtual Color fontColor(  ) const {
 				return pFontColor;
@@ -460,7 +525,8 @@ namespace Ui
 
 			/**
 			 * Setter for the fontColor property.
-			 * @see Ui::Widget::fontColor().
+			 *
+			 * @see fontColor().
 			 */
 			virtual void setFontColor( Color c ) {
 				pFontColor = c;
@@ -468,8 +534,9 @@ namespace Ui
 			}
 
 			/**
-			 * The color used to draw the background of this Ui::Widget if visible.
-			 * @see Ui::Widget::setBgColor().
+			 * The color used to draw the background of this Widget if visible.
+			 *
+			 * @see setBgColor().
 			 */
 			virtual Color bgColor(  ) const {
 				return pBgColor;
@@ -477,7 +544,8 @@ namespace Ui
 
 			/**
 			 * Setter for the bgColor property.
-			 * @see Ui::Widget::bgColor().
+			 *
+			 * @see bgColor().
 			 */
 			virtual void setBgColor( Color c ) {
 				pBgColor = c;
@@ -485,8 +553,9 @@ namespace Ui
 			}
 
 			/**
-			 * The Ui::Border object to use as border for this Ui::Widget.
-			 * @see Ui::Widget::setBorder() Ui::Border.
+			 * The Ui::Border object to use as border for this Widget.
+			 *
+			 * @see setBorder() Ui::Border.
 			 */
 			virtual Border* border() const {
 				return pBorder;
@@ -494,13 +563,15 @@ namespace Ui
 
 			/**
 			 * Setter for the border property.
-			 * @see Ui::Widget::border().
+			 *
+			 * @see border().
 			 */
 			virtual void setBorder( Border* bs );
 
 			/**
-			 * Indicates if this Ui::Widget currently is the focused widget to receive key events.
-			 * @see Ui::Widget::setFocused().
+			 * Indicates if this Widget currently is the focused widget to receive key events.
+			 *
+			 * @see setFocused().
 			 */
 			virtual bool focused(  ) const {
 				return pFocused;
@@ -508,13 +579,15 @@ namespace Ui
 
 			/**
 			 * Setter for the focused property.
-			 * @see Ui::Widget::focused().
+			 *
+			 * @see focused().
 			 */
 			virtual void setFocused( bool f );
 
 			/**
 			 * The string to show in tooltip.
-			 * @see Ui::Widget::setTooltip() Ui::Tooltip.
+			 *
+			 * @see setTooltip() Ui::Tooltip.
 			 */
 			virtual wstring tooltip(  ) const {
 				return pToolTip;
@@ -522,7 +595,8 @@ namespace Ui
 
 			/**
 			 * Setter for the tooltip property.
-			 * @see Ui::Widget::tooltip().
+			 *
+			 * @see tooltip().
 			 */
 			virtual void setTooltip( wstring t ) {
 				pToolTip = t;
@@ -530,20 +604,23 @@ namespace Ui
 
 			/**
 			 * The main render method, this method should be overridden in derived classes to give the widget its own look.
-			 * @see Ui::Widget::renderBorder().
+			 *
+			 * @see renderBorder().
 			 */
 			virtual void render( ImageObject& img, const Rect& r );
 
 			/**
-			 * This method renders the border and background of this Ui::Widget, override if you want the background to be drawn differently.
-			 * @see Ui::Widget::.
+			 * This method renders the border and background of this Widget, override if you want the background to be drawn differently.
+			 *
+			 * @see render() Ui::Border.
 			 */
 			virtual void renderBorder( ImageObject& img );
 
 			/**
 			 * Tells object is updated and needs to call render() to reflect changes.
+			 *
 			 * @note Doesn't do anything if beginUpdate() is called.
-			 * @see Ui::Widget::beginUpdate() Ui::Widget::render()
+			 * @see beginUpdate() render()
 			 */
 			virtual void updated(  );
 			virtual void updated( const Rect& r );
@@ -554,7 +631,7 @@ namespace Ui
 			 * Halts automatic calls to render() for example when many update operations will be performed in a row. Call endUpdate() when you want the automatic render calls to be performed again.
 			 *
 			 * This function stacks, if you call beginUpdate() 5 times you have to call endUpdate() 5 times for the automatic render() calls to start again.
-			 * @see Ui::Widget::endUpdate()
+			 * @see endUpdate()
 			 */
 			virtual void beginUpdate(  );
 
@@ -563,12 +640,13 @@ namespace Ui
 			 *
 			 * Calls render() when beginUpdate() and endUpdate() has been called the same number of times.
 			 * @note Make sure you call beginUpdate() and endUpdate() the same number of times, otherwise automatic render() will stop working completly.
-			 * @see Ui::Widget::beginUpdate()
+			 * @see beginUpdate()
 			 */
 			virtual void endUpdate( bool dontupdate = false );
 
 			/**
 			 * Set the limits in which the object's size can vary.
+			 *
 			 * @param minw minimum width.
 			 * @param minh minimum height.
 			 * @param maxw maximum width.
@@ -579,8 +657,9 @@ namespace Ui
 			virtual void move( const int newleft, const int newtop );
 
 			/**
-			 * Returns true if the object's constraints is managed by a parent.
-			 * @return true if the object's constraints is managed by a parent.
+			 * Is this Widget managed by a Ui::Frame parent?
+			 *
+			 * @return true if this Widget's constraints is managed by a parent.
 			 */
 			virtual bool isManaged(  ) const;
 
@@ -596,34 +675,39 @@ namespace Ui
 
 			/**
 			 * Sets new size of object.
+			 *
 			 * @param newwidth the new width.
 			 * @param newheight the new height.
-			 * @see Ui::Widget::setBounds() Ui::Widget::setSizeLimit() Ui::Widget::width() Ui::Widget::height()
+			 * @see setBounds() setSizeLimit() width() height()
 			 */
 			virtual void resize( int newwidth, int newheight );
 			virtual void timerTick();
 
 			/**
-			 * Returns the Z-index of this Ui::Widget, this is the order in which the Ui::Widget will be drawn on it's parent Ui::Frame.
-			 * @see Ui::Widget::setZIndex()
+			 * Returns the Z-index of this Widget, this is the order in which the Widget will be drawn on it's parent Ui::Frame.
+			 *
+			 * @see setZIndex()
 			 */
 			virtual int zIndex( );
 
 			/**
-			 * Sets the Z-index of this Ui::Widget, this is the order in which the Ui::Widget will be drawn on it's parent Ui::Frame.
-			 * @see Ui::Widget::setZIndex() Ui::Frame::setZIndex()
+			 * Sets the Z-index of this Widget, this is the order in which the Widget will be drawn on it's parent Ui::Frame.
+			 *
+			 * @see setZIndex() Ui::Frame::setZIndex()
 			 */
 			virtual int setZIndex( const int z );
 
 			/**
-			 * Assign the highest possible Z-index to this Ui::Widget.
-			 * @see Ui::Widget::moveToBottom()
+			 * Assign the highest possible Z-index to this Widget.
+			 *
+			 * @see moveToBottom()
 			 */
 			virtual void moveToTop();
 
 			/**
-			 * Assign the lowest possible Z-index to this Ui::Widget.
-			 * @see Ui::Widget::moveToTop()
+			 * Assign the lowest possible Z-index to this Widget.
+			 *
+			 * @see moveToTop()
 			 */
 			virtual void moveToBottom();
 
@@ -632,7 +716,7 @@ namespace Ui
 			 *
 			 * @warning this function can return NULL.
 			 * @return Ui::DrawInterface object associated with current Ui::Screen object in use.
-			 * @see Ui::Widget::screen() Ui::DrawInterface Ui::Gui
+			 * @see screen() Ui::DrawInterface Ui::Gui
 			 */
 			virtual ImageObject& screen(  );
 
@@ -641,7 +725,7 @@ namespace Ui
 			//@{
 
 			/**
-			 * Adds a Ui::Widget to the update queue.
+			 * Adds a Widget to the update queue.
 			 */
 			static void updatedWidget( Widget* o, const Rect r = NULL_RECT );
 
@@ -652,7 +736,8 @@ namespace Ui
 
 			/**
 			 * Returns the widget update queue, containing all widgets that have been updated since last call to clearUpdateWidgets().
-			 * @see Ui::Widget::clearUpdatedWidgets()
+			 *
+			 * @see clearUpdatedWidgets()
 			 */
 			static List<UpdateWidget*>& updatedWidgets(  ) {
 				static List<UpdateWidget*> pUpdatedWidgets;
@@ -767,13 +852,15 @@ namespace Ui
 
 			/**
 			 * Makes the Ui::Screen object channel all mouse events to this object. No other objects will get any mouse events.
-			 * @see Ui::Widget::releaseMouseInput()
+			 *
+			 * @see releaseMouseInput()
 			 */
 			void grabMouseInput();
 
 			/**
 			 * Makes the Ui::Screen object stop channeling all mouse events to this object.
-			 * @see Ui::Widget::grabMouseInput()
+			 *
+			 * @see grabMouseInput()
 			 */
 			void releaseMouseInput();
 
