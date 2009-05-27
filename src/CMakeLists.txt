@@ -30,6 +30,6 @@ add_library(gameui
   uitileview.h uitimer.h uivscrollbar.h uiwindow.h 
   uiwindowframe.h uiinifile.h uiutils.h uiknob.h uigraph.h
   uisdltimercontrol.h uiwidget.h uidragobject.h uitooltip.h
-  uitabview.h
+  uitabview.h uispriteview.cpp uispriteview.h
 )
 
