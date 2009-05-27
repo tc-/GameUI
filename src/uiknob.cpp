@@ -156,13 +156,13 @@ Widget* Knob::mouseClick( int x, int y, MouseButtons mb )
     if ( pHasDrag )
       return this;
   }
-  if ( mb == MBT_LEFT ) {
+  if ( mb.left ) {
     setValue( pValue + 1 );
-  } else if ( mb == MBT_RIGHT ) {
+  } else if ( mb.right ) {
     setValue( pValue - 1 );
-  } else if ( mb == MBT_WHEELUP ) {
+  } else if ( mb.wheelUp ) {
     setValue( pValue + 1 );
-  } else if ( mb == MBT_WHEELDOWN ) {
+  } else if ( mb.wheelDown ) {
     setValue( pValue - 1 );
   }
   return this;
@@ -171,7 +171,7 @@ Widget* Knob::mouseClick( int x, int y, MouseButtons mb )
 Widget* Knob::mousePressed( int x, int y, MouseButtons mb )
 {
   pHasDrag = false;
-  if ( mb == MBT_LEFT ) {
+  if ( mb.left ) {
     grabMouseInput();
     pStartY = y;
     pStartVal = pValue;

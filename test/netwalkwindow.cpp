@@ -967,13 +967,13 @@ void NetwalkWindow::mapViewMouseMove( Widget& o, int x, int y, MouseButtons mb )
 
 void NetwalkWindow::mapViewTileClicked( Widget& o, int x, int y, MouseButtons mb )
 {
-  if ( mb == MBT_LEFT ) {
+  if ( mb.left ) {
     rotate( x, y, true );
     pCliConn = 0;
     checkFlow();
     scoreLabel.setText( Utils::toWString(++pTurns) );
     o.updated();
-  } else if ( mb == MBT_RIGHT ) {
+  } else if ( mb.right ) {
     rotate( x, y, false );
     pCliConn = 0;
     checkFlow();

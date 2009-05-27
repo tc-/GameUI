@@ -82,7 +82,7 @@ Widget* WindowFrame::mousePressed( int x, int y, MouseButtons mb )
 
   Widget* obj = Frame::mousePressed( x, y, mb );
   if ( obj == this ) {
-    if ( mb == MBT_LEFT ) {
+    if ( mb.left ) {
       grabMouseInput();
       pLastMouseX = x;
       pLastMouseY = y;

@@ -561,7 +561,7 @@ Widget* Edit::mouseMove( int x, int y, MouseButtons mb )
 
   beginUpdate();
 
-  if ( mb == MBT_LEFT ) {
+  if ( mb.left ) {
     if ( x < 0 ) {
       pDrawIndex -= 1;
       if ( pDrawIndex < 0) pDrawIndex = 0;

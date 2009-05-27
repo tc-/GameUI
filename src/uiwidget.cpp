@@ -719,7 +719,7 @@ Widget* Widget::mouseMove( int x, int y, MouseButtons mb )
 
 Widget* Widget::mouseClick( int x, int y, MouseButtons mb )
 {
-	Utils::setNotice( "onMouseClick( " + Utils::toString(x) +  ", " + Utils::toString(y) + ", " + Utils::toString(mb) + " ) by '" + name() + "'" );
+	Utils::setNotice( "onMouseClick( " + Utils::toString(x) +  ", " + Utils::toString(y) + ", " + mb.toString() + " ) by '" + name() + "'" );
 	onMouseClick( *this );
   return this;
 }
@@ -727,7 +727,7 @@ Widget* Widget::mouseClick( int x, int y, MouseButtons mb )
 
 Widget* Widget::mouseDblClick( int x, int y, MouseButtons mb )
 {
-	Utils::setNotice( "onMouseDblClick( " + Utils::toString(x) +  ", " + Utils::toString(y) + ", " + Utils::toString(mb) + " ) by '" + name() + "'" );
+	Utils::setNotice( "onMouseDblClick( " + Utils::toString(x) +  ", " + Utils::toString(y) + ", " + mb.toString() + " ) by '" + name() + "'" );
 	onMouseDblClick( *this );
   return this;
 }
@@ -735,7 +735,7 @@ Widget* Widget::mouseDblClick( int x, int y, MouseButtons mb )
 
 Widget* Widget::mousePressed( int x, int y, MouseButtons mb )
 {
-	Utils::setNotice( "onMousePressed( " + Utils::toString(x) +  ", " + Utils::toString(y) + ", " + Utils::toString(mb) + " ) by '" + name() + "'" );
+	Utils::setNotice( "onMousePressed( " + Utils::toString(x) +  ", " + Utils::toString(y) + ", " + mb.toString() + " ) by '" + name() + "'" );
   onMousePressed( *this, mb );
 	if ( pToolTipTimer != NULL ) {
 		delete pToolTipTimer;
@@ -750,7 +750,7 @@ Widget* Widget::mousePressed( int x, int y, MouseButtons mb )
 
 Widget* Widget::mouseReleased( int x, int y, MouseButtons mb )
 {
-	Utils::setNotice( "onMouseReleased( " + Utils::toString(x) +  ", " + Utils::toString(y) + ", " + Utils::toString(mb) + " ) by '" + name() + "'" );
+	Utils::setNotice( "onMouseReleased( " + Utils::toString(x) +  ", " + Utils::toString(y) + ", " + mb.toString() + " ) by '" + name() + "'" );
 	onMouseReleased( *this, mb );
 	if ( pToolTipTimer != NULL ) {
 		delete pToolTipTimer;
@@ -765,7 +765,7 @@ Widget* Widget::mouseReleased( int x, int y, MouseButtons mb )
 
 Widget* Widget::mouseIn( MouseButtons mb )
 {
-	Utils::setNotice( "onMouseIn( " + Utils::toString(mb) + " ) by '" + name() + "'" );
+	Utils::setNotice( "onMouseIn( " + mb.toString() + " ) by '" + name() + "'" );
   onMouseIn( *this );
   return this;
 }
@@ -773,7 +773,7 @@ Widget* Widget::mouseIn( MouseButtons mb )
 
 Widget* Widget::mouseOut( MouseButtons mb )
 {
-	Utils::setNotice( "onMouseOut( " + Utils::toString(mb) + " ) by '" + name() + "'" );
+	Utils::setNotice( "onMouseOut( " + mb.toString() + " ) by '" + name() + "'" );
 	onMouseOut( *this );
 	if ( pToolTipTimer != NULL ) {
 		delete pToolTipTimer;

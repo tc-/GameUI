@@ -55,16 +55,43 @@ namespace Ui
 
 	enum WidgetAlignType { walignNone, walignLeft, walignRight, walignTop, walignBottom, walignClient };
 
-	typedef int MouseButtons;
+	struct MouseButtons {
+		MouseButtons() {
+			left = false;
+			right = false;
+			middle = false;
+			wheelUp = false;
+			wheelDown = false;
+		}
+		bool left;
+		bool right;
+		bool middle;
+		bool wheelUp;
+		bool wheelDown;
 
-	const int MBT_NONE = 0;
+		string toString() {
+			string ret = "(";
+			if ( left ) ret += "l";
+			if ( right ) ret += "r";
+			if ( middle ) ret += "m";
+			if ( wheelUp ) ret += "u";
+			if ( wheelDown ) ret += "d";
+			ret += ")";
+			return ret;
+		}
+	};
+	//enum MouseButtons { MBT_NONE = 0, MBT_LEFT = 1, MBT_MIDDLE = 2, MBT_RIGHT = 4, MBT_WHEELUP = 8, MBT_WHEELDOWN = 16 };
 
-	const int MBT_LEFT = 1;
-	const int MBT_MIDDLE = 2;
-	const int MBT_RIGHT = 4;
-
-	const int MBT_WHEELUP = 8;
-	const int MBT_WHEELDOWN = 16;
+//	typedef int MouseButtons;
+//
+//	const int MBT_NONE = 0;
+//
+//	const int MBT_LEFT = 1;
+//	const int MBT_MIDDLE = 2;
+//	const int MBT_RIGHT = 4;
+//
+//	const int MBT_WHEELUP = 8;
+//	const int MBT_WHEELDOWN = 16;
 
 
 	enum Drawmode {

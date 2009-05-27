@@ -156,7 +156,7 @@ Widget* PushButton::mouseClick(int x, int y, MouseButtons mb)
 Widget* PushButton::mouseIn(MouseButtons mb)
 {
 	Widget::mouseIn( mb );
-  if ( mb == MBT_LEFT ) {
+  if ( mb.left ) {
     beginUpdate();
     pPressed = true;
     setBorder( pPressedBorder );
@@ -168,7 +168,7 @@ Widget* PushButton::mouseIn(MouseButtons mb)
 Widget* PushButton::mouseOut(MouseButtons mb)
 {
 	Widget::mouseOut( mb );
-	if ( mb == MBT_LEFT ) {
+	if ( mb.left ) {
     beginUpdate();
     pPressed = false;
     setBorder( pReleasedBorder );

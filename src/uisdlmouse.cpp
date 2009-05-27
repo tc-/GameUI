@@ -189,22 +189,22 @@ void SDLMouse::update()
 
 MouseButtons SDLMouse::translateMouseButtons( const Uint8& sdlButton )
 {
-  MouseButtons mb = MBT_NONE;
+  MouseButtons mb;
   switch ( sdlButton ) {
     case SDL_BUTTON_LEFT :
-      mb = ( mb | MBT_LEFT );
+      mb.left = true;
       break;
     case SDL_BUTTON_MIDDLE :
-      mb = ( mb | MBT_MIDDLE );
+      mb.middle = true;
       break;
     case SDL_BUTTON_RIGHT:
-      mb = ( mb | MBT_RIGHT );
+      mb.right = true;
       break;
     case SDL_BUTTON_WHEELUP:
-      mb = ( mb | MBT_WHEELUP );
+      mb.wheelUp = true;
       break;
     case SDL_BUTTON_WHEELDOWN:
-      mb = ( mb | MBT_WHEELDOWN );
+      mb.wheelDown = true;
       break;
   }
   return mb;
