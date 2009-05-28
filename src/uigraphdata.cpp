@@ -39,7 +39,7 @@ GraphData::GraphData( Frame* parent )
 //	setWidth(parent->width());
 //	setHeight(parent->height());
 
-	setDrawmode(DM_TRANSPARENT);
+	setDrawmode(drawTransparent);
 
 	rangeXMin = 0.0f;
 	rangeXMax = 13000.0f;

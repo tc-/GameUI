@@ -88,7 +88,7 @@ void Events::dfbDrag(Widget* w, int x, int y, DragObject** d )
 	static DragObject dd;
 	dd.setImage( Theme::defaultTheme().getImage( "trans_coder" ) );
 	dd.setDenyImage( Theme::defaultTheme().getImage( "dont_drop" ) );
-	dd.setDrawmode( DM_TRANSPARENT );
+	dd.setDrawmode( drawTransparent );
 	*d = &dd;
 }
 

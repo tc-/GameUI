@@ -406,7 +406,7 @@ void Frame::renderBackground( const Rect& r )
 
   screen().pushClipRect( Rect( r.left + absoluteXPos(), r.top + absoluteYPos(), r.width, r.height ) );
 
-  if ( drawmode() == DM_TRANSPARENT ) {
+  if ( drawmode() == drawTransparent ) {
     if ( hasParent() ) {
       parent()->renderBackground( r );
     }

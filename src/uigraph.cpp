@@ -68,7 +68,7 @@ Graph::Graph( Frame* parent )
 
 	setBgColor ( Color( 30, 30, 80 ) );
 
-//	setDrawmode( DM_TRANSPARENT );
+//	setDrawmode( drawTransparent );
 
 
 //	printf("Graph: %s\n", this->name());

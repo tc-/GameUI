@@ -33,7 +33,7 @@ Knob::Knob( Frame* parent )
   pImage = NULL;
   pPPS = 0;
   pDrag = false;
-  setDrawmode( DM_TRANSPARENT );
+  setDrawmode( drawTransparent );
 }
 
 

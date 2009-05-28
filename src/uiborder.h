@@ -86,7 +86,7 @@ The variables widthLeft, widthRight, heightTop, heightBottom all indicates the s
 class Border {
 public:
 
-	Border(): widthLeft(0), widthRight(0), heightTop(0), heightBottom(0) { pDrawmode = DM_OPAQUE; }
+	Border(): widthLeft(0), widthRight(0), heightTop(0), heightBottom(0) { pDrawmode = drawOpaque; }
   virtual ~Border(  ) {};
 
   int widthLeft;

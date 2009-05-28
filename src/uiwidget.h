@@ -59,17 +59,23 @@ namespace Ui
 	 * Struct repressenting Pressed mousebuttons.
 	 */
 	struct MouseButtons {
-
+        //! Left mouse button was pressed.
 		bool left;
+        //! Right mouse button was pressed.
 		bool right;
+        //! Middle mouse button was pressed.
 		bool middle;
+        //! Wheel was scrolled up.
 		bool wheelUp;
+        //! Wheel was scrolled down.
 		bool wheelDown;
 
+        //! Set default values.
 		MouseButtons() {
 			left = right = middle = wheelUp = wheelDown = false;
 		}
 
+        //! Make string repressentation.
 		string toString() {
 			string ret = "[";
 			if ( left ) ret += "l";
@@ -82,9 +88,16 @@ namespace Ui
 		}
 	};
 
+    /**
+     * Opaque or transparent.
+     *
+     * As soon as any part of the Widget is transparent or alpha blended Widget::drawmode() should be set to
+     * drawTransparent. Only use drawOpaque if the Widget has no areas that show areas of the parent Frame.
+     * @see Widget::drawmode().
+     */
 	enum Drawmode {
-		DM_OPAQUE,
-		DM_TRANSPARENT
+		drawOpaque, //!< Whole Widget has solid color.
+		drawTransparent //!< Widget has transparent areas.
 	};
 
 	class Frame;
@@ -185,6 +198,11 @@ namespace Ui
 				return pCursor;
 			}
 
+            /**
+             * Widget alignment on parent Frame.
+             *
+             * @see setAlign()
+             */
 			virtual WidgetAlignType align() const {
 				return pAlign;
 			}
@@ -344,9 +362,9 @@ namespace Ui
 			/**
 			 * Drawmode of this Widget.
 			 *
-			 * Drawmode changes the way the widget is drawn. DM_TRANSPARENT can always be used but is slightly slower than DM_OPAQUE. In DM_OPAQUE mode the bgColor is also drawn behind the widget if no border is assigned while in DM_TRANSPARENT mode it's not.
+			 * Drawmode changes the way the widget is drawn. drawTransparent can always be used but is slightly slower than drawOpaque. In drawOpaque mode the bgColor is also drawn behind the widget if no border is assigned while in drawTransparent mode it's not.
 			 * @return Drawmode of the widget.
-			 * @see Ui::Drawmode setDrawmode() border() bgColor().
+			 * @see Drawmode setDrawmode() border() bgColor().
 			 */
 			virtual Drawmode drawmode(  ) const;
 

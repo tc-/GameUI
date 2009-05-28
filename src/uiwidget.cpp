@@ -88,7 +88,7 @@ Widget::Widget( Frame* parent )
   pEnabled = true;
   pFocused = false;
 
-  pDrawmode = DM_OPAQUE;
+  pDrawmode = drawOpaque;
 
   pToolTip = L"";
 
@@ -144,7 +144,7 @@ Widget::Widget( Frame* parent, int x, int y, int width, int height )
   pEnabled = true;
   pFocused = false;
 
-  pDrawmode = DM_OPAQUE;
+  pDrawmode = drawOpaque;
 
   pToolTip = L"";
 
@@ -615,7 +615,7 @@ void Widget::renderBorder( ImageObject& img )
   if ( border() != NULL ) {
     border()->render( Rect( 0, 0, width(), height() ), img );
   } else {
-    if ( drawmode() == DM_OPAQUE )
+    if ( drawmode() == drawOpaque )
       img.fillRect( Rect( 0, 0, width(), height() ), bgColor() );
   }
 }

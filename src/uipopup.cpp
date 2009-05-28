@@ -32,7 +32,7 @@ Popup::Popup()
   pWidth = 100;
   pHeight = 100;
   pBorder = NULL;
-  pDrawmode = DM_OPAQUE;
+  pDrawmode = drawOpaque;
   pActive = false;
   pGui = NULL;
 }

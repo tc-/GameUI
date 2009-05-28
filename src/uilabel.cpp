@@ -32,7 +32,7 @@ Label::Label()
   pVAl = valignTop;
   setWidth( 100 );
   setHeight( 24 );
-  setDrawmode ( DM_TRANSPARENT );
+  setDrawmode ( drawTransparent );
 }
 
 Label::Label( Frame* parent )
@@ -44,7 +44,7 @@ Label::Label( Frame* parent )
   pVAl = valignCenter;
   setWidth( 100 );
   setHeight( 18 );
-  setDrawmode ( DM_TRANSPARENT );
+  setDrawmode ( drawTransparent );
 }
 
 

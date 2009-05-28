@@ -285,10 +285,10 @@ void Gui::render(  )
       Widget* o2 = tmpL.get( i2 );
 			Rect r2( o2->absoluteXPos(), o2->absoluteYPos(), o2->width(), o2->height() );
       if ( o2->border() != NULL ) {
-        if ( o2->border()->drawmode() != DM_OPAQUE )
+        if ( o2->border()->drawmode() != drawOpaque )
           r2.applyBorder( o2->border() );
       }
-			if ( (r2.encloses( r )) && ( o2->drawmode() == DM_OPAQUE ) && ( o2->visible() ) ) {
+			if ( (r2.encloses( r )) && ( o2->drawmode() == drawOpaque ) && ( o2->visible() ) ) {
         if ( o2->zIndex() > o->zIndex() ) {
 
           skip = true;

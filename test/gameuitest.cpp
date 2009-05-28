@@ -330,7 +330,7 @@ int main(int argc, char *argv[])
 	wf1->setWidth( 200 );
 	wf1->setHeight( 184 );
 	wf1->setCaption( L"Test Caption" );
-	wf1->setDrawmode( DM_TRANSPARENT );
+	wf1->setDrawmode( drawTransparent );
 	wf1->moveToTop();
 	wf1->setVisible( true );
 	wf1->setName( "TransWindow" );
@@ -342,7 +342,7 @@ int main(int argc, char *argv[])
 	l1->setAlign( walignTop );
 	l1->setAnchorBottom( true );
 	l1->setMultiline( true );
-	//l1->setDrawmode( DM_OPAQUE );
+	//l1->setDrawmode( drawOpaque );
 	l1->setText( L"This is a\nMultiline\nLabel.\nThis line is way too long and should be wordwrapped a lot of times." );
 	l1->setTooltip( L"The first three lines are linebreaked with linebreak chars and the fourth is wordwrapped." );
 	l1->setTextHAlign( halignCenter );
@@ -361,7 +361,7 @@ int main(int argc, char *argv[])
 	b5->setAnchors( true, true, false, true );
 //	b5->setAlign( walignTop );
 	b5->setText( L"Okay" );
-	b5->setDrawmode( DM_TRANSPARENT );
+	b5->setDrawmode( drawTransparent );
 	b5->setVisible( true );
 	b5->setName( "TransButton" );
 	b5->onButtonPressed.connect( e, &Events::transbuttonPressed );
@@ -371,7 +371,7 @@ int main(int argc, char *argv[])
 	wf3.setBounds( 100, 100, 210, 210 );
 	wf3.moveToTop();
 	wf3.setTitleHeight( 0 );
-	wf3.setDrawmode( DM_TRANSPARENT );
+	wf3.setDrawmode( drawTransparent );
 	wf3.setTheme( Theme::defaultTheme() );
 
 	PushButton bw1( &wf3 );

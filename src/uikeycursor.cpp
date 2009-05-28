@@ -49,7 +49,7 @@ KeyCursor::KeyCursor()
 
   pColor = Color( 0, 0, 0 );
 
-	pDM = DM_OPAQUE;
+	pDM = drawOpaque;
 
 	pWidget = NULL;
 	pTimer.onTimer.connect( this, &KeyCursor::onTimerTick );
@@ -127,7 +127,7 @@ void KeyCursor::setDrawmode( const Drawmode dm )
 
 bool KeyCursor::shouldRenderBg() const
 {
-	if ( pDM == DM_TRANSPARENT )
+	if ( pDM == drawTransparent )
 		return true;
 	return !visible();
 }

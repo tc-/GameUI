@@ -36,7 +36,7 @@ GraphCursor::GraphCursor( Frame* parent )
 
 	lineColor = Color(100,100,255);
 
-	setDrawmode(DM_TRANSPARENT);
+	setDrawmode(drawTransparent);
 
 //TODO: Not working...
 //	printf("GraphData: %s\n", parent->name());
