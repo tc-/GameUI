@@ -58,7 +58,7 @@ namespace Ui
 	 *
 	 * @see Widget::align() Frame::arrangeChildren().
 	 */
-	enum WidgetAlignType {
+	enum WidgetAlign {
 		walignNone,			//!< Do not try to align this Widget.
 		walignLeft,			//!< Align Widget to the left.
 		walignRight,		//!< Align Widget to the right.
@@ -213,13 +213,13 @@ namespace Ui
 			/**
 			 * Widget alignment on parent Frame.
 			 *
-			 * @see setAlign() WidgetAlignType.
+			 * @see setAlign() WidgetAlign.
 			 */
-			virtual WidgetAlignType align() const {
+			virtual WidgetAlign align() const {
 				return pAlign;
 			}
 
-			virtual void setAlign( const WidgetAlignType& al ) {
+			virtual void setAlign( const WidgetAlign& al ) {
 				pAlign = al;
 
 				if ( isManaged() ) sizeChanged( Rect( 0 - borderLeft(), 0 - borderTop(), width(), height() ) );
@@ -824,7 +824,7 @@ namespace Ui
 
 			string pName;
 
-			WidgetAlignType pAlign;
+			WidgetAlign pAlign;
 
 			bool pAnchorL;
 			bool pAnchorR;

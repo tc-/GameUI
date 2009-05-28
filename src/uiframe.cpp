@@ -112,7 +112,7 @@ bool Frame::sortWidgetsByTop(List< Widget* > & l, int i1, int i2)
 
 void Frame::arrangeChildren(  )
 {
-	// enum WidgetAlignType { walignNone, walignLeft, walignRight, walignTop, walignBottom, walignClient };
+	// enum WidgetAlign { walignNone, walignLeft, walignRight, walignTop, walignBottom, walignClient };
 //	Rect clientArea = getClientRect();//( 0, 0, clientWidth(), clientHeight() );
 	Rect clientArea(0, 0, clientWidth(), clientHeight() );
 	List< Widget* > wl;
