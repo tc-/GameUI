@@ -30,215 +30,275 @@ Implementation of the Ui::PushButton class
 
 using namespace Ui;
 
-PushButton::PushButton()
- : Widget()
+PushButton::PushButton():
+		Widget()
 {
-
-  pPressedBorder = NULL;
-  pReleasedBorder = NULL;
-  pImage = NULL;
-  setBorder( NULL );
-  pText = L"Ok";
-  pPressed = false;
-
-  setWidth( 100 );
-  setHeight( 24 );
-//  setPreferredWidth( 100 );
-//  setPreferredHeight( 24 );
-//  setHSizeType( sizeExpanding );
-//  setVSizeType( sizeFixed );
+	Init();
 }
 
-PushButton::PushButton( Frame* parent )
- : Widget( parent )
+PushButton::PushButton( Frame* parent ):
+		Widget( parent )
 {
-  pPressedBorder = NULL;
-  pReleasedBorder = NULL;
-  pImage = NULL;
-  pText = L"Ok";
-  pPressed = false;
-
-  setWidth( 100 );
-  setHeight( 24 );
-//  setPreferredWidth( 100 );
-//  setPreferredHeight( 24 );
-//  setHSizeType( sizeExpanding );
-//  setVSizeType( sizeFixed );
+	Init();
 }
+
+PushButton::PushButton( Frame* parent, wstring text ):
+		Widget( parent )
+{
+	Init();
+	setText( text );
+}
+
+PushButton::PushButton( Frame* parent, wstring text, Theme& theme ):
+		Widget( parent )
+{
+	Init();
+	setText( text );
+	setTheme( theme );
+}
+
+PushButton::PushButton( Frame* parent, int left, int top, int width ):
+		Widget( parent )
+{
+	Init();
+	move( left, top );
+	setWidth( width );
+}
+
+PushButton::PushButton( Frame* parent, int left, int top, int width, int height ):
+		Widget( parent )
+{
+	Init();
+	setBounds( left, top, width, height );
+}
+
+PushButton::PushButton( Frame* parent, wstring text, int left, int top, int width ):
+		Widget( parent )
+{
+	Init();
+	setText( text );
+	move( left, top );
+	setWidth( width );
+}
+
+PushButton::PushButton( Frame* parent, wstring text, int left, int top, int width, int height ):
+		Widget( parent )
+{
+	Init();
+	setText( text );
+	setBounds( left, top, width, height );
+}
+
+PushButton::PushButton( Frame* parent, wstring text, Theme& theme, int left, int top, int width ):
+		Widget( parent )
+{
+	Init();
+	setText( text );
+	setTheme( theme );
+	move( left, top );
+	setWidth( width );
+}
+
+PushButton::PushButton( Frame* parent, wstring text, Theme& theme, int left, int top, int width, int height ):
+		Widget( parent )
+{
+	Init();
+	setText( text );
+	setTheme( theme );
+	setBounds( left, top, width, height );
+}
+
+void PushButton::Init()
+{
+	pPressedBorder = NULL;
+	pReleasedBorder = NULL;
+	pImage = NULL;
+	setBorder( NULL );
+	pText = L"Ok";
+	pPressed = false;
+
+	setWidth( 100 );
+	setHeight( 24 );
+}
+
 
 void PushButton::setTheme( Theme& t, const string prefix )
 {
-  beginUpdate();
+	beginUpdate();
 	Widget::setTheme( t, prefix );
 	setReleasedBorder( t.getBorder( prefix+"pushbutton_released" ) );
-  setPressedBorder( t.getBorder( prefix+"pushbutton_pressed" ) );
-  setFont( t.getFont( prefix+"pushbutton" ) );
-  setFontColor( t.getColor( prefix+"pushbutton_font" ) );
-  setImage( t.getImage( prefix+"pushbutton" ) );
+	setPressedBorder( t.getBorder( prefix+"pushbutton_pressed" ) );
+	setFont( t.getFont( prefix+"pushbutton" ) );
+	setFontColor( t.getColor( prefix+"pushbutton_font" ) );
+	setImage( t.getImage( prefix+"pushbutton" ) );
 	setCursor( t.getCursor( prefix+"pushbutton" ) );
-  endUpdate();
+	endUpdate();
 }
 
 
 Border* PushButton::pressedBorder()
 {
-  return pPressedBorder;
+	return pPressedBorder;
 }
 
 
 
 void PushButton::setPressedBorder( Border* bs )
 {
-  pPressedBorder = bs;
-  if ( pressed() ) {
-    setBorder( pPressedBorder );
-  } else {
-    setBorder( pReleasedBorder );
-  }
+	pPressedBorder = bs;
+	if ( pressed() ) {
+		setBorder( pPressedBorder );
+	}
+	else {
+		setBorder( pReleasedBorder );
+	}
 }
 
 
 
 Border* PushButton::releasedBorder()
 {
-  return pReleasedBorder;
+	return pReleasedBorder;
 }
 
 
 
 void PushButton::setReleasedBorder( Border* bs )
 {
-  pReleasedBorder = bs;
+	pReleasedBorder = bs;
 
-  if ( pressed() ) {
-    setBorder( pPressedBorder );
-  } else {
-    setBorder( pReleasedBorder );
-  }
+	if ( pressed() ) {
+		setBorder( pPressedBorder );
+	}
+	else {
+		setBorder( pReleasedBorder );
+	}
 }
 
 
 
 bool PushButton::pressed()
 {
-  return pPressed;
+	return pPressed;
 }
 
 wstring PushButton::text()
 {
-  return pText;
+	return pText;
 }
 
 void PushButton::setText( wstring s )
 {
-  pText = s;
+	pText = s;
 	updated();
 }
 
 void PushButton::buttonPressed()
 {
-  onButtonPressed( *this );
+	onButtonPressed( *this );
 }
 
-Widget* PushButton::keyPressed( Key key)
+Widget* PushButton::keyPressed( Key key )
 {
-  Widget::keyPressed( key );
-  return this;
+	Widget::keyPressed( key );
+	return this;
 }
 
-Widget* PushButton::mouseClick(int x, int y, MouseButtons mb)
+Widget* PushButton::mouseClick( int x, int y, MouseButtons mb )
 {
-  Widget::mouseClick(x, y, mb);
-  buttonPressed();
-  return this;
+	Widget::mouseClick( x, y, mb );
+	buttonPressed();
+	return this;
 }
 
-Widget* PushButton::mouseIn(MouseButtons mb)
+Widget* PushButton::mouseIn( MouseButtons mb )
 {
 	Widget::mouseIn( mb );
-  if ( mb.left ) {
-    beginUpdate();
-    pPressed = true;
-    setBorder( pPressedBorder );
-    endUpdate();
-  }
-  return this;
+	if ( mb.left ) {
+		beginUpdate();
+		pPressed = true;
+		setBorder( pPressedBorder );
+		endUpdate();
+	}
+	return this;
 }
 
-Widget* PushButton::mouseOut(MouseButtons mb)
+Widget* PushButton::mouseOut( MouseButtons mb )
 {
 	Widget::mouseOut( mb );
 	if ( mb.left ) {
-    beginUpdate();
-    pPressed = false;
-    setBorder( pReleasedBorder );
-    endUpdate();
-  }
-  return this;
+		beginUpdate();
+		pPressed = false;
+		setBorder( pReleasedBorder );
+		endUpdate();
+	}
+	return this;
 }
 
-Widget* PushButton::mousePressed(int x, int y, MouseButtons mb)
+Widget* PushButton::mousePressed( int x, int y, MouseButtons mb )
 {
-  //cout << "* Ui::PushButton::mousePressed(  )" << endl;
+	//cout << "* Ui::PushButton::mousePressed(  )" << endl;
 	Widget::mousePressed( x, y, mb );
 	beginUpdate();
-  pPressed = true;
-  setBorder( pPressedBorder );
-  grabMouseInput();
-  endUpdate();
-  return this;
+	pPressed = true;
+	setBorder( pPressedBorder );
+	grabMouseInput();
+	endUpdate();
+	return this;
 }
 
-Widget* PushButton::mouseReleased(int x, int y, MouseButtons mb)
+Widget* PushButton::mouseReleased( int x, int y, MouseButtons mb )
 {
-  beginUpdate();
+	beginUpdate();
 	cout << "PushButton::mouseReleased( " << x << ", " << y << " )" << endl;
 	Widget::mouseReleased( x, y, mb );
 	pPressed = false;
-  setBorder( pReleasedBorder );
-  releaseMouseInput();
-  endUpdate();
-  return this;
+	setBorder( pReleasedBorder );
+	releaseMouseInput();
+	endUpdate();
+	return this;
 }
 
 void PushButton::render( ImageObject& img, const Rect& r )
 {
-  if ( !visible() ) return;
+	if ( !visible() ) return;
 
 	Rect r2 = Rect( 0, 0, clientVisibleWidth(), clientVisibleHeight() );
-  int theight = 0;
-  int twidth = 0;
-  if ( (font() != NULL) && ( text() != L"" ) ) {
-    theight = font()->textHeight();
-    twidth = font()->textWidth( pText ) + 2;
-  }
-  if ( pImage != NULL ) {
+	int theight = 0;
+	int twidth = 0;
+	if ( ( font() != NULL ) && ( text() != L"" ) ) {
+		theight = font()->textHeight();
+		twidth = font()->textWidth( pText ) + 2;
+	}
+	if ( pImage != NULL ) {
 
-    twidth += pImage->width();
-    r2.top = ( r2.height / 2 - pImage->height() / 2 );
-    r2.left = ( r2.width / 2 - twidth / 2 );
-    r2.width = pImage->width();
-    r2.height = pImage->height();
-    if ( pressed() ) {
-      r2.top += 1;
-      r2.left += 1;
-    }
-    img.drawImage( *pImage, r2 );
-    r2.left += pImage->width() + 2;
+		twidth += pImage->width();
+		r2.top = ( r2.height / 2 - pImage->height() / 2 );
+		r2.left = ( r2.width / 2 - twidth / 2 );
+		r2.width = pImage->width();
+		r2.height = pImage->height();
+		if ( pressed() ) {
+			r2.top += 1;
+			r2.left += 1;
+		}
+		img.drawImage( *pImage, r2 );
+		r2.left += pImage->width() + 2;
 		r2.width = clientVisibleWidth();
 		r2.height = clientVisibleHeight();
 
-  } else {
-    r2.left = ( r2.width / 2 - (twidth-2) / 2 );
-  }
-  r2.top = ( r2.height / 2 - theight / 2 );
-  if ( font() != NULL ) {
-    if ( pressed() ) {
-      img.outText( pText, *font(), (int)r2.left+1, (int)r2.top+1, fontColor() );
-    } else {
-      img.outText( pText, *font(), (int)r2.left, (int)r2.top, fontColor() );
-    }
-  }
+	}
+	else {
+		r2.left = ( r2.width / 2 - ( twidth-2 ) / 2 );
+	}
+	r2.top = ( r2.height / 2 - theight / 2 );
+	if ( font() != NULL ) {
+		if ( pressed() ) {
+			img.outText( pText, *font(), ( int )r2.left+1, ( int )r2.top+1, fontColor() );
+		}
+		else {
+			img.outText( pText, *font(), ( int )r2.left, ( int )r2.top, fontColor() );
+		}
+	}
 }
 
 

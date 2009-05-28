@@ -416,19 +416,13 @@ int main(int argc, char *argv[])
 	bw5.setVisible( true );
 	bw5.onButtonPressed.connect( e, &Events::transbuttonPressed );
 
-	PushButton bw6( &wf3 );
-	bw6.setBounds( 80, 40, 40, 40 );
+	PushButton bw6( &wf3, L"l,r,t", Theme::defaultTheme(), 80, 40, 40, 40 );
 	bw6.setAnchors( true, true, true, false );
-	bw6.setTheme( Theme::defaultTheme() );
-	bw6.setText( L"l,r,t" );
 	bw6.setVisible( true );
 	bw6.onButtonPressed.connect( e, &Events::transbuttonPressed );
 
-	PushButton bw7( &wf3 );
-	bw7.setBounds( 120, 40, 40, 40 );
+	PushButton bw7( &wf3, L"r,t", Theme::defaultTheme(), 120, 40, 40, 40 );
 	bw7.setAnchors( false, true, true, false );
-	bw7.setTheme( Theme::defaultTheme() );
-	bw7.setText( L"r,t" );
 	bw7.setVisible( true );
 	bw7.onButtonPressed.connect( e, &Events::transbuttonPressed );
 

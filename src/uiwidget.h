@@ -708,7 +708,7 @@ namespace Ui
 			 *
 			 * @param newwidth the new width.
 			 * @param newheight the new height.
-			 * @see setBounds() setSizeLimit() width() height()
+			 * @see setBounds() setSizeLimit() width() height() move()
 			 */
 			virtual void resize( int newwidth, int newheight );
 			virtual void timerTick();

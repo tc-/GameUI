@@ -20,9 +20,9 @@
 
 
 /**
-@file
-Headerfile for the Ui::PushButton class
-*/
+ * @file
+ * Headerfile for the Ui::PushButton class.
+ */
 
 #ifndef UIPUSHBUTTON_H
 #define UIPUSHBUTTON_H
@@ -33,70 +33,137 @@ Headerfile for the Ui::PushButton class
 #include <uiborder.h>
 #include <uiimageobject.h>
 
-namespace Ui {
+#include <string.h>
 
-/**
-Basic button class
+using std::wstring;
 
-@author Tommy Carlsson
-*/
-class PushButton : public Widget
+namespace Ui
 {
-public:
-  PushButton();
-  PushButton( Frame* parent );
-	/*
-	setReleasedBorder( t.getBorder( prefix+"pushbutton_released" ) );
-	setPressedBorder( t.getBorder( prefix+"pushbutton_pressed" ) );
-	setFont( t.getFont( prefix+"pushbutton" ) );
-	setFontColor( t.getColor( prefix+"pushbutton_font" ) );
-	setImage( t.getImage( prefix+"pushbutton" ) );
-	*/
-  /**
-   * Assigns a theme to the button.
-	 * border.pushbutton_released: Border to use when button is released.@n
-	 * border.pushbutton_pressed: Border to use when button is pressed.@n
-	 * font.pushbutton: the font to use.@n
-	 * color.pushbutton_font: The font color to use.@n
-	 * image.pushbutton: Image to use as glyph.
-	 * @see Widget::setTheme()
-   */
-  virtual void setTheme( Theme& t, const string prefix = "" );
 
-  virtual bool pressed();
-  virtual wstring text();
-  virtual void setText( wstring s );
+	/**
+	 * Basic button class
+	 */
+	class PushButton : public Widget
+	{
+		public:
+			PushButton();
+			PushButton( Frame* parent );
+			PushButton( Frame* parent, wstring text );
+			PushButton( Frame* parent, wstring text, Theme& theme );
+			PushButton( Frame* parent, int left, int top, int width );
+			PushButton( Frame* parent, int left, int top, int width, int height );
+			PushButton( Frame* parent, wstring text, int left, int top, int width );
+			PushButton( Frame* parent, wstring text, int left, int top, int width, int height );
+			PushButton( Frame* parent, wstring text, Theme& theme, int left, int top, int width );
+			PushButton( Frame* parent, wstring text, Theme& theme, int left, int top, int width, int height );
 
-  virtual ImageObject* image(  ) { return pImage; }
-  virtual void setImage( ImageObject* img ) { pImage = img; updated(); }
+			/**
+			 * Reset values to defaults.
+			 */
+			void Init();
 
-  virtual Border* pressedBorder();
-  virtual void setPressedBorder( Border* bs );
-  virtual Border* releasedBorder();
-  virtual void setReleasedBorder( Border* bs );
+			/**
+			 * Assigns a theme to the button.
+			 *
+			 * border.pushbutton_released: Border to use when button is released.@n
+			 * border.pushbutton_pressed: Border to use when button is pressed.@n
+			 * font.pushbutton: the font to use.@n
+			 * color.pushbutton_font: The font color to use.@n
+			 * image.pushbutton: Image to use as glyph.
+			 * @see Widget::setTheme()
+			 */
+			virtual void setTheme( Theme& t, const string prefix = "" );
 
-  virtual void buttonPressed();
-  virtual Widget* keyPressed( Key key );
-  virtual Widget* mouseClick(int x, int y, MouseButtons mb);
-  virtual Widget* mouseIn(MouseButtons mb);
-  virtual Widget* mouseOut(MouseButtons mb);
-  virtual Widget* mousePressed(int x, int y, MouseButtons mb);
-  virtual Widget* mouseReleased(int x, int y, MouseButtons mb);
+			/**
+			 * Is PushButton pressed.
+			 */
+			virtual bool pressed();
+
+			/**
+			 * Text drawn on the PuchButton.
+			 *
+			 * @see setText().
+			 */
+			virtual wstring text();
+
+			/**
+			 * Setter for the text property.
+			 *
+			 * @see text().
+			 */
+			virtual void setText( wstring s );
+
+			/**
+			 * Image to draw on the PushButton.
+			 *
+			 * @see setImage().
+			 */
+			virtual ImageObject* image(  ) {
+				return pImage;
+			}
+
+			/**
+			 * Setter for the image property.
+			 *
+			 * @see image() ImageObject.
+			 */
+			virtual void setImage( ImageObject* img ) {
+				pImage = img;
+				updated();
+			}
+
+			/**
+			 * Border to display when PushButton is pressed.
+			 *
+			 * @see releasedBorder() Border.
+			 */
+			virtual Border* pressedBorder();
+
+			/**
+			 * Setter for the pressedBorder property.
+			 *
+			 * @see pressedBorder().
+			 */
+			virtual void setPressedBorder( Border* bs );
+
+			/**
+			 * Border to display when PushButton is released, this is the default.
+			 *
+			 * @see pressedBorder() Border.
+			 */
+			virtual Border* releasedBorder();
+
+			/**
+			 * Setter for the releasedBorder property.
+			 *
+			 * @see releasedBorder().
+			 */
+			virtual void setReleasedBorder( Border* bs );
+
+			virtual void buttonPressed();
+			virtual Widget* keyPressed( Key key );
+			virtual Widget* mouseClick( int x, int y, MouseButtons mb );
+			virtual Widget* mouseIn( MouseButtons mb );
+			virtual Widget* mouseOut( MouseButtons mb );
+			virtual Widget* mousePressed( int x, int y, MouseButtons mb );
+			virtual Widget* mouseReleased( int x, int y, MouseButtons mb );
 
 
-  virtual void render( ImageObject& img, const Rect& r );
+			virtual void render( ImageObject& img, const Rect& r );
 
-  signal1<PushButton&> onButtonPressed;
+			//! Called when PushButton has been pressed and released.
+			signal1<PushButton&> onButtonPressed;
 
-private:
+		private:
 
-  wstring pText;
-  bool pPressed;
-  Border* pPressedBorder;
-  Border* pReleasedBorder;
-  ImageObject* pImage;
+			wstring pText;
+			bool pPressed;
+			Border* pPressedBorder;
+			Border* pReleasedBorder;
+			ImageObject* pImage;
 
-};
+
+	};
 
 }
 
