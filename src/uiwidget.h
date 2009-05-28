@@ -53,29 +53,41 @@ namespace Ui
 
 	class Timer;
 
-	enum WidgetAlignType { walignNone, walignLeft, walignRight, walignTop, walignBottom, walignClient };
+	/**
+	 * Widget alignment policy on parent Frame.
+	 *
+	 * @see Widget::align() Frame::arrangeChildren().
+	 */
+	enum WidgetAlignType {
+		walignNone,			//!< Do not try to align this Widget.
+		walignLeft,			//!< Align Widget to the left.
+		walignRight,		//!< Align Widget to the right.
+		walignTop,			//!< Align Widget to the top.
+		walignBottom,		//!< Align Widget to the bottom.
+		walignClient		//!< Let Widget fill the remaining area after all other Widgets has been aligned.
+	};
 
 	/**
 	 * Struct repressenting Pressed mousebuttons.
 	 */
 	struct MouseButtons {
-        //! Left mouse button was pressed.
+		//! Left mouse button was pressed.
 		bool left;
-        //! Right mouse button was pressed.
+		//! Right mouse button was pressed.
 		bool right;
-        //! Middle mouse button was pressed.
+		//! Middle mouse button was pressed.
 		bool middle;
-        //! Wheel was scrolled up.
+		//! Wheel was scrolled up.
 		bool wheelUp;
-        //! Wheel was scrolled down.
+		//! Wheel was scrolled down.
 		bool wheelDown;
 
-        //! Set default values.
+		//! Set default values.
 		MouseButtons() {
 			left = right = middle = wheelUp = wheelDown = false;
 		}
 
-        //! Make string repressentation.
+		//! Make string repressentation.
 		string toString() {
 			string ret = "[";
 			if ( left ) ret += "l";
@@ -88,13 +100,13 @@ namespace Ui
 		}
 	};
 
-    /**
-     * Opaque or transparent.
-     *
-     * As soon as any part of the Widget is transparent or alpha blended Widget::drawmode() should be set to
-     * drawTransparent. Only use drawOpaque if the Widget has no areas that show areas of the parent Frame.
-     * @see Widget::drawmode().
-     */
+	/**
+	 * Opaque or transparent.
+	 *
+	 * As soon as any part of the Widget is transparent or alpha blended Widget::drawmode() should be set to
+	 * drawTransparent. Only use drawOpaque if the Widget has no areas that show areas of the parent Frame.
+	 * @see Widget::drawmode().
+	 */
 	enum Drawmode {
 		drawOpaque, //!< Whole Widget has solid color.
 		drawTransparent //!< Widget has transparent areas.
@@ -198,11 +210,11 @@ namespace Ui
 				return pCursor;
 			}
 
-            /**
-             * Widget alignment on parent Frame.
-             *
-             * @see setAlign()
-             */
+			/**
+			 * Widget alignment on parent Frame.
+			 *
+			 * @see setAlign() WidgetAlignType.
+			 */
 			virtual WidgetAlignType align() const {
 				return pAlign;
 			}
