@@ -184,7 +184,7 @@ template<class T>
  * Replaces an Item in the list with a new Item.
  * @see List::delete() List::insert()
  * @param index the index of the old item to replace.
- * @param newitem the new Item to insert.
+ * @param newItem the new Item to insert.
  * @return the old Item.
  */
 T List<T>::replace( int index, T newItem )
@@ -323,7 +323,7 @@ template<class T>
 /**
  * Sorts the list with the help of a callback function.
  * The callback function should return true if first int is below or equal to second int and false if first int is above the second int.
- * @param (* sortCallback)( int , int ) pointer to the callback function that should be used.
+ * @param sortCallback pointer to the callback function that should be used.
  */
 void List<T>::sort( bool (*sortCallback)(List<T>&,int,int) )
 {

@@ -24,17 +24,17 @@
  */
 
 /**
- * @namespace sigslot 
+ * @namespace sigslot
  * Namespace used by the sigslot signal/slot library.
  */
 
 /**
- * @namespace std 
+ * @namespace std
  * Namespace used by the standard library.
  */
 
 /**
- * @namespace Ui 
+ * @namespace Ui
  * Namespace used by the GameUI library.
  */
 
@@ -43,21 +43,10 @@
  * @mainpage
  *
  * @section intro_sec Introduction
- * GameUI is a GUI( Graphical User Interface ). It's designed for easy use and portability, it includes most of the more common featues and controls as well as some of the more advanced.
- * 
- * @section use_sec Using GameUI
- * TODO Doc: Write down the basics in using GameUI.
- * 
- * @section write_widgets_333333333333333333333wa<sec Writing Your Own Widgets
- * TODO Doc: Write about writing your own widgets.
- * 
+ * This is the GameUI API documentation. GameUI is a GUI(Graphical User Interface) library. It's designed for easy use, speed and portability.
+ *
+ *
  * @section getting_help_sec Getting Help
- * As for now no real homepage or forum has been set up, until then you can mail any questions you have to Tommy Carlsson using the email <a href="mailto:tc@coderworld.net">tc@coderworld.net</a> or you can contact him through the GameUI <a href="http://coderworld.net/project/view.php?pid=29">coderworld.net project page</a>.
- * 
+ * Go to the <a href="http://gameui.webhop.net/">GameUI wiki</a> for any information not available in this documentaion.
+ *
 */
-
-/**
- * @page faq Frequently Asked Question
- * 
- */
- 

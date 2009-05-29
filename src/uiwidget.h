@@ -444,6 +444,7 @@ namespace Ui
 			 * @note Widget allways returns this but Ui::Frame can return Widgets inside itself.
 			 * @param x the x position relative from Widget.
 			 * @param y the x position relative from Widget.
+			 * @param recursive determines if the search should be done recursively.
 			 * @return the Widget located at the point (x;y).
 			 */
 			virtual Widget* getWidgetAt( int x, int y, bool recursive = false ) {
