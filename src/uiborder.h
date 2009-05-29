@@ -38,76 +38,89 @@ Headerfile for the Ui::Border class
 
 using std::string;
 
-namespace Ui {
+namespace Ui
+{
 
-  typedef Border* (*BorderLoadFunc)( InifileSection*, const ThemeLoadOptions& );
+	typedef Border* ( *BorderLoadFunc )( InifileSection*, const ThemeLoadOptions& );
 
-/**
-	Class used internally to link a border load function to a specific border type.
-
-	@author Tommy Carlsson
-*/
-class BorderLoaderItem {
-public:
-  BorderLoaderItem( string n, BorderLoadFunc f ): name(n), func(f) {}
-  string name;
-  BorderLoadFunc func;
-};
+	/**
+	 * Used internally to link a border load function to a specific border type.
+	 */
+	struct BorderLoaderItem {
+		BorderLoaderItem( string n, BorderLoadFunc f ): name( n ), func( f ) {}
+		string name;
+		BorderLoadFunc func;
+	};
 
 
-/**
-Class used internally to keep track of all border load functions.
+	/**
+	 * Used internally to keep track of all border load functions.
+	 *
+	 * @see Border BorderLoaderItem BorderLoadFunc
+	 */
+	class BorderLoader
+	{
+		public:
+			BorderLoader( const string borderName, BorderLoadFunc loader ) {
+				addLoader( borderName, loader );
+			}
 
-@author Tommy Carlsson
- */
-class BorderLoader {
-public:
-  BorderLoader( const string borderName, BorderLoadFunc loader ) { addLoader( borderName, loader ); }
+			static void addLoader( const string borderName, BorderLoadFunc loader );
+			static BorderLoadFunc getLoader( const string& name );
+		private:
+			static List<BorderLoaderItem*>& pFuncs();
+	};
 
-  static void addLoader( const string borderName, BorderLoadFunc loader );
-  static BorderLoadFunc getLoader( const string& name );
-private:
-  static List<BorderLoaderItem*>& pFuncs();
-};
+	/**
+	 * Describing a Widget border.
+	 *
+	 * @note The border also renders the background.
+	 * @see Widget::border().
+	 */
+	class Border
+	{
+		public:
 
-/**
-Class describing a border.
+			Border(): widthLeft( 0 ), widthRight( 0 ), heightTop( 0 ), heightBottom( 0 ) {
+				pDrawmode = drawOpaque;
+			}
+			virtual ~Border(  ) {};
 
-imageTopLeft, imageTopRight, imageBottomLeft, imageBottomRight, imageLeft, imageRight, imageTop, imageBottom, imageBackground
-are indexes used reference an image inside the Ui::ImageList object indicated by imageList(). The images will be rendered like the following image
+			int widthLeft;		//!< Left padding.
+			int widthRight;		//!< Right padding.
+			int heightTop;		//!< Top padding.
+			int heightBottom;	//!< Bottom padding.
 
-@image html border_indexes.png
+			/**
+			 * Drawmode of this Border.
+			 *
+			 * @note If a Border with drawmode drawTransparent is assigned to a Widget with drawmode drawOpaque the Widget drawmode will return drawTransparent.
+			 * @see Widget::drawmode().
+			 */
+			virtual Drawmode drawmode() {
+				return pDrawmode;
+			}
 
-The variables widthLeft, widthRight, heightTop, heightBottom all indicates the size of the border.
+			/**
+			 * Setter for the drawmode property.
+			 *
+			 * @see drawmode().
+			 */
+			virtual void setDrawmode( const Drawmode& dm ) {
+				pDrawmode = dm;
+			}
 
-@see Ui::Object::border()
-@author Tommy Carlsson
-*/
-class Border {
-public:
+			/**
+			 * Render the border.
+			 *
+			 * Override this method in your derived classes.
+			 */
+			virtual void render( const Rect r, ImageObject& iobj ) = 0;
 
-	Border(): widthLeft(0), widthRight(0), heightTop(0), heightBottom(0) { pDrawmode = drawOpaque; }
-  virtual ~Border(  ) {};
+		private:
+			Drawmode pDrawmode;
 
-  int widthLeft;
-  int widthRight;
-  int heightTop;
-  int heightBottom;
-
-  virtual Drawmode drawmode() {
-    return pDrawmode;
-  }
-  virtual void setDrawmode( const Drawmode& dm ) {
-    pDrawmode = dm;
-  }
-
-  virtual void render( const Rect r, ImageObject& iobj ) = 0;
-	//virtual void useWithLoader() = 0;
-
-private:
-  Drawmode pDrawmode;
-
-};
+	};
 
 }
 
