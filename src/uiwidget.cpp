@@ -46,70 +46,45 @@ namespace Ui {
 
 Widget::Widget( Frame* parent )
 {
-  //cout << "* Widget::Widget( Frame* )" << endl;
+	setParent( parent );
+	Init();
+}
 
-  pGui = NULL;
-  setParent( parent );
-
-  pTag = NULL;
-  pFont = NULL;
-  pBorder = NULL;
-	pCursor = NULL;
-
-	pToolTipTimer = NULL;
-	pToolTipObject = NULL;
-
-	pTheme = NULL;
-	pThemePrefix = "";
-
-//  pHSizeType = sizePreferred;
-//  pVSizeType = sizePreferred;
-
-//  pPreferredWidth = 100;
-//  pPreferredHeight = 80;
-
-	pAlign = walignNone;
-	pAnchorL = false;
-	pAnchorR = false;
-	pAnchorT = false;
-	pAnchorB = false;
-
-  pMinWidth = 0;
-  pMinHeight = 0;
-  pMaxWidth = INT_MAX;
-  pMaxHeight = INT_MAX;
-  pTop = 0;
-  pLeft = 0;
-  pWidth = 100;
-  pHeight = 100;
-  pZIndex = 0;
-
-  pVisible = true;
-  pEnabled = true;
-  pFocused = false;
-
-  pDrawmode = drawOpaque;
-
-  pToolTip = L"";
-
-  pDontRender = 0;
-  pIsUpdated = false;
-	pToldParentUpdate = false;
-
-  pBgColor = Color( 128, 128, 128 );
-  pFontColor = Color( 0, 0, 0 );
+Widget::Widget( Frame* parent, Theme& theme)
+{
+	setParent( parent );
+	Init();
+	setTheme(theme);
 }
 
 Widget::Widget( Frame* parent, int x, int y, int width, int height )
 {
-  //cout << "* Widget::Widget( Frame* )" << endl;
+	setParent( parent );
+	Init();
+	pTop = y;
+	pLeft = x;
+	pWidth = width;
+	pHeight = height;
+}
 
-  pGui = NULL;
-  setParent( parent );
+Widget::Widget( Frame* parent, Theme& theme, int x, int y, int width, int height )
+{
+	setParent( parent );
+	Init();
+	pTop = y;
+	pLeft = x;
+	pWidth = width;
+	pHeight = height;
+	setTheme(theme);
+}
 
-  pTag = NULL;
-  pFont = NULL;
-  pBorder = NULL;
+void Widget::Init()
+{
+	pGui = NULL;
+
+	pTag = NULL;
+	pFont = NULL;
+	pBorder = NULL;
 	pCursor = NULL;
 
 	pToolTipTimer = NULL;
@@ -118,52 +93,47 @@ Widget::Widget( Frame* parent, int x, int y, int width, int height )
 	pTheme = NULL;
 	pThemePrefix = "";
 
-//  pHSizeType = sizePreferred;
-//  pVSizeType = sizePreferred;
-
-//  pPreferredWidth = 100;
-//  pPreferredHeight = 80;
-
 	pAlign = walignNone;
 	pAnchorL = false;
 	pAnchorR = false;
 	pAnchorT = false;
 	pAnchorB = false;
 
-  pMinWidth = 0;
-  pMinHeight = 0;
-  pMaxWidth = INT_MAX;
-  pMaxHeight = INT_MAX;
-  pTop = y;
-  pLeft = x;
-  pWidth = width;
-  pHeight = height;
-  pZIndex = 0;
+	pMinWidth = 0;
+	pMinHeight = 0;
+	pMaxWidth = INT_MAX;
+	pMaxHeight = INT_MAX;
 
-  pVisible = true;
-  pEnabled = true;
-  pFocused = false;
+	pTop = 0;
+	pLeft = 0;
+	pWidth = 100;
+	pHeight = 100;
+	pZIndex = 0;
 
-  pDrawmode = drawOpaque;
+	pVisible = true;
+	pEnabled = true;
+	pFocused = false;
 
-  pToolTip = L"";
+	pDrawmode = drawOpaque;
 
-  pDontRender = 0;
-  pIsUpdated = false;
+	pToolTip = L"";
+
+	pDontRender = 0;
+	pIsUpdated = false;
 	pToldParentUpdate = false;
 
-  pBgColor = Color( 128, 128, 128 );
-  pFontColor = Color( 0, 0, 0 );
+	pBgColor = Color( 128, 128, 128 );
+	pFontColor = Color( 0, 0, 0 );
 }
 
 Widget::~Widget(  )
 {
-  //cout << "* ~Ui::Widget" << endl;
+	//cout << "* ~Ui::Widget" << endl;
 
-  if ( pParent != NULL )
-    pParent->removeChild( this );
+	if ( pParent != NULL )
+		pParent->removeChild( this );
 
-  onDestroy( *this );
+	onDestroy( *this );
 
 //  if ( screen() != NULL )
 //    screen()->objectDestroyed( *this );
@@ -181,8 +151,8 @@ void Widget::setTheme( Theme& t, const string prefix )
 	pTheme = &t;
 	pThemePrefix = prefix;
 
-  setBorder( t.getBorder( "default" ) );
-  setFont( t.getFont( "default" ) );
+	setBorder( t.getBorder( "default" ) );
+	setFont( t.getFont( "default" ) );
 	setCursor( t.getCursor( "default" ) );
 }
 
@@ -252,11 +222,11 @@ void Widget::setCursor( MouseCursor* mc )
 
 void Widget::setParent( Frame* p )
 {
-  //cout << "* Ui::Widget::setParent(  )" << endl;
-  pParent = p;
-  if ( pParent != NULL ) {
-    pParent->addChild( *this );
-  }
+	//cout << "* Ui::Widget::setParent(  )" << endl;
+	pParent = p;
+	if ( pParent != NULL ) {
+		pParent->addChild( *this );
+	}
 //  cout << "* Ui::Widget::setParent(  ) done" << endl;
 }
 
@@ -279,48 +249,48 @@ void Widget::sizeChanged( const Rect& news )
 void Widget::updated(  )
 {
 //  cout << "* Ui::Widget::updated(  )" << endl;
-  if ( pDontRender > 0 ) {
-    pIsUpdated = true;
-    return;
-  }
+	if ( pDontRender > 0 ) {
+		pIsUpdated = true;
+		return;
+	}
 
 //  if ( isManaged() ) {
 //    pParent->childUpdated( *this );
 //  }
-  Widget::updatedWidget( this );
+	Widget::updatedWidget( this );
 }
 
 void Widget::updated( const Rect& r )
 {
-  if ( pDontRender > 0 ) {
-    pIsUpdated = true;
-    return;
-  }
+	if ( pDontRender > 0 ) {
+		pIsUpdated = true;
+		return;
+	}
 
 //  if ( isManaged() ) {
 //    pParent->childUpdated( *this );
 //  }
-  Widget::updatedWidget( this, r );
+	Widget::updatedWidget( this, r );
 }
 
 
 
 void Widget::beginUpdate(  )
 {
-  pDontRender++;
+	pDontRender++;
 }
 
 
 
 void Widget::endUpdate( bool dontupdate )
 {
-  assert( pDontRender != 0 );
-  pDontRender--;
-  if (( pDontRender == 0 ) && ( pIsUpdated )) {
-    pIsUpdated = false;
-    if ( !dontupdate )
-      updated();
-  }
+	assert( pDontRender != 0 );
+	pDontRender--;
+	if (( pDontRender == 0 ) && ( pIsUpdated )) {
+		pIsUpdated = false;
+		if ( !dontupdate )
+			updated();
+	}
 }
 
 
@@ -328,32 +298,32 @@ void Widget::endUpdate( bool dontupdate )
 
 ImageObject& Widget::screen(  )
 {
-  return gui().screen();
+	return gui().screen();
 }
 
 
 void Widget::setMinWidth( int mw )
 {
-  pMinWidth = mw;
-  updated();
+	pMinWidth = mw;
+	updated();
 }
 
 void Widget::setMinHeight( int mh )
 {
-  pMinHeight = mh;
-  updated();
+	pMinHeight = mh;
+	updated();
 }
 
 void Widget::setMaxWidth( int mw )
 {
-  pMaxWidth = mw;
-  updated();
+	pMaxWidth = mw;
+	updated();
 }
 
 void Widget::setMaxHeight( int mh )
 {
-  pMaxHeight = mh;
-  updated();
+	pMaxHeight = mh;
+	updated();
 }
 
 
@@ -406,45 +376,45 @@ void Widget::setLeft( int l )
 
 void Widget::setWidth( int w )
 {
-  resize( w, height() );
+	resize( w, height() );
 //  updated();
 }
 
 void Widget::setHeight( int h )
 {
-  resize( width(), h );
-  //updated();
+	resize( width(), h );
+	//updated();
 }
 
 Drawmode Widget::drawmode(  ) const
 {
-  return pDrawmode;
+	return pDrawmode;
 }
 
 void Widget::setDrawmode( Drawmode dm )
 {
-  pDrawmode = dm;
-  updated();
+	pDrawmode = dm;
+	updated();
 }
 
 int Widget::absoluteXPos( ) const
 {
-  if ( hasParent() ) {
+	if ( hasParent() ) {
 		return ( parent()->absoluteXPos() + parent()->borderLeft() + relativeLeft() );
-  } else {
+	} else {
 		return relativeLeft();
-  }
+	}
 }
 
 
 
 int Widget::absoluteYPos( ) const
 {
-  if ( hasParent() ) {
+	if ( hasParent() ) {
 		return ( parent()->absoluteYPos() + parent()->borderTop() + relativeTop() );
-  } else {
+	} else {
 		return relativeTop();
-  }
+	}
 }
 
 
@@ -457,63 +427,63 @@ int Widget::absoluteYPos( ) const
 
 Rect Widget::getClipRect(  ) const
 {
-  Rect r;
-  if ( hasParent() ) {
-    Rect pr = parent()->getClientClipRect( );
+	Rect r;
+	if ( hasParent() ) {
+		Rect pr = parent()->getClientClipRect( );
 
-    r.top = absoluteYPos();
-    r.left = absoluteXPos();
-    r.width = width();
-    r.height = height();
+		r.top = absoluteYPos();
+		r.left = absoluteXPos();
+		r.width = width();
+		r.height = height();
 
-    r.crop( pr );
+		r.crop( pr );
 
-   return r;
+	 return r;
 
-  } else {
+	} else {
 
-    r.top = absoluteYPos();
-    r.left = absoluteXPos();
-    r.width = pWidth;
-    r.height = pHeight;
+		r.top = absoluteYPos();
+		r.left = absoluteXPos();
+		r.width = pWidth;
+		r.height = pHeight;
 
-    return r;
+		return r;
 
-  }
+	}
 }
 
 
 int Widget::borderTop( ) const
 {
-  if ( border() != NULL ) {
-    return border()->heightTop;
-  }
-  return 0;
+	if ( border() != NULL ) {
+		return border()->heightTop;
+	}
+	return 0;
 }
 
 
 int Widget::borderLeft( ) const
 {
-  if ( border() != NULL ) {
-    return border()->widthLeft;
-  }
-  return 0;
+	if ( border() != NULL ) {
+		return border()->widthLeft;
+	}
+	return 0;
 }
 
 int Widget::borderBottom( ) const
 {
-  if ( border() != NULL ) {
-    return border()->heightBottom;
-  }
-  return 0;
+	if ( border() != NULL ) {
+		return border()->heightBottom;
+	}
+	return 0;
 }
 
 int Widget::borderRight( ) const
 {
-  if ( border() != NULL ) {
-    return border()->widthRight;
-  }
-  return 0;
+	if ( border() != NULL ) {
+		return border()->widthRight;
+	}
+	return 0;
 }
 
 
@@ -539,36 +509,36 @@ int Widget::clientVisibleHeight( )
 
 Gui& Widget::gui(  ) const
 {
-  if ( (pGui == NULL) && ( hasParent() ) ) {
-    return parent()->gui();
-  }
-  assert( pGui != NULL );
-  return *pGui;
+	if ( (pGui == NULL) && ( hasParent() ) ) {
+		return parent()->gui();
+	}
+	assert( pGui != NULL );
+	return *pGui;
 }
 
 void Widget::setGui( Gui* s )
 {
-  pGui = s;
-  updated();
+	pGui = s;
+	updated();
 }
 
 
 bool Widget::visible(  ) const
 {
-  if ( pVisible ) {
-    if ( hasParent() )
-      return parent()->visible();
-    else
-      return true;
-  } else {
-    return false;
-  }
+	if ( pVisible ) {
+		if ( hasParent() )
+			return parent()->visible();
+		else
+			return true;
+	} else {
+		return false;
+	}
 }
 
 
 void Widget::setVisible( bool v )
 {
-  pVisible = v;
+	pVisible = v;
 	if ( hasParent() )
 		parent()->childUpdated( *this );
 	updatedWidget( NULL, Rect( relativeLeft() - borderLeft(), relativeTop() - borderTop(), width() + borderLeft(), height() + borderTop() ) );
@@ -576,30 +546,30 @@ void Widget::setVisible( bool v )
 
 void Widget::setEnabled( bool e )
 {
-  pEnabled = e;
-  updated();
+	pEnabled = e;
+	updated();
 }
 
 
 void Widget::setFont( Font* f )
 {
-  pFont = f;
-  updated();
+	pFont = f;
+	updated();
 }
 
 void Widget::setBorder( Border* bs )
 {
-  pBorder = bs;
-  updated();
+	pBorder = bs;
+	updated();
 }
 
 void Widget::setFocused( bool f )
 {
-  if (( pFocused != f ) && ( f ) ) {
-    gui().setFocusedWidget( this );
-  }
-  pFocused = f;
-  updated();
+	if (( pFocused != f ) && ( f ) ) {
+		gui().setFocusedWidget( this );
+	}
+	pFocused = f;
+	updated();
 }
 
 
@@ -612,35 +582,35 @@ void Widget::render( ImageObject& img, const Rect& r )
 void Widget::renderBorder( ImageObject& img )
 {
 	if ( !visible() ) return;
-  if ( border() != NULL ) {
-    border()->render( Rect( 0, 0, width(), height() ), img );
-  } else {
-    if ( drawmode() == drawOpaque )
-      img.fillRect( Rect( 0, 0, width(), height() ), bgColor() );
-  }
+	if ( border() != NULL ) {
+		border()->render( Rect( 0, 0, width(), height() ), img );
+	} else {
+		if ( drawmode() == drawOpaque )
+			img.fillRect( Rect( 0, 0, width(), height() ), bgColor() );
+	}
 }
 
 
 void Widget::move( const int newleft, const int newtop )
 {
-  if ( visible() ) {
-    Rect updateRect( absoluteXPos(), absoluteYPos(), width(), height() );
+	if ( visible() ) {
+		Rect updateRect( absoluteXPos(), absoluteYPos(), width(), height() );
 
-    Rect tmpRect = updateRect;
+		Rect tmpRect = updateRect;
 
-    tmpRect.top = newtop;
-    tmpRect.left = newleft;
+		tmpRect.top = newtop;
+		tmpRect.left = newleft;
 
 		pTop = newtop;
 		pLeft = newleft;
 
 
-    updateRect.merge( tmpRect );
+		updateRect.merge( tmpRect );
 
-    updateRect.top -= absoluteYPos() + borderTop();
-    updateRect.left -= absoluteXPos() + borderLeft();
+		updateRect.top -= absoluteYPos() + borderTop();
+		updateRect.left -= absoluteXPos() + borderLeft();
 
-    updated( updateRect );
+		updated( updateRect );
 
 	} else {
 		pTop = newtop;
@@ -651,11 +621,11 @@ void Widget::move( const int newleft, const int newtop )
 
 void Widget::setSizeLimit( int minw, int minh, int maxw, int maxh )
 {
-  pMinWidth = minw;
-  pMinHeight = minh;
-  pMaxWidth = maxw;
-  pMaxHeight = maxh;
-  updated();
+	pMinWidth = minw;
+	pMinHeight = minh;
+	pMaxWidth = maxw;
+	pMaxHeight = maxh;
+	updated();
 }
 
 
@@ -663,17 +633,17 @@ void Widget::setSizeLimit( int minw, int minh, int maxw, int maxh )
 void Widget::setBounds( int left, int top, int width, int height )
 {
 	move( left, top );
-  resize( width, height );
+	resize( width, height );
 }
 
 
 bool Widget::isManaged(  ) const
 {
-  if ( hasParent() ) {
+	if ( hasParent() ) {
 		return ( (pAlign != walignNone) || (pAnchorL) || (pAnchorR) || (pAnchorT) || (pAnchorB) );
-  } else {
-    return false;
-  }
+	} else {
+		return false;
+	}
 }
 
 void Widget::tooltipTimerCallback( Timer& t, int& to )
@@ -713,7 +683,7 @@ Widget* Widget::mouseMove( int x, int y, MouseButtons mb )
 	}
 	pLastX = x;
 	pLastY = y;
-  return this;
+	return this;
 }
 
 
@@ -721,7 +691,7 @@ Widget* Widget::mouseClick( int x, int y, MouseButtons mb )
 {
 	Utils::setNotice( "onMouseClick( " + Utils::toString(x) +  ", " + Utils::toString(y) + ", " + mb.toString() + " ) by '" + name() + "'" );
 	onMouseClick( *this );
-  return this;
+	return this;
 }
 
 
@@ -729,14 +699,14 @@ Widget* Widget::mouseDblClick( int x, int y, MouseButtons mb )
 {
 	Utils::setNotice( "onMouseDblClick( " + Utils::toString(x) +  ", " + Utils::toString(y) + ", " + mb.toString() + " ) by '" + name() + "'" );
 	onMouseDblClick( *this );
-  return this;
+	return this;
 }
 
 
 Widget* Widget::mousePressed( int x, int y, MouseButtons mb )
 {
 	Utils::setNotice( "onMousePressed( " + Utils::toString(x) +  ", " + Utils::toString(y) + ", " + mb.toString() + " ) by '" + name() + "'" );
-  onMousePressed( *this, mb );
+	onMousePressed( *this, mb );
 	if ( pToolTipTimer != NULL ) {
 		delete pToolTipTimer;
 		pToolTipTimer = NULL;
@@ -744,7 +714,7 @@ Widget* Widget::mousePressed( int x, int y, MouseButtons mb )
 	if ( pToolTipObject != NULL ) {
 		pToolTipObject->close();
 	}
-  return this;
+	return this;
 }
 
 
@@ -759,15 +729,15 @@ Widget* Widget::mouseReleased( int x, int y, MouseButtons mb )
 	if ( pToolTipObject != NULL ) {
 		pToolTipObject->close();
 	}
-  return this;
+	return this;
 }
 
 
 Widget* Widget::mouseIn( MouseButtons mb )
 {
 	Utils::setNotice( "onMouseIn( " + mb.toString() + " ) by '" + name() + "'" );
-  onMouseIn( *this );
-  return this;
+	onMouseIn( *this );
+	return this;
 }
 
 
@@ -782,20 +752,20 @@ Widget* Widget::mouseOut( MouseButtons mb )
 	if ( pToolTipObject != NULL ) {
 		pToolTipObject->close();
 	}
-  return this;
+	return this;
 }
 
 
 Widget* Widget::keyPressed( Key key )
 {
-  onKeyPressed( *this, key );
-  return this;
+	onKeyPressed( *this, key );
+	return this;
 }
 
 Widget* Widget::keyReleased( Key key )
 {
-  onKeyReleased( *this, key );
-  return this;
+	onKeyReleased( *this, key );
+	return this;
 }
 
 
@@ -806,70 +776,70 @@ void Widget::timerTick()
 
 void Widget::resize( int newwidth, int newheight )
 {
-  int oldw = pWidth;
-  int oldh = pHeight;
+	int oldw = pWidth;
+	int oldh = pHeight;
 	newwidth = min( max( newwidth, minWidth() ), maxWidth() );
 	newheight = min( max( newheight, minHeight() ), maxHeight() );
 	pWidth = newwidth;
-  pHeight = newheight;
-  if ( ( oldw > pWidth ) || ( oldh > pHeight ) ) {
+	pHeight = newheight;
+	if ( ( oldw > pWidth ) || ( oldh > pHeight ) ) {
 		sizeChanged( Rect( 0 - borderLeft(), 0 - borderTop(), oldw, oldh ) );
-  } else {
+	} else {
 		sizeChanged( Rect( 0 - borderLeft(), 0 - borderTop(), width(), height()) );
-  }
+	}
 }
 
 
 int Widget::zIndex()
 {
-  return pZIndex;
+	return pZIndex;
 }
 
 
 int Widget::setZIndex( const int z )
 {
-  if ( pZIndex == z ) return 1;
-  pZIndex = z;
-  return 1;
+	if ( pZIndex == z ) return 1;
+	pZIndex = z;
+	return 1;
 }
 
 void Widget::getWidgetsInRect( List<Widget*>& l, const Rect r, bool recursive )
 {
-  l.append( this );
+	l.append( this );
 }
 
 void Widget::moveToTop()
 {
-  if ( parent() != NULL ) {
-    parent()->moveWidgetToTop( this );
-  }
+	if ( parent() != NULL ) {
+		parent()->moveWidgetToTop( this );
+	}
 }
 
 
 void Widget::moveToBottom()
 {
-  if ( parent() != NULL ) {
-    parent()->moveWidgetToBottom( this );
-  }
+	if ( parent() != NULL ) {
+		parent()->moveWidgetToBottom( this );
+	}
 }
 
 
 
 void Widget::grabMouseInput()
 {
-  gui().setMouseChannelWidget( *this );
+	gui().setMouseChannelWidget( *this );
 }
 
 
 
 void Widget::releaseMouseInput()
 {
-  gui().unsetMouseChannelWidget( *this );
+	gui().unsetMouseChannelWidget( *this );
 }
 /*
 void Widget::updatedWidget( Widget* o )
 {
-  if ( o == NULL ) return;
+	if ( o == NULL ) return;
 	Rect r = Rect( 0 - o->borderLeft(), 0 - o->borderTop(), o->width(), o->height() );
 	updatedWidget( o, r );
 }
@@ -883,29 +853,29 @@ void Widget::updatedWidget( Widget* o, const Rect r )
 			r2 = o->getClipRect();
 		if ( r2.area() == 0 ) return;
 	} else {
-  	if ( r2.area() == 0 ) return;
-  	if ( o != NULL ) {
+		if ( r2.area() == 0 ) return;
+		if ( o != NULL ) {
 			if ( !o->visible() ) return;
 			r2.top += o->absoluteYPos() + o->borderTop();
 			r2.left += o->absoluteXPos() + o->borderLeft();
-  	}
+		}
 	}
-  for( int i = 0; i < updatedWidgets().count(); i++ ) {
-    if ( updatedWidgets().get( i )->o == o ) {
-      updatedWidgets().get( i )->r.merge( r2 );
-      return;
-    }
-  }
-  UpdateWidget* ud = new UpdateWidget( o, r2 );
-  updatedWidgets().append( ud );
+	for( int i = 0; i < updatedWidgets().count(); i++ ) {
+		if ( updatedWidgets().get( i )->o == o ) {
+			updatedWidgets().get( i )->r.merge( r2 );
+			return;
+		}
+	}
+	UpdateWidget* ud = new UpdateWidget( o, r2 );
+	updatedWidgets().append( ud );
 }
 
 void Widget::clearUpdatedWidgets()
 {
-  for( int i = 0; i < updatedWidgets().count(); i++ ) {
-    delete updatedWidgets().get(i);
-  }
-  updatedWidgets().clear();
+	for( int i = 0; i < updatedWidgets().count(); i++ ) {
+		delete updatedWidgets().get(i);
+	}
+	updatedWidgets().clear();
 }
 
 }

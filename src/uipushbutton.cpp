@@ -33,19 +33,21 @@ using namespace Ui;
 PushButton::PushButton():
 		Widget()
 {
-	Init();
+
 }
 
 PushButton::PushButton( Frame* parent ):
 		Widget( parent )
 {
 	Init();
+	resize( PUSHBUTTON_DEFAULT_WIDTH, PUSHBUTTON_DEFAULT_HEIGHT );
 }
 
 PushButton::PushButton( Frame* parent, wstring text ):
 		Widget( parent )
 {
 	Init();
+	resize( PUSHBUTTON_DEFAULT_WIDTH, PUSHBUTTON_DEFAULT_HEIGHT );
 	setText( text );
 }
 
@@ -53,59 +55,51 @@ PushButton::PushButton( Frame* parent, wstring text, Theme& theme ):
 		Widget( parent )
 {
 	Init();
+	resize( PUSHBUTTON_DEFAULT_WIDTH, PUSHBUTTON_DEFAULT_HEIGHT );
 	setText( text );
 	setTheme( theme );
 }
 
 PushButton::PushButton( Frame* parent, int left, int top, int width ):
-		Widget( parent )
+		Widget( parent, left, top, width, PUSHBUTTON_DEFAULT_HEIGHT )
 {
 	Init();
-	move( left, top );
-	setWidth( width );
 }
 
 PushButton::PushButton( Frame* parent, int left, int top, int width, int height ):
-		Widget( parent )
+		Widget( parent, left, top, width, height )
 {
 	Init();
-	setBounds( left, top, width, height );
 }
 
 PushButton::PushButton( Frame* parent, wstring text, int left, int top, int width ):
-		Widget( parent )
+		Widget( parent, left, top, width, PUSHBUTTON_DEFAULT_HEIGHT )
 {
 	Init();
 	setText( text );
-	move( left, top );
-	setWidth( width );
 }
 
 PushButton::PushButton( Frame* parent, wstring text, int left, int top, int width, int height ):
-		Widget( parent )
+		Widget( parent, left, top, width, height )
 {
 	Init();
 	setText( text );
-	setBounds( left, top, width, height );
 }
 
 PushButton::PushButton( Frame* parent, wstring text, Theme& theme, int left, int top, int width ):
-		Widget( parent )
+		Widget( parent, left, top, width, PUSHBUTTON_DEFAULT_HEIGHT )
 {
 	Init();
 	setText( text );
 	setTheme( theme );
-	move( left, top );
-	setWidth( width );
 }
 
 PushButton::PushButton( Frame* parent, wstring text, Theme& theme, int left, int top, int width, int height ):
-		Widget( parent )
+		Widget( parent, left, top, width, height )
 {
 	Init();
 	setText( text );
 	setTheme( theme );
-	setBounds( left, top, width, height );
 }
 
 void PushButton::Init()
@@ -116,9 +110,6 @@ void PushButton::Init()
 	setBorder( NULL );
 	pText = L"Ok";
 	pPressed = false;
-
-	setWidth( 100 );
-	setHeight( 24 );
 }
 
 

@@ -143,14 +143,24 @@ namespace Ui
 		public:
 
 			Widget( Frame* parent = NULL );
+			Widget( Frame* parent, Theme& theme);
 			Widget( Frame* parent, int x, int y, int width, int height );
+			Widget( Frame* parent, Theme& theme, int x, int y, int width, int height );
 			virtual ~Widget(  );
 
 			/**
+			 * Set default values, run by the constructor.
+			 *
+			 * @note When virtual methods are run from constructor they behave like non-vrtual methods.
+			 */
+			virtual void Init();
+
+			/**
 			 * Name of widget, available for use by the application writer for easier debugging.
+			 *
 			 * @note this property is not used by GameUI, it's only avaiable to simplify debugging.
-			 * @see setName()
 			 * @return name of widget.
+			 * @see setName().
 			 */
 			virtual string name() {
 				return pName;
@@ -213,12 +223,17 @@ namespace Ui
 			/**
 			 * Widget alignment on parent Frame.
 			 *
-			 * @see setAlign() WidgetAlign.
+			 * @see setAlign() WidgetAlign Frame.
 			 */
 			virtual WidgetAlign align() const {
 				return pAlign;
 			}
 
+			/**
+			 * Setter for the align property.
+			 *
+			 * @see align.
+			 */
 			virtual void setAlign( const WidgetAlign& al ) {
 				pAlign = al;
 

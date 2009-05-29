@@ -35,6 +35,10 @@
 
 #include <string.h>
 
+
+#define PUSHBUTTON_DEFAULT_WIDTH 100
+#define PUSHBUTTON_DEFAULT_HEIGHT 24
+
 using std::wstring;
 
 namespace Ui
@@ -57,10 +61,7 @@ namespace Ui
 			PushButton( Frame* parent, wstring text, Theme& theme, int left, int top, int width );
 			PushButton( Frame* parent, wstring text, Theme& theme, int left, int top, int width, int height );
 
-			/**
-			 * Reset values to defaults.
-			 */
-			void Init();
+			virtual void Init();
 
 			/**
 			 * Assigns a theme to the button.
