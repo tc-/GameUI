@@ -80,7 +80,7 @@ namespace Ui
 			 *
 			 * @todo move to some utilty functions class.
 			 */
-			double fpart( double val ) {The GameUI network graph
+			double fpart( double val ) {
 				int tmp = ( int )val;
 				return ( val-( double )tmp );
 			}
