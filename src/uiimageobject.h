@@ -106,6 +106,7 @@ namespace Ui
 			/**
 			 * Draw a line on this ImageObject.
 			 *
+			 * @todo Add a line method with lineWidth parameter.
 			 * @see hLine() vLine().
 			 */
 			virtual void line ( double x1, double y1, double x2, double y2, const Color &color );
@@ -135,11 +136,40 @@ namespace Ui
 			virtual void setRelativePoint( const int left = 0, const int top = 0 ) = 0;
 			virtual void getRelativePoint( int& left, int& top ) = 0;
 
+			/**
+			 * Deallocate associated resources.
+			 *
+			 * @see isLoaded() loadImage().
+			 */
 			virtual void freeImage() = 0;
+
+			/**
+			 * Is the ImageObject containing an image resource.
+			 *
+			 * @see loadImage() freeImage().
+			 */
 			virtual bool isLoaded() = 0;
+
+			/**
+			 * Load an image from file.
+			 *
+			 * File format will be detected automatically. Supported imageformats vary between implementaions.
+			 * @see freeImage() isLoaded().
+			 */
 			virtual bool loadImage( string fname ) = 0;
 
+			/**
+			 * The width of this ImageObject.
+			 *
+			 * @see height().
+			 */
 			virtual int width(  ) = 0;
+
+			/**
+			 * The height of this ImageObject.
+			 *
+			 * @see height().
+			 */
 			virtual int height(  ) = 0;
 
 			virtual int sectionWidth(  ) {
