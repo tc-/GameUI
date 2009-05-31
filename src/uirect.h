@@ -73,7 +73,10 @@ namespace Ui
 			 *
 			 * @see crop() Border.
 			 */
-			void applyBorder( Border* b );
+			inline void applyBorder( Border* b ) {
+				if ( b != NULL ) applyBorder(*b);
+			}
+			void applyBorder( const Border& b );
 
 			/**
 			 * The area of this Rect.

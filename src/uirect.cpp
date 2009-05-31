@@ -127,30 +127,19 @@ void Rect::merge( const Rect cr )
 }
 
 
-void Rect::applyBorder( Border* b )
+void Rect::applyBorder( const Border& b )
 {
-  if ( b != NULL ) {
-    top += b->heightTop;
-    left += b->widthLeft;
-    width -= b->widthLeft + b->widthRight;
-    height -= b->heightTop + b->heightBottom;
-  }
+	top += b.heightTop;
+	left += b.widthLeft;
+	width -= b.widthLeft + b.widthRight;
+	height -= b.heightTop + b.heightBottom;
 }
 
 bool Rect::intersects( const Rect ir ) const
 {
-  Rect r2 = *this;
-  r2.crop( ir );
-  return ( r2.area() > 0 );
-/*  if (( pointInside( ir.top, ir.left) ) || ( pointInside( ir.top, ir.left+ir.width) ) ||
-      ( pointInside( ir.top+ir.height, ir.left) ) || ( pointInside( ir.top+ir.height, ir.left+ir.width) )) {
-    return true;
-  } else if (( ir.pointInside( top, left) ) || ( ir.pointInside( top, left+width) ) ||
-      ( ir.pointInside( top+height, left) ) || ( ir.pointInside( top+height, left+width) )) {
-    return true;
-  } else {
-    return false;
-}*/
+	Rect r2 = *this;
+	r2.crop( ir );
+	return ( r2.area() > 0 );
 }
 
 bool Rect::encloses( const Rect er ) const
