@@ -70,7 +70,7 @@ public:
   Rect popClipRect (  );
   Rect clipRect() { return pClipRect; };
   void setRelativePoint( const int left = 0, const int top = 0 );
-  void getRelativePoint( int& left, int& top );
+  void relativePoint( int& left, int& top );
   void freeImage(  );
   bool isLoaded(  );
   bool loadImage( string fname );

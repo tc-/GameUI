@@ -512,7 +512,7 @@ void SDLImageObject::setRelativePoint( const int left, const int top )
   pRelY = top;
 }
 
-void SDLImageObject::getRelativePoint( int& left, int& top )
+void SDLImageObject::relativePoint( int& left, int& top )
 {
   left = pRelX;
   top = pRelY;

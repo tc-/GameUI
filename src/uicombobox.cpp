@@ -110,7 +110,7 @@ void Combobox::render( ImageObject& img, const Rect& r )
   //img.setRelativePoint( absoluteXPos() + clientLeft(), absoluteYPos() + clientTop() );
   int x;
   int y;
-  img.getRelativePoint( x, y );
+  img.relativePoint( x, y );
   //cout << "Combo RelX: " << x << " RelY: " << y << endl;
   Edit::render( img, r );
 

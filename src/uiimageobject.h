@@ -52,17 +52,70 @@ namespace Ui
 			ImageObject(  ) {}
 			virtual ~ImageObject(  ) {}
 
+			/**
+			 * Draw an ImageObject on this ImageObject.
+			 *
+			 * @note if sr is not defined the whole source ImageObject will be drawn.
+			 * @see drawImageTiled() drawImageStreched().
+			 */
 			virtual void drawImage ( ImageObject &image, const Rect &dr, const Rect &sr = NULL_RECT ) = 0;
+
+			/**
+			 * Draw an ImageObject on this ImageObject, tiled.
+			 *
+			 * @note if sr is not defined the whole source ImageObject will be drawn.
+			 * @see drawImage() drawImageStreched().
+			 */
 			virtual void drawImageTiled ( ImageObject &image, const Rect &dr, const Rect &sr = NULL_RECT ) = 0;
+
+			/**
+			 * Draw an ImageObject on this ImageObject, streched.
+			 *
+			 * @note if sr is not defined the whole source ImageObject will be drawn.
+			 * @see drawImageTiled() drawImage().
+			 */
 			virtual void drawImageStreched ( ImageObject &image, const Rect &dr, const Rect &sr = NULL_RECT ) = 0;
 
+			/**
+			 * Fill area with color.
+			 *
+			 * @see Color.
+			 */
 			virtual void fillRect ( const Rect &r, const Color &color ) = 0;
 
+			/**
+			 * Draw text on this ImageObject.
+			 *
+			 * @see Font Color.
+			 */
 			virtual void outText ( const wstring &text, Font &font, int left, int top, const Color &color ) = 0;
 
+			/**
+			 * Draw a pixel on this ImageObject.
+			 *
+			 * @see getPixel() Color.
+			 */
 			virtual void putPixel ( int left, int top, const Color &color ) = 0;
+
+			/**
+			 * Get Color of a pixel on this ImageObject.
+			 *
+			 * @see putPixel() Color.
+			 */
 			virtual Color getPixel( const int& x, const int& y ) = 0;
+
+			/**
+			 * Draw horizontal line on this ImageObject.
+			 *
+			 * @see vLine() line() Color.
+			 */
 			virtual void hLine ( int left, int top, int width, const Color &color ) = 0;
+
+			/**
+			 * Draw vertical line on this ImageObject.
+			 *
+			 * @see hLine() line() Color.
+			 */
 			virtual void vLine ( int left, int top, int height, const Color &color ) = 0;
 
 			/**
@@ -70,7 +123,7 @@ namespace Ui
 			 *
 			 * @todo move to some utilty functions class.
 			 */
-			double ipart( double val ) {
+			inline double ipart( double val ) {
 				int tmp = ( int )val;
 				return ( double )tmp;
 			}
@@ -80,7 +133,7 @@ namespace Ui
 			 *
 			 * @todo move to some utilty functions class.
 			 */
-			double fpart( double val ) {
+			inline double fpart( double val ) {
 				int tmp = ( int )val;
 				return ( val-( double )tmp );
 			}
@@ -90,7 +143,7 @@ namespace Ui
 			 *
 			 * @todo move to some utilty functions class.
 			 */
-			double round( double val ) {
+			inline double round( double val ) {
 				return ipart( val + 0.5 );
 			}
 
@@ -99,7 +152,7 @@ namespace Ui
 			 *
 			 * @todo move to some utilty functions class.
 			 */
-			double rfpart( double val ) {
+			inline double rfpart( double val ) {
 				return ( 1.0 - fpart( val ) );
 			}
 
@@ -133,8 +186,20 @@ namespace Ui
 			 */
 			virtual Rect clipRect (  ) = 0;
 
+			/**
+			 * All x and y values are translated by left and top values in the drawing methods.
+			 *
+			 * @todo Make sure all draw operations obey translations.
+			 * @see setRelativePoint().
+			 */
+			virtual void relativePoint( int& left, int& top ) = 0;
+
+			/**
+			 * Setter for the relativePoint property.
+			 *
+			 * @see relativePoint().
+			 */
 			virtual void setRelativePoint( const int left = 0, const int top = 0 ) = 0;
-			virtual void getRelativePoint( int& left, int& top ) = 0;
 
 			/**
 			 * Deallocate associated resources.
@@ -154,6 +219,7 @@ namespace Ui
 			 * Load an image from file.
 			 *
 			 * File format will be detected automatically. Supported imageformats vary between implementaions.
+			 * @todo Define what formats must be supported.
 			 * @see freeImage() isLoaded().
 			 */
 			virtual bool loadImage( string fname ) = 0;
@@ -172,26 +238,68 @@ namespace Ui
 			 */
 			virtual int height(  ) = 0;
 
+			/**
+			 * Width of sections, this is used to divide an image into subimages.
+			 *
+			 * @see sectionRect() setSectionWidth() sectionHeight().
+			 */
 			virtual int sectionWidth(  ) {
 				return pSecWidth;
 			}
+
+			/**
+			 * Setter for the sectionWidth property.
+			 *
+			 * @see sectionWidth().
+			 */
 			virtual void setSectionWidht( const int& w ) {
 				pSecWidth = w;
 			}
+
+			/**
+			 * Height of sections, this is used to divide an image into subimages.
+			 *
+			 * @see sectionRect() setSectionHeight() sectionWidth().
+			 */
 			virtual int sectionHeight(  ) {
 				return pSecHeight;
 			}
+
+			/**
+			 * Setter for the sectionHeight property.
+			 *
+			 * @see sectionHeight().
+			 */
 			virtual void setSectionHeight( const int& h ) {
 				pSecHeight = h;
 			}
 
+			/**
+			 * Retreve Rect for a subimage.
+			 *
+			 * @param index the index of the subimage.
+			 *
+			 * @todo This could be moved to a helper class since it's not a very important feature and adds some memory overhead.
+			 * @see sectionWidth() sectionHeight().
+			 */
 			virtual Rect sectionRect( const int& index );
 
+			/**
+			 * The number of sections available in this image.
+			 *
+			 * @see sectionRect().
+			 */
 			virtual int numSections(  ) {
 				if ( ( pSecWidth <= 0 ) || ( pSecHeight <= 0 ) ) return 0;
+				if ( ( width() <= 0 ) || ( height() <= 0 ) ) return 0;
 				return ( int )floor( ( double )( width() / pSecWidth ) ) * ( int )floor( ( double )( height() / pSecHeight ) );
 			}
 
+			/**
+			 * Factory method to create ImageObject.
+			 *
+			 * @see objectFactory().
+			 */
 			static ImageObject* createImageObject( const int& width = 0, const int& height = 0 ) {
 				if ( pImageObjectFactory != NULL ) {
 					return pImageObjectFactory( width, height );
@@ -201,10 +309,20 @@ namespace Ui
 				}
 			}
 
+			/**
+			 * ImageObjectFactory to use when constructing ImageObject objects with createImageObject().
+			 *
+			 * @see createImageObject() setObjectFactory().
+			 */
 			static ImageObjectFactory objectFactory() {
 				return pImageObjectFactory;
 			}
 
+			/**
+			 * Setter for the objectFactory property.
+			 *
+			 * @see objectFactory().
+			 */
 			static void setObjectFactory( ImageObjectFactory imgf ) {
 				pImageObjectFactory = imgf;
 			}
