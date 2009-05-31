@@ -117,7 +117,9 @@ namespace Ui
 			 *
 			 * @see intersects() encloses().
 			 */
-			bool pointInside( const int& pleft, const int& ptop ) const;
+			inline bool pointInside( const int& pleft, const int& ptop ) const {
+				return ( (ptop >= top) && (pleft >= left) && (ptop <= top+height) && (pleft <= left+width));
+			}
 
 			/**
 			 * Output string repressenting this Rect.
@@ -136,13 +138,6 @@ namespace Ui
 			 */
 			int operator!=( const Rect& r ) const;
 
-			/**
-			 * Is specified point inside r Rect.
-			 *
-			 * @todo Does this method really provide any extra functionality that pointInside() does not have?
-			 * @see pointInside().
-			 */
-			static bool pointInside( const Rect& r, const int& pleft, const int& ptop );
 
 	};
 

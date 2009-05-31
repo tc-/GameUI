@@ -153,36 +153,6 @@ bool Rect::encloses( const Rect er ) const
 }
 
 
-bool Rect::pointInside( const int& pleft, const int& ptop ) const
-{
-  if ( (ptop >= top) && (pleft >= left) && (ptop <= top+height) && (pleft <= left+width))
-    return true;
-  else
-    return false;
-
-  if (( ptop >= top ) && ( pleft >= left )) {
-    if (( ptop <= top+height ) && ( pleft <= left+width ))
-      return true;
-  }
-
-  return false;
-}
-
-bool Rect::pointInside( const Rect& r, const int& pleft, const int& ptop )
-{
-	if ( (ptop >= r.top) && (pleft >= r.left) && (ptop <= r.top+r.height) && (pleft <= r.left+r.width))
-		return true;
-	else
-		return false;
-
-	if (( ptop >= r.top ) && ( pleft >= r.left )) {
-		if (( ptop <= r.top+r.height ) && ( pleft <= r.left+r.width ))
-			return true;
-	}
-
-	return false;
-}
-
 void Rect::debug( string ds ) const
 {
   cout << "!!! " << ds << " Rect::" << "top: " << top << " left: " << left << " width: " << width << " height: " << height << endl;

@@ -179,8 +179,8 @@ void Window::sizeChanged( const Rect& news )
 
 int Window::resizeArea( const int& x, const int& y )
 {
-	if ( Rect::pointInside( Rect( 0, 0, width(), height() ), x, y ) ) {
-		if ( !Rect::pointInside( Rect( borderLeft(), WindowFrame::borderTop(), clientVisibleWidth(), clientVisibleHeight() + pTitleHeight - WindowFrame::borderTop() ), x, y ) ) {
+	if ( Rect( 0, 0, width(), height() ).pointInside( x, y ) ) {
+		if ( !Rect( borderLeft(), WindowFrame::borderTop(), clientVisibleWidth(), clientVisibleHeight() + pTitleHeight - WindowFrame::borderTop() ).pointInside( x, y ) ) {
 			if ( x < 16 ) {
 				if ( y < 16 )
 					return 1;
