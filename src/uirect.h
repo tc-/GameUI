@@ -33,45 +33,117 @@ Headerfile for the UiRect class
 
 using namespace std;
 
-namespace Ui {
+namespace Ui
+{
 
-class Border;
+	class Border;
 
-/**
-Class to hold position and size data
+	/**
+	 * Class to hold position and size data.
+	 */
+	class Rect
+	{
+		public:
+			Rect();
+			Rect( int nLeft, int nTop, int nWidth, int nHeight );
+			~Rect();
 
-@author Tommy Carlsson
-*/
-class Rect{
-public:
-  Rect();
-  Rect( int nLeft, int nTop, int nWidth, int nHeight );
-  ~Rect();
+			int top;		//!< Vertical position.
+			int left;		//!< Horizontal position.
+			int width;
+			int height;
 
-  int top;
-  int left;
-  int width;
-  int height;
+			/**
+			 * Sets this Rect to be the intersection between cr and this Rect.
+			 *
+			 * @see merge().
+			 */
+			void crop( const Rect cr );
 
-  void crop( const Rect cr );
-  void merge( const Rect cr );
-  void applyBorder( Border* b );
+			/**
+			 * Sets this Rect to be the Union of cr and this Rect.
+			 *
+			 * This takes the lowest values of top and left and calculates the width and height to include both Rect objects.
+			 * @see crop().
+			 */
+			void merge( const Rect cr );
 
-  int area() const { return width * height; }
-  bool isVoid() const { return ( area() <= 0); };
-  bool intersects( const Rect ir ) const;
-  bool encloses( const Rect er ) const;
-  bool pointInside( const int& pleft, const int& ptop ) const;
-  void debug( string ds ) const;
+			/**
+			 * Shrink this Rect with the marigins of a Border.
+			 *
+			 * @see crop() Border.
+			 */
+			void applyBorder( Border* b );
 
-  int operator==( const Rect& r ) const;
-  int operator!=( const Rect& r ) const;
+			/**
+			 * The area of this Rect.
+			 *
+			 * @see isVoid().
+			 */
+			inline int area() const {
+				return width * height;
+			}
 
-	static bool pointInside( const Rect& r, const int& pleft, const int& ptop );
+			/**
+			 * Is this Rect empty.
+			 *
+			 * @see area().
+			 */
+			inline bool isVoid() const {
+				return ( area() <= 0 );
+			};
 
-};
+			/**
+			 * Does this Rect intersect with ir.
+			 *
+			 * @return true if the Rect objects have a common area.
+			 * @see encloses() pointInside().
+			 */
+			bool intersects( const Rect ir ) const;
 
-const Rect NULL_RECT = Rect( -1, -1, -1, -1 );
+			/**
+			 * Does this Rect enclose er.
+			 *
+			 * @return true if er is completely enclosed inside this Rect.
+			 * @see intersects() pointInside().
+			 */
+			bool encloses( const Rect er ) const;
+
+			/**
+			 * Is specified point inside this Rect.
+			 *
+			 * @see intersects() encloses().
+			 */
+			bool pointInside( const int& pleft, const int& ptop ) const;
+
+			/**
+			 * Output string repressenting this Rect.
+			 *
+			 * @todo Change to a "toString" method instead.
+			 */
+			void debug( string ds ) const;
+
+			/**
+			 * Rect objects are equal if left, top, width, and height are equal.
+			 */
+			int operator==( const Rect& r ) const;
+
+			/**
+			 * Rect objects are not equal if any of left, top, width, and height are not equal.
+			 */
+			int operator!=( const Rect& r ) const;
+
+			/**
+			 * Is specified point inside r Rect.
+			 *
+			 * @todo Does this method really provide any extra functionality that pointInside() does not have?
+			 * @see pointInside().
+			 */
+			static bool pointInside( const Rect& r, const int& pleft, const int& ptop );
+
+	};
+
+	const Rect NULL_RECT = Rect( -1, -1, -1, -1 ); //!< Rect to use in the same way as null.
 }
 
 #endif
