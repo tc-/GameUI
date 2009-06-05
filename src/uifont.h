@@ -20,8 +20,8 @@
 
 
 /**
-@file
-Headerfile for the UiFont class
+ * @file
+ * Headerfile for the UiFont class.
 */
 
 #ifndef UIFONT_H
@@ -35,91 +35,144 @@ using std::wstring;
 using std::string;
 
 
-namespace Ui {
+namespace Ui
+{
 
-class Font;
+	class Font;
 
-typedef Font* (*FontFactory)();
+	typedef Font* ( *FontFactory )();
 
 
 	/**
-	 * Class used to store a font style
-	 * @author Tommy Carlsson
+	 * Class used to store a Font's style.
 	 */
-class FontStyle {
-public:
-	FontStyle( const bool b = false, const bool i = false, const bool u = false ) { bold = b; italic = i; underline = u; }
+	class FontStyle
+	{
+		public:
+			FontStyle( const bool b = false, const bool i = false, const bool u = false ) {
+				bold = b;
+				italic = i;
+				underline = u;
+			}
 
-	bool bold;
-	bool italic;
-	bool underline;
+			bool bold;			//!< Font is bold.
+			bool italic;		//!< Font is italic.
+			bool underline;	//!< Font is underlined.
 
-	bool isNormal() const { return ( (!bold) && (!italic) && (!underline) ); }
+			/**
+			 * Are any styles set for this font.
+			 */
+			bool isNormal() const {
+				return ( ( !bold ) && ( !italic ) && ( !underline ) );
+			}
 
-	bool operator== ( const FontStyle& fs ) const { return ( ( bold == fs.bold ) && ( italic == fs.italic ) && ( underline == fs.underline ) ); }
-	bool operator!= ( const FontStyle& fs ) const { return ( ( bold != fs.bold ) || ( italic != fs.italic ) || ( underline != fs.underline ) ); }
-};
+			bool operator== ( const FontStyle& fs ) const {
+				return ( ( bold == fs.bold ) && ( italic == fs.italic ) && ( underline == fs.underline ) );
+			}
+			bool operator!= ( const FontStyle& fs ) const {
+				return ( ( bold != fs.bold ) || ( italic != fs.italic ) || ( underline != fs.underline ) );
+			}
+	};
 
 
-/**
-Abstract class used to contain a font
-
-@author Tommy Carlsson
-*/
-class Font{
-public:
-  Font() {}
-  virtual ~Font() {}
-
-  /**
-   * Returns the font size.
-   * @return the font size.
-   */
-  virtual int size() = 0;
 	/**
-	 * Sets a new font size.
-	 * @param newSize new font size.
-	 * @see Font::size()
+	 * Abstract class used to contain a font.
 	 */
-	virtual void setSize( int newSize ) = 0;
-  /**
-   * Returns the width of a string.
-   * @param s the string to get the width of.
-   * @return the width of the string.
-   */
-  virtual int textWidth( wstring s ) = 0;
+	class Font
+	{
+		public:
+			Font() {}
+			virtual ~Font() {}
 
-  /**
-   * Returns the height of the characters in the font.
-   * @return the height of the characters in the font.
-   */
-  virtual int textHeight(  ) = 0;
+			/**
+			 * The font size in px.
+			 *
+			 * @see setSize().
+			 */
+			virtual int size() = 0;
 
-  /**
-   * Returns the width of a single char.
-   * @param c the char to get width of.
-   * @return the width of the char.
-   */
-  virtual int charWidth( wchar_t c ) = 0;
-	virtual void loadFont( string fname, int size, int index ) = 0;
+			/**
+			 * Setter for the size property.
+			 *
+			 * @see size()
+			 */
+			virtual void setSize( int newSize ) = 0;
 
-  /**
-   * Returns true if the font is loaded.
-   * @return true if the font is loaded.
-   */
-  virtual bool isLoaded() = 0;
+			/**
+			 * The width of a string.
+			 *
+			 * @param s the string to get the width of.
+			 * @see textHeight() charWidth().
+			 */
+			virtual int textWidth( wstring s ) = 0;
 
-	virtual FontStyle style() = 0;
-	virtual void setStyle( const FontStyle& fs ) = 0;
+			/**
+			 * The height of the characters in the font.
+			 *
+			 * @see textWidth() charWidth().
+			 */
+			virtual int textHeight(  ) = 0;
 
-	static Font* createFont() {	assert( pFF != NULL ); return pFF(); }
-	static void setFontFactory( FontFactory ff ) { pFF = ff; }
+			/**
+			 * The width of a specific char.
+			 *
+			 * @param c the char to get width of.
+			 * @see textWidth() textHeight().
+			 */
+			virtual int charWidth( wchar_t c ) = 0;
 
-private:
+			/**
+			 * Load Font from file.
+			 *
+			 * @see isLoaded().
+			 */
+			virtual void loadFont( string fname, int size, int index ) = 0;
 
-	static FontFactory pFF;
+			/**
+			 * Is the font is loaded.
+			 *
+			 * @see loadFont().
+			 */
+			virtual bool isLoaded() = 0;
 
-};
+			/**
+			 * The style of this font.
+			 *
+			 * @see setStyle() FontStyle.
+			 */
+			virtual FontStyle style() = 0;
+
+			/**
+			 * Setter for the style property.
+			 *
+			 * @see style().
+			 */
+			virtual void setStyle( const FontStyle& fs ) = 0;
+
+			/**
+			 * Factory method for creating Font class objects.
+			 *
+			 * @see setFontFactory().
+			 */
+			static Font* createFont() {
+				assert( pFF != NULL );
+				return pFF();
+			}
+
+			/**
+			 * Set the FontFacroty method to use when creating new Font objects.
+			 *
+			 * @see createFont() FontFactory.
+			 */
+			static void setFontFactory( FontFactory ff ) {
+				pFF = ff;
+			}
+
+		private:
+
+			static FontFactory pFF;
+
+	};
 
 }
 
