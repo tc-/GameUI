@@ -27,82 +27,94 @@
 #include <uicolor.h>
 
 
-namespace Ui {
-
-
-
-/**
- * MouseCursor object used with the SDL lib
- * @author Tommy Carlsson
- */
-class SDLMouseCursor {
-public:
-
-	SDLMouseCursor() { pCursor = NULL; pImage = NULL; }
-	virtual ~SDLMouseCursor() { if ( isSystem() ) SDL_FreeCursor( pCursor ); }
-
-	/**
-	 *  Loads a cursor from an image.
-	 * @note If image only contains the colors black, white, transparentColor and invertColor it will be loaded as a system cursor, and will then enjoy hardware accelleration.
-	 * @see MouseCursor::load(), Ui::Mouse, Ui::ImageObject, and Ui::SDLMouse
-	 */
-	virtual void load( ImageObject& img, const int& hotspotX, const int& hotspotY, const Color& transparentColor, const Color& invertColor );
-	/**
-	 *  Checks if image contains a system cursor or an image cursor.
-	 * @param img the Image to check.
-	 * @return true if Image contains a system cursor.
-	 * @see MouseCursor::load(), and Ui::ImageObject
-	 */
-	virtual bool imageIsSystemCursor( ImageObject* img );
-	virtual bool isSystem() { return ( pCursor != NULL ); }
-	virtual bool isLoaded();
-
-	virtual ImageObject* getImageObject() { return pImage; }
-	virtual SDL_Cursor* getSDLCursorObject() { return pCursor; }
-
-	/**
-	 *  Creates a SDLMouseCursor object.
-	 * @return pointer to a SDLMouseCursor object.
-	 * @see MouseCursor::createMouseCursor(), and MouseCursor::setMouseCursorFactory()
-	 */
-	static MouseCursor* createSDLMouseCursor();
-
-private:
-
-	SDL_Cursor* pCursor;
-	ImageObject* pImage;
-
-};
-
-
-
-
-
-/**
-Mouse object for use with the SDL lib
-
-@author Tommy Carlsson
-*/
-class SDLMouse : public Mouse
+namespace Ui
 {
-public:
-  SDLMouse( Gui* g = NULL );
-  ~SDLMouse();
 
-  virtual MouseButtons mouseButtons();
-  virtual void mousePos(int& x, int& y);
-  virtual void update();
 
-  virtual MouseButtons translateMouseButtons( const Uint8& sdlButton );
 
-	virtual MouseCursor* cursor();
-	virtual void setCursor( MouseCursor* mc );
+	/**
+	 * MouseCursor object used with the SDL lib
+	 */
+	class SDLMouseCursor
+	{
+		public:
 
-private:
+			SDLMouseCursor() {
+				pCursor = NULL;
+				pImage = NULL;
+			}
+			virtual ~SDLMouseCursor() {
+				if ( isSystem() ) SDL_FreeCursor( pCursor );
+			}
 
-	SDLMouseCursor* pCursor;
-	Widget* pLastMouseOver;
-};
+			/**
+			 *  Loads a cursor from an image.
+			 * @note If image only contains the colors black, white, transparentColor and invertColor it will be loaded as a system cursor, and will then enjoy hardware accelleration.
+			 * @see MouseCursor::load(), Ui::Mouse, Ui::ImageObject, and Ui::SDLMouse
+			 */
+			virtual void load( ImageObject& img, const int& hotspotX, const int& hotspotY, const Color& transparentColor, const Color& invertColor );
+			/**
+			 *  Checks if image contains a system cursor or an image cursor.
+			 * @param img the Image to check.
+			 * @return true if Image contains a system cursor.
+			 * @see MouseCursor::load(), and Ui::ImageObject
+			 */
+			virtual bool imageIsSystemCursor( ImageObject* img );
+			virtual bool isSystem() {
+				return ( pCursor != NULL );
+			}
+			virtual bool isLoaded();
+
+			virtual ImageObject* getImageObject() {
+				return pImage;
+			}
+			virtual SDL_Cursor* getSDLCursorObject() {
+				return pCursor;
+			}
+
+			/**
+			 *  Creates a SDLMouseCursor object.
+			 * @return pointer to a SDLMouseCursor object.
+			 * @see MouseCursor::createMouseCursor(), and MouseCursor::setMouseCursorFactory()
+			 */
+			static MouseCursor* createSDLMouseCursor();
+
+		private:
+
+			SDL_Cursor* pCursor;
+			ImageObject* pImage;
+
+	};
+
+
+
+
+
+	/**
+	Mouse object for use with the SDL lib
+
+
+	*/
+	class SDLMouse : public Mouse
+	{
+		public:
+			SDLMouse( Gui* g = NULL );
+			~SDLMouse();
+
+			virtual MouseButtons mouseButtons();
+			virtual void mousePos( int& x, int& y );
+			virtual void update();
+
+			virtual MouseButtons translateMouseButtons( const Uint8& sdlButton );
+
+			virtual MouseCursor* cursor();
+			virtual void setCursor( MouseCursor* mc );
+
+		private:
+
+			SDLMouseCursor* pCursor;
+			Widget* pLastMouseOver;
+	};
 
 }
 

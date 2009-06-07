@@ -20,8 +20,8 @@
 
 
 /**
-@file
-Headerfile for the Ui::Edit class
+ * @file
+ * Headerfile for the Ui::Edit class.
 */
 
 #ifndef UIEDIT_H
@@ -37,76 +37,77 @@ Headerfile for the Ui::Edit class
 using std::wstring;
 using namespace std;
 
-namespace Ui {
-
-/**
-Control used for simple text input.
-
-@author Tommy Carlsson
-*/
-class Edit : public Widget
+namespace Ui
 {
-public:
 
-  Edit( Frame* parent = NULL );
-  Edit( Frame* parent, int x, int y, int width, int height);
+	/**
+	 * Control used for simple text input.
+	 */
+	class Edit : public Widget
+	{
+		public:
 
-  virtual ~Edit(  );
+			Edit( Frame* parent = NULL );
+			Edit( Frame* parent, int x, int y, int width, int height );
 
-  virtual void setTheme( Theme& t, const string prefix = "" );
+			virtual ~Edit(  );
 
-  virtual void render( ImageObject& img, const Rect& r );
-  virtual void setFocused( bool f );
+			virtual void setTheme( Theme& t, const string prefix = "" );
 
-  virtual Widget* mouseClick(int x, int y, MouseButtons mb);
-  virtual Widget* mouseDblClick(int x, int y, MouseButtons mb);
-  virtual Widget* mousePressed(int x, int y, MouseButtons mb);
-  virtual Widget* mouseReleased(int x, int y, MouseButtons mb);
-  virtual Widget* mouseMove( int x, int y, MouseButtons mb );
-  virtual Widget* keyPressed( Key key );
-  virtual Widget* keyReleased( Key key );
+			virtual void render( ImageObject& img, const Rect& r );
+			virtual void setFocused( bool f );
 
-  virtual void timerTick();
+			virtual Widget* mouseClick( int x, int y, MouseButtons mb );
+			virtual Widget* mouseDblClick( int x, int y, MouseButtons mb );
+			virtual Widget* mousePressed( int x, int y, MouseButtons mb );
+			virtual Widget* mouseReleased( int x, int y, MouseButtons mb );
+			virtual Widget* mouseMove( int x, int y, MouseButtons mb );
+			virtual Widget* keyPressed( Key key );
+			virtual Widget* keyReleased( Key key );
 
-  virtual wstring text(  );
-  virtual void setText( wstring s );
+			virtual void timerTick();
 
-  virtual wstring selectedText(  );
-  virtual int selectionStart(  );
-  virtual int selectionEnd(  );
-  virtual int selectionSize(  );
-  virtual void unselect();
+			virtual wstring text(  );
+			virtual void setText( wstring s );
 
-  virtual bool readOnly(  ) const;
-  virtual void setReadOnly( const bool enable = true );
-  virtual int indexAt( int x );
-  virtual int indexPos( int index );
-  virtual int cursorIndex();
-  virtual void setCursorIndex( int pos );
-  virtual int cursorPos(  );
+			virtual wstring selectedText(  );
+			virtual int selectionStart(  );
+			virtual int selectionEnd(  );
+			virtual int selectionSize(  );
+			virtual void unselect();
 
-	virtual Rect getEditArea() { return Rect( 0, 0, clientVisibleWidth(), clientVisibleHeight() ); }
+			virtual bool readOnly(  ) const;
+			virtual void setReadOnly( const bool enable = true );
+			virtual int indexAt( int x );
+			virtual int indexPos( int index );
+			virtual int cursorIndex();
+			virtual void setCursorIndex( int pos );
+			virtual int cursorPos(  );
 
-	virtual Widget* changed( );
+			virtual Rect getEditArea() {
+				return Rect( 0, 0, clientVisibleWidth(), clientVisibleHeight() );
+			}
 
-	signal1<Widget*> onChange;
+			virtual Widget* changed( );
+
+			signal1<Widget*> onChange;
 
 
-private:
+		private:
 
-  wstring pText;
+			wstring pText;
 
-  bool pReadonly;
-  bool pDrawForward;
-  int pDrawIndex;
-  int pCursorIndex;
-  int pSelStart;
-  int pSelEnd;
+			bool pReadonly;
+			bool pDrawForward;
+			int pDrawIndex;
+			int pCursorIndex;
+			int pSelStart;
+			int pSelEnd;
 
-  wstring renderText();
-  void renderCursor();
+			wstring renderText();
+			void renderCursor();
 
-};
+	};
 
 }
 

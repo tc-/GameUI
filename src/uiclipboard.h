@@ -37,10 +37,8 @@ enum ClipboardAction {
 };
 
 /**
-Class able to store and restore text for use as clipboard. Can be reimplemented to use other systems internal clipboards.
-
-@author Tommy Carlsson
-*/
+ * Class able to store and restore text for use as clipboard. Can be reimplemented to use other systems internal clipboards.
+ */
 class Clipboard {
 public:
 

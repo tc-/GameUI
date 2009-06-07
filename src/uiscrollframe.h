@@ -28,80 +28,89 @@
 #include <uivscrollbar.h>
 #include <uihscrollbar.h>
 
-namespace Ui {
-
-/**
-Frame class able to scroll its contents.
-
-@author Tommy Carlsson
-*/
-class ScrollFrame : public Frame
+namespace Ui
 {
-public:
-  ScrollFrame( Frame* parent );
 
-  ~ScrollFrame();
+	/**
+	 * Frame class able to scroll its contents.
+	 */
+	class ScrollFrame: public Frame
+	{
+		public:
+			ScrollFrame( Frame* parent );
 
-	virtual void setTheme( Theme & t, const string prefix = "" );
-	/*
-  virtual Widget* getWidgetAt(int x, int y);
-	virtual Rect getClientClipRect();*/
-//	virtual Rect getClientVisibleRect();
-	virtual Rect getClientRect();
+			~ScrollFrame();
 
-	virtual int clientWidth( );
-	virtual int clientHeight( );
+			virtual void setTheme( Theme & t, const string prefix = "" );
 
-  virtual void render( ImageObject& img, const Rect& r );
-  //virtual void renderBackground( const Rect& r );
+			virtual Rect getClientRect();
 
-	virtual void resize( int newwidth, int newheight );
-	virtual void move( const int newleft, const int newtop );
+			virtual int clientWidth( );
+			virtual int clientHeight( );
 
-  virtual void scroll( const int dx, const int dy );
-  virtual void scrollTo( const int top, const int left );
+			virtual void render( ImageObject& img, const Rect& r );
 
-  virtual VScrollbar* vScroll() const;
-  virtual void setVScroll( VScrollbar* sb );
-  virtual HScrollbar* hScroll() const;
-  virtual void setHScroll( HScrollbar* sb );
+			virtual void resize( int newwidth, int newheight );
+			virtual void move( const int newleft, const int newtop );
 
-  virtual int scrollX() const { return pScrollX; }
-  virtual int scrollY() const { return pScrollY; }
+			virtual void scroll( const int dx, const int dy );
+			virtual void scrollTo( const int top, const int left );
 
-	virtual void setScrollX( const int x ) { pScrollX = x; updateScrollbars(); }
-	virtual void setScrollY( const int y ) { pScrollY = y; updateScrollbars(); }
-	virtual void setScroll( const int x, const int y ) { pScrollX = x; pScrollY = y; updateScrollbars(); }
+			virtual VScrollbar* vScroll() const;
+			virtual void setVScroll( VScrollbar* sb );
+			virtual HScrollbar* hScroll() const;
+			virtual void setHScroll( HScrollbar* sb );
 
-	virtual void childUpdated( Widget& o );
+			virtual int scrollX() const {
+				return pScrollX;
+			}
+			virtual int scrollY() const {
+				return pScrollY;
+			}
 
-  virtual Widget* mouseMove( int x, int y, MouseButtons mb );
-  virtual Widget* mousePressed( int x, int y, MouseButtons mb );
-  virtual Widget* mouseReleased( int x, int y, MouseButtons mb );
+			virtual void setScrollX( const int x ) {
+				pScrollX = x;
+				updateScrollbars();
+			}
+			virtual void setScrollY( const int y ) {
+				pScrollY = y;
+				updateScrollbars();
+			}
+			virtual void setScroll( const int x, const int y ) {
+				pScrollX = x;
+				pScrollY = y;
+				updateScrollbars();
+			}
 
-private:
+			virtual void childUpdated( Widget& o );
 
-  VScrollbar* pVScroll;
-  HScrollbar* pHScroll;
+			virtual Widget* mouseMove( int x, int y, MouseButtons mb );
+			virtual Widget* mousePressed( int x, int y, MouseButtons mb );
+			virtual Widget* mouseReleased( int x, int y, MouseButtons mb );
 
-  int pScrollX;
-  int pScrollY;
+		private:
 
-	bool pClientCasheValid;
-	int pClientWidthCashe;
-	int pClientHeightCashe;
+			VScrollbar* pVScroll;
+			HScrollbar* pHScroll;
 
-  virtual void onScrolled( Widget* obj, int old );
-	virtual void scrollDestroyed( Widget& obj );
+			int pScrollX;
+			int pScrollY;
 
-	virtual void updateScrollbars( bool onlyBounds = false );
+			bool pClientCasheValid;
+			int pClientWidthCashe;
+			int pClientHeightCashe;
 
-protected:
+			virtual void onScrolled( Widget* obj, int old );
+			virtual void scrollDestroyed( Widget& obj );
 
-	virtual void childAdded( Widget* o );
-	virtual void childRemoved( Widget* o );
+			virtual void updateScrollbars( bool onlyBounds = false );
 
-};
+		protected:
+
+			virtual void childAdded( Widget* o );
+			virtual void childRemoved( Widget* o );
+
+	};
 
 }
 

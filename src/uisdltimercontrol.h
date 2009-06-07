@@ -25,38 +25,37 @@
 #include <uitimer.h>
 #include <uilist.h>
 
-namespace Ui {
-
-/**
-TimerControl class using the SDL library.
-
-@author Tommy Carlsson
-*/
-class SDLTimerControl : public TimerControl
+namespace Ui
 {
-public:
-  SDLTimerControl();
 
-  ~SDLTimerControl();
+	/**
+	 * TimerControl class using the SDL library.
+	 */
+	class SDLTimerControl : public TimerControl
+	{
+		public:
+			SDLTimerControl();
 
-	virtual long int getTimeLeft( Timer* t );
-	virtual void timerTicked( Timer* t );
+			~SDLTimerControl();
 
-	virtual void assignTimer( Timer* t );
-	virtual void removeTimer( Timer* t );
+			virtual long int getTimeLeft( Timer* t );
+			virtual void timerTicked( Timer* t );
 
-	static TimerControl* createTimerControl();
-  static void destroyTimerControl(TimerControl* tc);
+			virtual void assignTimer( Timer* t );
+			virtual void removeTimer( Timer* t );
 
-	static SDLTimerControl* defaultSDlTimerControl();
+			static TimerControl* createTimerControl();
+			static void destroyTimerControl( TimerControl* tc );
 
-	static void handleSDLTimers();
+			static SDLTimerControl* defaultSDlTimerControl();
 
-private:
+			static void handleSDLTimers();
 
-	static List<Timer*> pTimers;
+		private:
 
-};
+			static List<Timer*> pTimers;
+
+	};
 
 }
 

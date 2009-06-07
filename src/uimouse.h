@@ -27,61 +27,68 @@
 #include <uiwidget.h>
 #include <uigui.h>
 
-namespace Ui {
-
-class MouseCursor;
-
-typedef MouseCursor* (*MouseCursorFactory)();
-
-/**
- * Abstract class used to implement a mouse cursor.
- * @author Tommy Carlsson
- */
-class MouseCursor {
-public:
-	MouseCursor() {}
-	virtual ~MouseCursor() {}
-	virtual void load( ImageObject& img, const int& hotspotX, const int& hotspotY, const Color& transparentColor, const Color& invertColor ) = 0;
-	virtual bool isLoaded() = 0;
-	virtual bool isSystem() = 0;
-	static MouseCursor* createMouseCursor();
-	static void setMouseCursorFactory( MouseCursorFactory f );
-
-private:
-	static MouseCursorFactory pFactory;
-};
-
-/**
- * Abstract class used to implement a mouse control.
- * @author Tommy Carlsson
- */
-class Mouse : public has_slots<>
+namespace Ui
 {
-public:
 
-  Mouse( Gui* g = NULL ) { pGui = g; }
-  virtual ~Mouse() {}
+	class MouseCursor;
 
-  virtual Gui* gui() {  return pGui; }
-  virtual void setGui( Gui* s ) {  pGui = s; }
+	typedef MouseCursor* ( *MouseCursorFactory )();
 
-  virtual void update() = 0;
-  virtual void mousePos( int& x, int& y ) = 0;
+	/**
+	 * Abstract class used to implement a mouse cursor.
+	 */
+	class MouseCursor
+	{
+		public:
+			MouseCursor() {}
+			virtual ~MouseCursor() {}
+			virtual void load( ImageObject& img, const int& hotspotX, const int& hotspotY, const Color& transparentColor, const Color& invertColor ) = 0;
+			virtual bool isLoaded() = 0;
+			virtual bool isSystem() = 0;
+			static MouseCursor* createMouseCursor();
+			static void setMouseCursorFactory( MouseCursorFactory f );
 
-	virtual MouseButtons mouseButtons( ) = 0;
+		private:
+			static MouseCursorFactory pFactory;
+	};
 
-	virtual MouseCursor* cursor() = 0;
-	virtual void setCursor( MouseCursor* mc ) = 0;
 
-  signal3< int,int,MouseButtons > onMousePressed;
-  signal3< int,int,MouseButtons > onMouseReleased;
-  signal3< int,int,MouseButtons > onMouseMove;
+	/**
+	 * Abstract class used to implement a mouse control.
+	 */
+	class Mouse : public has_slots<>
+	{
+		public:
 
-private:
+			Mouse( Gui* g = NULL ) {
+				pGui = g;
+			}
+			virtual ~Mouse() {}
 
-  Gui* pGui;
+			virtual Gui* gui() {
+				return pGui;
+			}
+			virtual void setGui( Gui* s ) {
+				pGui = s;
+			}
 
-};
+			virtual void update() = 0;
+			virtual void mousePos( int& x, int& y ) = 0;
+
+			virtual MouseButtons mouseButtons( ) = 0;
+
+			virtual MouseCursor* cursor() = 0;
+			virtual void setCursor( MouseCursor* mc ) = 0;
+
+			signal3< int,int,MouseButtons > onMousePressed;
+			signal3< int,int,MouseButtons > onMouseReleased;
+			signal3< int,int,MouseButtons > onMouseMove;
+
+		private:
+
+			Gui* pGui;
+
+	};
 
 }
 

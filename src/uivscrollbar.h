@@ -27,104 +27,103 @@
 #include <uigui.h>
 #include <uiborder.h>
 
-namespace Ui {
-
-/**
-A Vertical Scrollbar Control Class
-
-@author Tommy Carlsson
-*/
-class VScrollbar : public Widget
+namespace Ui
 {
-public:
 
-  int scrollBy;
-  int scrollDelay;
+	/**
+	 * A Vertical Scrollbar Control Class
+	 */
+	class VScrollbar : public Widget
+	{
+		public:
 
-  VScrollbar( Frame* parent );
-  ~VScrollbar();
+			int scrollBy;
+			int scrollDelay;
 
-  virtual void setTheme( Theme & t, const string prefix = "" );
+			VScrollbar( Frame* parent );
+			~VScrollbar();
 
-  virtual ImageObject* tButtonGlyph() const;
-  virtual void setTButtonGlyph( ImageObject* img );
+			virtual void setTheme( Theme & t, const string prefix = "" );
 
-  virtual ImageObject* bButtonGlyph() const;
-  virtual void setBButtonGlyph( ImageObject* img );
+			virtual ImageObject* tButtonGlyph() const;
+			virtual void setTButtonGlyph( ImageObject* img );
 
-  virtual Border* buttonBorder() const;
-  virtual void setButtonBorder( Border* b );
+			virtual ImageObject* bButtonGlyph() const;
+			virtual void setBButtonGlyph( ImageObject* img );
 
-  virtual Border* buttonPressedBorder() const;
-  virtual void setButtonPressedBorder( Border* b );
+			virtual Border* buttonBorder() const;
+			virtual void setButtonBorder( Border* b );
 
-  virtual Border* scrollerBorder() const;
-  virtual void setScrollerBorder( Border* b );
+			virtual Border* buttonPressedBorder() const;
+			virtual void setButtonPressedBorder( Border* b );
 
-  virtual Border* scrollerPressedBorder() const;
-  virtual void setScrollerPressedBorder( Border* b );
+			virtual Border* scrollerBorder() const;
+			virtual void setScrollerBorder( Border* b );
+
+			virtual Border* scrollerPressedBorder() const;
+			virtual void setScrollerPressedBorder( Border* b );
 
 
-  virtual int scrollerPos() const;
-  virtual void setScrollerPos( const int pos );
+			virtual int scrollerPos() const;
+			virtual void setScrollerPos( const int pos );
 
-  virtual int scrollerMaxPos() const;
-  virtual void setScrollerMaxPos( const int mp );
+			virtual int scrollerMaxPos() const;
+			virtual void setScrollerMaxPos( const int mp );
 
-  virtual int scrollerMinHeight() const;
-  virtual void setScrollerMinHeight( const int mh );
+			virtual int scrollerMinHeight() const;
+			virtual void setScrollerMinHeight( const int mh );
 
-  virtual int pageSize() const;
-  virtual void setPageSize( const int ps );
+			virtual int pageSize() const;
+			virtual void setPageSize( const int ps );
 
-  virtual Widget* keyPressed(Key key);
-  virtual Widget* keyReleased(Key key);
-  virtual Widget* mouseClick(int x, int y, MouseButtons mb);
-  virtual Widget* mouseIn(MouseButtons mb);
-  virtual Widget* mouseMove(int x, int y, MouseButtons mb);
-  virtual Widget* mouseOut(MouseButtons mb);
-  virtual Widget* mousePressed(int x, int y, MouseButtons mb);
-  virtual Widget* mouseReleased(int x, int y, MouseButtons mb);
+			virtual Widget* keyPressed( Key key );
+			virtual Widget* keyReleased( Key key );
+			virtual Widget* mouseClick( int x, int y, MouseButtons mb );
+			virtual Widget* mouseIn( MouseButtons mb );
+			virtual Widget* mouseMove( int x, int y, MouseButtons mb );
+			virtual Widget* mouseOut( MouseButtons mb );
+			virtual Widget* mousePressed( int x, int y, MouseButtons mb );
+			virtual Widget* mouseReleased( int x, int y, MouseButtons mb );
 
-  virtual void render( ImageObject& img, const Rect& r );
+			virtual void render( ImageObject& img, const Rect& r );
 
-  virtual void setHeight(int h);
-  virtual void setWidth(int w);
+			virtual void setHeight( int h );
+			virtual void setWidth( int w );
 
-  virtual void scrollUp();
-  virtual void scrollDown();
-  virtual void scroll( const int delta );
+			virtual void scrollUp();
+			virtual void scrollDown();
+			virtual void scroll( const int delta );
 
-  signal2<Widget*,int> onScroll;
+			signal2<Widget*,int> onScroll;
 
-private:
+		private:
 
-  ImageObject* pTButtonGlyph;
-  ImageObject* pBButtonGlyph;
+			ImageObject* pTButtonGlyph;
+			ImageObject* pBButtonGlyph;
 
-  Border* pButtonBorder;
-  Border* pButtonPressedBorder;
-  Border* pScrollerBorder;
-  Border* pScrollerPressedBorder;
+			Border* pButtonBorder;
+			Border* pButtonPressedBorder;
+			Border* pScrollerBorder;
+			Border* pScrollerPressedBorder;
 
-  int pScrollerPos;
-  int pScrollerMaxPos;
-  int pScrollerMinHeight;
-  int pPageSize;
+			int pScrollerPos;
+			int pScrollerMaxPos;
+			int pScrollerMinHeight;
+			int pPageSize;
 
-  int pScrollWait;
+			int pScrollWait;
 
-  int pScrollerPressed;
-  bool pButtonUpPressed;
-  bool pButtonDownPressed;
+			int pScrollerPressed;
+			bool pButtonUpPressed;
+			bool pButtonDownPressed;
 
-  int scrollArea() const;
-  int scrollerSize() const;
-  int scrollerTop() const;
-  int elementAt( const int x, const int y ) const;
+			int scrollArea() const;
+			int scrollerSize() const;
+			int scrollerTop() const;
+			int elementAt( const int x, const int y ) const;
 
-  void timerTick( );
-};
+			void timerTick( );
+	};
 
 }
 

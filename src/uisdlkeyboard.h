@@ -20,8 +20,8 @@
 
 
 /**
-@file
-Headerfile for the Ui::SDLKeyboard class.
+ * @file
+ * Headerfile for the Ui::SDLKeyboard class.
 */
 
 #ifndef UISDLKEYBOARD_H
@@ -30,25 +30,24 @@ Headerfile for the Ui::SDLKeyboard class.
 #include <uikeyboard.h>
 #include "SDL.h"
 
-namespace Ui {
-
-/**
-Ui::Keyboard class using SDL for input.
-
-@author Tommy Carlsson
-*/
-class SDLKeyboard : public Keyboard
+namespace Ui
 {
-public:
-  SDLKeyboard( Gui* g = NULL );
-  ~SDLKeyboard();
 
-  void update();
-  void setRepeat( int delay = 0, int interval = 0 );
+	/**
+	 * Keyboard class using SDL for input.
+	 */
+	class SDLKeyboard : public Keyboard
+	{
+		public:
+			SDLKeyboard( Gui* g = NULL );
+			~SDLKeyboard();
 
-  Keysym translateSDLKeysym( const SDLKey ks );
+			void update();
+			void setRepeat( int delay = 0, int interval = 0 );
 
-};
+			Keysym translateSDLKeysym( const SDLKey ks );
+
+	};
 
 }
 

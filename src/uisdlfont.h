@@ -20,9 +20,9 @@
 
 
 /**
-@file
-Headerfile for the Ui::SDLFont class
-*/
+ * @file
+ * Headerfile for the Ui::SDLFont class
+ */
 
 #ifndef UISDLFONT_H
 #define UISDLFONT_H
@@ -36,50 +36,48 @@ Headerfile for the Ui::SDLFont class
 
 using std::string;
 
-namespace Ui {
-
-/**
-Class containing a SDL TTF font
-
-@author Tommy Carlsson
-*/
-class SDLFont : public Font
+namespace Ui
 {
-public:
-  SDLFont(  );
-  SDLFont( string fname, int size, int index );
-  ~SDLFont(  );
 
-  int size();
-  int textWidth( wstring s );
-  int charWidth( wchar_t c );
-  int textHeight(  );
-
-  void setSize( int newSize );
-  void loadFont( string fname, int size, int index );
-//  void setStyle( int style );
-	FontStyle style();
-	void setStyle( const FontStyle& fs );
-
-  void freeFont(  );
-  bool isLoaded(  );
-
-  TTF_Font* getFont(  );
-
-  static Font* themeSDLFontLoader( InifileSection* iniSec, const ThemeLoadOptions& op );
-
-	static Font* sdlFontFactory()
+	/**
+	 * Class containing a SDL TTF font
+	 */
+	class SDLFont : public Font
 	{
-		return new SDLFont();
-	}
+		public:
+			SDLFont(  );
+			SDLFont( string fname, int size, int index );
+			~SDLFont(  );
 
-private:
-  TTF_Font *f;
-  string pfname;
-  int pindex;
-  int psize;
+			int size();
+			int textWidth( wstring s );
+			int charWidth( wchar_t c );
+			int textHeight(  );
 
-};
+			void setSize( int newSize );
+			void loadFont( string fname, int size, int index );
+
+			FontStyle style();
+			void setStyle( const FontStyle& fs );
+
+			void freeFont(  );
+			bool isLoaded(  );
+
+			TTF_Font* getFont(  );
+
+			static Font* themeSDLFontLoader( InifileSection* iniSec, const ThemeLoadOptions& op );
+
+			static Font* sdlFontFactory() {
+				return new SDLFont();
+			}
+
+		private:
+			TTF_Font *f;
+			string pfname;
+			int pindex;
+			int psize;
+
+	};
 
 }
 

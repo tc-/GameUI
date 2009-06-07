@@ -54,242 +54,272 @@
 
 using namespace std;
 
-namespace Ui {
+namespace Ui
+{
 
-class Color;
+	class Color;
 
-enum AlignType { alignLeft, alignCenter, alignRight, alignTop, alignBottom };
-enum HAlignType { halignLeft, halignCenter, halignRight };
-enum VAlignType { valignTop, valignCenter, valignBottom };
+	enum AlignType { alignLeft, alignCenter, alignRight, alignTop, alignBottom };
+	enum HAlignType { halignLeft, halignCenter, halignRight };
+	enum VAlignType { valignTop, valignCenter, valignBottom };
 
-/**
-Contains help functions.
-@note This class is not meant to be created, it only contains static help functions.
-@author Tommy Carlsson
-*/
-class Utils{
-public:
-  Utils();
-  ~Utils();
-  /**
-   * Converts a string into a Color.
-	 * The string can contain any of the color names:
-	 *   "aqua", "black", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "purple", "red", "silver", "teal", "white", "yellow"
-	 * OR be in the color format "r,g,b"
-	 *   example: "255,0,0" (for red color)
-	 * you can also add alpha with the format "r,g,b,a"
-	 *   example: "0,255,0,128" (for a transparent green color)
-   * @param cs The string to convert.
-   * @param out the output Color.
-   */
-  static void fromString( string cs, Color& out );
-  /**
-   * Convert a Color into a string value.
-	 * @note this function only returns colors in the "r,g,b,a" format see fromString( string cs, Color& out ).
-   * @param in The Color to convert to a string.
-   * @return the string value of the color.
-   */
-  static string toString( const Color& in );
+	/**
+	 * Contains static help functions.
+	 *
+	 * @note This class is not meant to be created, it only contains static help functions.
+	 */
+	class Utils
+	{
+		public:
+			Utils();
+			~Utils();
+
+			/**
+			 * Converts a string into a Color.
+			 *
+			 * The string can contain any of the color names:
+			 *   "aqua", "black", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "purple", "red", "silver", "teal", "white", "yellow"
+			 * OR be in the color format "r,g,b"
+			 *   example: "255,0,0" (for red color)
+			 * you can also add alpha with the format "r,g,b,a"
+			 *   example: "0,255,0,128" (for a transparent green color)
+			 * @param cs The string to convert.
+			 * @param out the output Color.
+			 */
+			static void fromString( string cs, Color& out );
+
+			/**
+			 * Convert a Color into a string value.
+			 *
+			 * @note this function only returns colors in the "r,g,b,a" format see fromString( string cs, Color& out ).
+			 * @param in The Color to convert to a string.
+			 * @return the string value of the color.
+			 */
+			static string toString( const Color& in );
 
 
-  /**
-   * Returns the position an object with the size insideSize should have to be positioned in the middle of a container with the size containerSize.
-   * @param containerSize the size of the container.
-   * @param insideSize the size of the object.
-   * @return the position the object should have to be positioned in the middle of the container.
-   */
-  static int inMiddle( const int containerSize, const int insideSize );
+			/**
+			 * The position an object with the size insideSize should have to be positioned in the middle of a container with the size containerSize.
+			 *
+			 * @param containerSize the size of the container.
+			 * @param insideSize the size of the object.
+			 * @return the position the object should have to be positioned in the middle of the container.
+			 */
+			static int inMiddle( const int containerSize, const int insideSize );
 
-	static int align( const int containerSize, const int objectSize, AlignType a );
-	static int align( const int containerSize, const int objectSize, HAlignType a );
-	static int align( const int containerSize, const int objectSize, VAlignType a );
+			static int align( const int containerSize, const int objectSize, AlignType a );
+			static int align( const int containerSize, const int objectSize, HAlignType a );
+			static int align( const int containerSize, const int objectSize, VAlignType a );
+
+
+			/**
+			 * Covert Input into a wide string.
+			 *
+			 * @param in Input.
+			 * @return converted wstring value.
+			 * @see Utils::toString() Utils::fromWString().
+			 */
+			template <typename Input>
+			static wstring toWString( Input in );
+
+			/**
+			 * Covert Input string into a wide string
+			 *
+			 * @param in Input.
+			 * @return converted wstring value.
+			 * @see Utils::toString() Utils::fromWString().
+			 */
+			static wstring toWString( string in );
+
+			/**
+			 * Convert Input into a string.
+			 *
+			 * @param in Input.
+			 * @return converted string value.
+			 * @see Utils::toWString() Utils::fromString().
+			 */
+			template <typename Input>
+			static string toString( Input in );
+
+			/**
+			 * Depricated, use fromString() instead.
+			 *
+			 * @see Utils::fromString().
+			 */
+			static int stringToInt( const string& in );
+
+
+			/**
+			 * Convert string to Output.
+			 *
+			 * @param in string to convert.
+			 * @param out the converted value.
+			 * @see Utils::fromWString() Utils::toString().
+			 */
+			template <typename Output>
+			static void fromString( string in, Output& out );
+
+			/**
+			 * Convert wide string to Output.
+			 *
+			 * @param in wstring to convert.
+			 * @param out the converted value,
+			 * @see Utils::fromString() Utils::toWString().
+			 */
+			template <typename Output>
+			static void fromWString( wstring in, Output& out );
+
+			/**
+			 * Convert wide string to Output.
+			 *
+			 * @param in wstring to convert.
+			 * @param out the converted string,
+			 * @see Utils::fromString() Utils::toWString().
+			 */
+			static void fromWString( wstring in, string& out );
+
+			//TODO: Fulhack
+			static void fromWStringToString( wstring in, string& out );
+
+			/**
+			 * The highest of two numbers.
+			 *
+			 * @param i1 number 1.
+			 * @param i2 number 2
+			 * @return the higherst of the input numbers.
+			 * @see Utils::min().
+			 */
+			static int max( const int& i1, const int& i2 );
+
+			/**
+			 * The lowest of two numbers.
+			 *
+			 * @param i1 number 1.
+			 * @param i2 number 2.
+			 * @return the lowest of the input numbers.
+			 * @see Utils::max().
+			 */
+			static int min( const int& i1, const int& i2 );
+
+			/**
+			 * True if a point is on top of a line.
+			 *
+			 * @param x1 the line's first x coordinate.
+			 * @param y1 the line's first y coordinate.
+			 * @param x2 the line's second x coordinate.
+			 * @param y2 the line's second y coordinate.
+			 * @param px the point's x coordinate.
+			 * @param py the point's y coordinate.
+			 * @return true if a point is on top of a line.
+			 */
+			static bool onLine( int x1, int y1, int x2, int y2, int px, int py );
+
+			/**
+			 * Set an error message and output it to the user.
+			 *
+			 * @param msg The error message.
+			 * @param stopTask if the current task should stop with fail status.
+			 * @see Utils::endTask() Utils::setWarning() Utils::setNotice().
+			 */
+			static void setError( const string& msg, const bool& stopTask = true );
+
+			/**
+			 * Set a warning and output it to the user.
+			 *
+			 * @param msg The warning message.
+			 * @see Utils::beginTask() Utils::setError() Utils::setNotice().
+			 */
+			static void setWarning( const string& msg );
+
+			/**
+			 * Output a message to the user.
+			 *
+			 * @param msg message.
+			 * @see Utils::beginTask() Utils::setWarning() Utils::setError().
+			 */
+			static void setNotice( const string& msg );
+
+			/**
+			 * Get the latest error message.
+			 *
+			 * @return The latest error message.
+			 * @see Utils::setError().
+			 */
+			static string getError( );
+
+			/**
+			 * Start a new task.
+			 *
+			 * @note Any unended tasks will be ended with success status.
+			 * @param msg explanation of the task.
+			 * @see Utils::endTask().
+			 */
+			static void startTask( const string& msg );
+
+			/**
+			 * End current task.
+			 *
+			 * @param result The success status of the task.
+			 * @see Utils::startTask() Utils::setError().
+			 */
+			static void endTask( const bool& result );
+
+			/**
+			 * Start new section.
+			 *
+			 * @param name Name of section.
+			 */
+			static void startSection( const string& name );
+
+			/**
+			 * Convert two coordinates into a Rect.
+			 *
+			 * The coordinates will be two of the corners in the rect.
+			 * @param x1 Coordinate 1 X value.
+			 * @param y1 Coordinate 1 Y value.
+			 * @param x2 Coordinate 2 X value.
+			 * @param y2 Coordinate 2 Y value.
+			 * @return Rect.
+			 * @see Ui::Rect.
+			 */
+			static Rect getRect( int x1, int y1, int x2, int y2 );
+
+		private:
+
+			static string pErrMsg;
+			static bool pHasTask;
+			static bool pTaskInt;
+			static string pTaksMsg;
+
+	};
 
 	template <typename Input>
-  /**
-   * Covert Input into a wide string.
-   * @param in Input.
-   * @return converted wstring value.
-	 * @see Utils::toString(), Utils::fromWString()
-   */
-  static wstring toWString( Input in );
+	wstring Utils::toWString( Input in )
+	{
+		return toWString( toString( in ) );
+	}
 
-  /**
-	 * Covert Input string into a wide string.
-	 * @param in Input.
-	 * @return converted wstring value.
-	 * @see Utils::toString(), Utils::fromWString()
-	 */
-	static wstring toWString( string in );
+	template <typename Input>
+	string Utils::toString( Input in )
+	{
+		std::basic_ostringstream<char> s;
+		s << in;
+		return s.str();
+	}
 
-  template <typename Input>
-  /**
-   * Convert Input into a string.
-   * @param in Input.
-   * @return converted string value.
-	 * @see Utils::toWString(), Utils::fromString()
-   */
-  static string toString( Input in );
+	template <typename Output>
+	static void fromString( string in, Output& out )
+	{
+		std::basic_stringstream<char> s( in );
+		s >> out;
+	}
 
-  /**
-   * Depricated, use fromString() instead.
-	 * @see Utils::fromString()
-   */
-  static int stringToInt( const string& in );
-
-  template <typename Output>
-  /**
-   * Convert string to Output.
-   * @param in string to convert.
-   * @param out the converted value.
-	 * @see Utils::fromWString(), Utils::toString()
-   */
-  static void fromString( string in, Output& out );
-
-  template <typename Output>
-  /**
-   * Convert wide string to Output.
-   * @param in wstring to convert.
-   * @param out the converted value,
-	 * @see Utils::fromString(), Utils::toWString()
-   */
-  static void fromWString( wstring in, Output& out );
-
-  /**
-	 * Convert wide string to Output.
-	 * @param in wstring to convert.
-	 * @param out the converted string,
-	 * @see Utils::fromString(), Utils::toWString()
-	 */
-	static void fromWString( wstring in, string& out );
-	//TODO: Fulhack
-	static void fromWStringToString( wstring in, string& out );
-
-	/**
-   * Returns the highest of two numbers.
-   * @param i1 number 1.
-   * @param i2 number 2
-   * @return the higherst of the input numbers.
-	 * @see Utils::min()
-   */
-  static int max( const int& i1, const int& i2 );
-  /**
-   * Returns the lowest of two numbers.
-   * @param i1 number 1.
-   * @param i2 number 2.
-   * @return the lowest of the input numbers.
-	 * @see Utils::max()
-   */
-  static int min( const int& i1, const int& i2 );
-
-	/**
-	 *  Returns true if a point is on top of a line.
-	 * @param x1 the line's first x coordinate.
-	 * @param y1 the line's first y coordinate.
-	 * @param x2 the line's second x coordinate.
-	 * @param y2 the line's second y coordinate.
-	 * @param px the point's x coordinate.
-	 * @param py the point's y coordinate.
-	 * @return true if a point is on top of a line.
-	 */
-	static bool onLine( int x1, int y1, int x2, int y2, int px, int py );
-
-  /**
-   * Set an error message and output it to the user.
-   * @param msg The error message.
-   * @param stopTask if the current task should stop with fail status.
-	 * @see Utils::endTask(), Utils::setWarning(), Utils::setNotice()
-   */
-  static void setError( const string& msg, const bool& stopTask = true );
-  /**
-   * Set a warning and output it to the user.
-   * @param msg The warning message.
-	 * @see Utils::beginTask(), Utils::setError(), Utils::setNotice()
-	 */
-  static void setWarning( const string& msg );
-  /**
-   * Output a message to the user.
-   * @param msg message.
-	 * @see Utils::beginTask(), Utils::setWarning(), Utils::setError()
-	 */
-  static void setNotice( const string& msg );
-  /**
-   * Get the latest error message.
-	 * @return The latest error message.
-	 * @see Utils::setError()
-   */
-  static string getError( );
-
-  /**
-   * Start a new task.
-	 * @note Any unended tasks will be ended with success status.
-   * @param msg explanation of the task.
-	 * @see Utils::endTask()
-   */
-  static void startTask( const string& msg );
-  /**
-   * End current task.
-   * @param result The success status of the task.
-	 * @see Utils::startTask(), Utils::setError()
-   */
-  static void endTask( const bool& result );
-
-  /**
-   * Start new section.
-   * @param name Name of section.
-   */
-  static void startSection( const string& name );
-
-	/**
-	 * Convert two coordinates into a Rect.
-	 * The coordinates will be two of the corners in the rect.
-	 * @param x1 Coordinate 1 X value.
-	 * @param y1 Coordinate 1 Y value.
-	 * @param x2 Coordinate 2 X value.
-	 * @param y2 Coordinate 2 Y value.
-	 * @return Rect.
-	 * @see Ui::Rect
-	 */
-	static Rect getRect( int x1, int y1, int x2, int y2 );
-
-private:
-
-  static string pErrMsg;
-  static bool pHasTask;
-  static bool pTaskInt;
-  static string pTaksMsg;
-
-};
-
-template <typename Input>
-wstring Utils::toWString( Input in )
-{
-	return toWString( toString( in ) );
-//  std::basic_stringstream<wchar_t> s;
-//  s << in;
-//  return s.str();
-}
-
-template <typename Input>
-string Utils::toString( Input in )
-{
-  std::basic_ostringstream<char> s;
-  s << in;
-  return s.str();
-}
-
-template <typename Output>
-static void fromString( string in, Output& out )
-{
-  std::basic_stringstream<char> s(in);
-  s >> out;
-}
-
-template <typename Output>
-static void fromWString( wstring in, Output& out )
-{
-  std::basic_stringstream<wchar_t> s(in);
-  s >> out;
-}
+	template <typename Output>
+	static void fromWString( wstring in, Output& out )
+	{
+		std::basic_stringstream<wchar_t> s( in );
+		s >> out;
+	}
 
 
 }

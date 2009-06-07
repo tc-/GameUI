@@ -38,71 +38,73 @@ Headerfile for the Ui::SDLImageObject class
 #include "SDL_image.h"
 #include "SDL.h"
 
-namespace Ui {
-
-/**
-Container for an SDL Image.
-@see Ui::ImageObject http://libsdl.org/
-@author Tommy Carlsson
-*/
-class SDLImageObject : public ImageObject
+namespace Ui
 {
-public:
 
-  SDLImageObject( const int& width = 0, const int& height = 0 );
-  ~SDLImageObject();
+	/**
+	 * Container for an SDL Image.
+	 * @see ImageObject http://libsdl.org/
+	 */
+	class SDLImageObject : public ImageObject
+	{
+		public:
 
-  void drawImage ( ImageObject &image, const Rect &dr, const Rect &sr = NULL_RECT );
-  void drawImageTiled ( ImageObject &image, const Rect &dr, const Rect &sr = NULL_RECT );
-  void drawImageStreched ( ImageObject &image, const Rect &dr, const Rect &sr = NULL_RECT );
-  void drawImage( SDL_Surface& image, const Rect r, const Rect &sr = NULL_RECT );
-  void fillRect ( const Rect &r, const Color &color );
-  void outText ( const wstring &text, Font &font, int left, int top, const Color &color );
+			SDLImageObject( const int& width = 0, const int& height = 0 );
+			~SDLImageObject();
 
-	void putPixel ( int left, int top, const Color &color );
-	Uint32 getPixel( SDL_Surface *s, const int& x, const int& y );
-	Color getPixel( const int& x, const int& y );
+			void drawImage ( ImageObject &image, const Rect &dr, const Rect &sr = NULL_RECT );
+			void drawImageTiled ( ImageObject &image, const Rect &dr, const Rect &sr = NULL_RECT );
+			void drawImageStreched ( ImageObject &image, const Rect &dr, const Rect &sr = NULL_RECT );
+			void drawImage( SDL_Surface& image, const Rect r, const Rect &sr = NULL_RECT );
+			void fillRect ( const Rect &r, const Color &color );
+			void outText ( const wstring &text, Font &font, int left, int top, const Color &color );
 
-  void hLine ( int left, int top, int width, const Color &color );
-  void vLine ( int left, int top, int height, const Color &color );
+			void putPixel ( int left, int top, const Color &color );
+			Uint32 getPixel( SDL_Surface *s, const int& x, const int& y );
+			Color getPixel( const int& x, const int& y );
 
-  void pushClipRect ( const Rect &r );
-  Rect popClipRect (  );
-  Rect clipRect() { return pClipRect; };
-  void setRelativePoint( const int left = 0, const int top = 0 );
-  void relativePoint( int& left, int& top );
-  void freeImage(  );
-  bool isLoaded(  );
-  bool loadImage( string fname );
+			void hLine ( int left, int top, int width, const Color &color );
+			void vLine ( int left, int top, int height, const Color &color );
 
-  int height(  );
-  int width(  );
+			void pushClipRect ( const Rect &r );
+			Rect popClipRect (  );
+			Rect clipRect() {
+				return pClipRect;
+			};
+			void setRelativePoint( const int left = 0, const int top = 0 );
+			void relativePoint( int& left, int& top );
+			void freeImage(  );
+			bool isLoaded(  );
+			bool loadImage( string fname );
 
-  SDL_Surface *getSurface();
-  Uint32 getColor( Uint8 r, Uint8 g, Uint8 b );
-	Uint32 getColor( Uint8 r, Uint8 g, Uint8 b, Uint8 a );
-	void assignSurface( SDL_Surface *surface );
-  void flip( bool conditional = true );
-  void setAlpha(unsigned short int a );
-  void visDebug( const Rect& r );
+			int height(  );
+			int width(  );
 
-  static ImageObject* themeSDLImageObjectLoader( const string fname, InifileSection* iniSec, const ThemeLoadOptions& op );
-	static ImageObject* sdlImageObjectFactory( const int& width = 0, const int& height = 0 );
-private:
+			SDL_Surface *getSurface();
+			Uint32 getColor( Uint8 r, Uint8 g, Uint8 b );
+			Uint32 getColor( Uint8 r, Uint8 g, Uint8 b, Uint8 a );
+			void assignSurface( SDL_Surface *surface );
+			void flip( bool conditional = true );
+			void setAlpha( unsigned short int a );
+			void visDebug( const Rect& r );
 
-  SDL_Surface *s;
+			static ImageObject* themeSDLImageObjectLoader( const string fname, InifileSection* iniSec, const ThemeLoadOptions& op );
+			static ImageObject* sdlImageObjectFactory( const int& width = 0, const int& height = 0 );
+		private:
 
-  List<Rect> pClipRects;
-  Rect pClipRect;
-  bool updated;
+			SDL_Surface *s;
 
-  int pRelX;
-  int pRelY;
+			List<Rect> pClipRects;
+			Rect pClipRect;
+			bool updated;
 
-  void setClipRect( const Rect& r );
-  void unsetClipRect(  );
+			int pRelX;
+			int pRelY;
 
-};
+			void setClipRect( const Rect& r );
+			void unsetClipRect(  );
+
+	};
 
 }
 

@@ -27,43 +27,50 @@
 #include <uiutils.h>
 #include <uiimageobject.h>
 
-namespace Ui {
-
-enum borderType { btLine };
-
-/**
-Border only using fillRect functions
-
-@author Tommy Carlsson
-*/
-class LineBorder : public Border
+namespace Ui
 {
-public:
-  LineBorder();
-  ~LineBorder();
 
-  virtual borderType type() const { return pType; }
-  virtual void setType( const borderType bt );
+	enum borderType { btLine };
 
-  virtual Color lineColor() const { return pLineColor; }
-  virtual void setLineColor( const Color c ) { pLineColor = c; }
-  virtual Color bgColor() const { return pBgColor; }
-  virtual void setBgColor( const Color c ) { pBgColor = c; }
+	/**
+	 * Border only using fillRect functions
+	 */
+	class LineBorder : public Border
+	{
+		public:
+			LineBorder();
+			~LineBorder();
 
-  virtual void render(const Rect r, ImageObject& iobj);
+			virtual borderType type() const {
+				return pType;
+			}
+			virtual void setType( const borderType bt );
 
-	static void useWithLoader();
-  static Border* themeLineBorderLoader( InifileSection* is, const ThemeLoadOptions& op );
+			virtual Color lineColor() const {
+				return pLineColor;
+			}
+			virtual void setLineColor( const Color c ) {
+				pLineColor = c;
+			}
+			virtual Color bgColor() const {
+				return pBgColor;
+			}
+			virtual void setBgColor( const Color c ) {
+				pBgColor = c;
+			}
 
-private:
+			virtual void render( const Rect r, ImageObject& iobj );
 
-  borderType pType;
-  Color pLineColor;
-  Color pBgColor;
+			static void useWithLoader();
+			static Border* themeLineBorderLoader( InifileSection* is, const ThemeLoadOptions& op );
 
-  //static BorderLoader lineBorderLoader;
+		private:
 
-};
+			borderType pType;
+			Color pLineColor;
+			Color pBgColor;
+
+	};
 
 }
 

@@ -26,54 +26,59 @@
 #include <uitheme.h>
 #include <uiinifile.h>
 
-namespace Ui {
-
-/**
- * Class describing a border.
- *
- * imageTopLeft, imageTopRight, imageBottomLeft, imageBottomRight, imageLeft, imageRight, imageTop, imageBottom, imageBackground
- * are indexes used reference an image inside the Ui::ImageList object indicated by imageList(). The images will be rendered like the following image
- *
- * @image html border_indexes.png
- *
- * The variables widthLeft, widthRight, heightTop, heightBottom all indicates the size of the border.
- *
- * @see Ui::Object::border()
- */
-class ImageBorder: public Border
+namespace Ui
 {
-public:
 
-	ImageBorder(): imageTopLeft( -1 ), imageTopRight( -1 ), imageBottomLeft( -1 ), imageBottomRight( -1 ), imageLeft( -1 ), imageRight( -1 ), imageTop( -1 ), imageBottom( -1 ), imageBackground( -1 ), il( NULL ) {};
+	/**
+	 * Class describing a border.
+	 *
+	 * imageTopLeft, imageTopRight, imageBottomLeft, imageBottomRight, imageLeft, imageRight, imageTop, imageBottom, imageBackground
+	 * are indexes used reference an image inside the Ui::ImageList object indicated by imageList(). The images will be rendered like the following image
+	 *
+	 * @image html border_indexes.png
+	 *
+	 * The variables widthLeft, widthRight, heightTop, heightBottom all indicates the size of the border.
+	 *
+	 * @see Ui::Object::border()
+	 */
+	class ImageBorder: public Border
+	{
+		public:
 
-	virtual ~ImageBorder(  );
+			ImageBorder(): imageTopLeft( -1 ), imageTopRight( -1 ), imageBottomLeft( -1 ), imageBottomRight( -1 ), imageLeft( -1 ), imageRight( -1 ), imageTop( -1 ), imageBottom( -1 ), imageBackground( -1 ), il( NULL ) {};
 
-	int imageTopLeft;
-	int imageTopRight;
-	int imageBottomLeft;
-	int imageBottomRight;
-	int imageLeft;
-	int imageRight;
-	int imageTop;
-	int imageBottom;
-	int imageBackground;
+			virtual ~ImageBorder(  );
 
-	virtual ImageList* imageList() { return il; };
-	virtual void setImageList( ImageList* iList ) { il = iList; };
+			int imageTopLeft;
+			int imageTopRight;
+			int imageBottomLeft;
+			int imageBottomRight;
+			int imageLeft;
+			int imageRight;
+			int imageTop;
+			int imageBottom;
+			int imageBackground;
 
-	virtual void render( const Rect r, ImageObject& iobj );
-	virtual bool isLoaded();
+			virtual ImageList* imageList() {
+				return il;
+			};
+			virtual void setImageList( ImageList* iList ) {
+				il = iList;
+			};
 
-	static void useWithLoader();
-	static Border* themeImageBorderLoader( InifileSection* is, const ThemeLoadOptions& op );
+			virtual void render( const Rect r, ImageObject& iobj );
+			virtual bool isLoaded();
 
-private:
+			static void useWithLoader();
+			static Border* themeImageBorderLoader( InifileSection* is, const ThemeLoadOptions& op );
 
-	ImageList* il;
+		private:
 
-	//static BorderLoader imageBorderLoader;
+			ImageList* il;
 
-};
+			//static BorderLoader imageBorderLoader;
+
+	};
 
 }
 

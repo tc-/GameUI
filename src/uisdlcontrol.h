@@ -32,45 +32,49 @@
 
 #include "SDL.h"
 
-namespace Ui {
+namespace Ui
+{
 
-/**
-Class interfacing with the SDL library
+	/**
+	 * Class interfacing with the SDL library
+	 */
+	class SDLControl : public LibControl
+	{
+		public:
+			SDLControl( Gui* g = NULL );
+			virtual ~SDLControl();
 
-@author Tommy Carlsson
-*/
-class SDLControl : public LibControl {
-public:
-  SDLControl( Gui* g = NULL );
-  virtual ~SDLControl();
+			virtual void setGui( Gui* g );
 
-  virtual void setGui( Gui* g );
+			virtual bool initializeLibrary();
+			virtual bool finalizeLibrary();
+			virtual ImageObject* createScreen( const int& width, const int& height, const int& bpp, const ScreenFlags& flags, const bool& assign = true );
+			virtual Keyboard& keyboard();
+			virtual Mouse& mouse();
 
-  virtual bool initializeLibrary();
-  virtual bool finalizeLibrary();
-	virtual ImageObject* createScreen( const int& width, const int& height, const int& bpp, const ScreenFlags& flags, const bool& assign = true );
-  virtual Keyboard& keyboard();
-  virtual Mouse& mouse();
+			virtual void doHandleEvents( const bool& clearEvs = true );
 
-  virtual void doHandleEvents( const bool& clearEvs = true );
+			virtual void clearEvents();
+			virtual void clearKeyboardEvents();
+			virtual void clearMouseEvents();
+			virtual void clearSysEvents();
+			virtual void sleep( const unsigned int& msecs );
+			virtual void flip( const bool conditional = true );
+			virtual bool terminated();
 
-  virtual void clearEvents();
-  virtual void clearKeyboardEvents();
-  virtual void clearMouseEvents();
-  virtual void clearSysEvents();
-	virtual void sleep( const unsigned int& msecs );
-  virtual void flip( const bool conditional = true );
-  virtual bool terminated();
+			ImageLoader defaultImageLoader() {
+				return &SDLImageObject::themeSDLImageObjectLoader;
+			}
+			FontLoader defaultFontLoader() {
+				return &SDLFont::themeSDLFontLoader;
+			}
 
-  ImageLoader defaultImageLoader() { return &SDLImageObject::themeSDLImageObjectLoader; }
-  FontLoader defaultFontLoader() { return &SDLFont::themeSDLFontLoader; }
+		private:
 
-private:
-
-  SDLKeyboard pKeyboard;
-  SDLMouse pMouse;
-  bool pTerminated;
-};
+			SDLKeyboard pKeyboard;
+			SDLMouse pMouse;
+			bool pTerminated;
+	};
 
 }
 

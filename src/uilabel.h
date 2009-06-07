@@ -27,44 +27,53 @@
 #include <uiframe.h>
 #include <uilist.h>
 
-namespace Ui {
-
-/**
-Simple text output control
-
-@author Tommy Carlsson
-*/
-class Label : public Widget
+namespace Ui
 {
-public:
-  Label();
-  Label( Frame* parent );
-  ~Label();
 
-  virtual void setTheme( Theme & t, const string prefix = "" );
+	/**
+	 * Simple text output control
+	 */
+	class Label : public Widget
+	{
+		public:
+			Label();
+			Label( Frame* parent );
+			~Label();
 
-  virtual HAlignType textHAlign() const { return pHAl; }
-  virtual void setTextHAlign( const HAlignType al ) { pHAl = al; updated(); }
-  virtual VAlignType textVAlign() const { return pVAl; }
-  virtual void setTextVAlign( const VAlignType al ) { pVAl = al; updated(); }
+			virtual void setTheme( Theme & t, const string prefix = "" );
 
-  virtual wstring text();
-  virtual void setText( wstring s );
+			virtual HAlignType textHAlign() const {
+				return pHAl;
+			}
+			virtual void setTextHAlign( const HAlignType al ) {
+				pHAl = al;
+				updated();
+			}
+			virtual VAlignType textVAlign() const {
+				return pVAl;
+			}
+			virtual void setTextVAlign( const VAlignType al ) {
+				pVAl = al;
+				updated();
+			}
 
-  virtual bool multiline() const;
-  virtual void setMultiline( const bool enable );
+			virtual wstring text();
+			virtual void setText( wstring s );
 
-  virtual void render( ImageObject& img, const Rect& rr );
+			virtual bool multiline() const;
+			virtual void setMultiline( const bool enable );
 
-private:
+			virtual void render( ImageObject& img, const Rect& rr );
 
-  HAlignType pHAl;
-  VAlignType pVAl;
+		private:
 
-  wstring pText;
-  bool pMultiline;
+			HAlignType pHAl;
+			VAlignType pVAl;
 
-};
+			wstring pText;
+			bool pMultiline;
+
+	};
 
 }
 

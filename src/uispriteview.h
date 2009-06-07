@@ -20,8 +20,8 @@
 
 
 /**
-@file
-Headerfile for the Ui::SpriteView class
+ * @file
+ * Headerfile for the Ui::SpriteView class
 */
 
 #ifndef UISPRITEVIEW_H

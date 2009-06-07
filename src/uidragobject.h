@@ -24,70 +24,77 @@
 
 #include <uipopup.h>
 
-namespace Ui {
-
-/**
-Drag and Drop object.
-
-	@author Tommy Carlsson <tc@coderworld.net>
-*/
-class DragObject : public Popup
+namespace Ui
 {
-public:
-  DragObject();
-  ~DragObject();
-
-	virtual void render( Rect area );
 
 	/**
-	 *  Image to draw in the DragObject.
-	 * @return the image.
-	 * @see DragObject::denyImage() DragObject::setImage()
+	 * Drag and Drop object.
 	 */
-	virtual ImageObject* image() const { return pImage; }
-	/**
-	 *  Set image()
-	 * @param img The image to set.
-	 * @param adjustSize True if the size of the DragObject should be adjusted to fit the image.
-	 * @see DragObject::image()
-	 */
-	virtual void setImage( ImageObject* img, bool adjustSize = true );
+	class DragObject : public Popup
+	{
+		public:
+			DragObject();
+			~DragObject();
 
-	/**
-	 *  Image to be displayed on top of image() when hovering Widget does not accept the drop.
-	 * @return the deny image.
-	 * @see DragObject::image() DragObject::setDenyImage()
-	 */
-	virtual ImageObject* denyImage() const { return pDImage; }
-	/**
-	 *  Set the deny image to use.
-	 * @param dimg the deny image.
-	 * @see DragObject::denyImage()
-	 */
-	virtual void setDenyImage( ImageObject* dimg ) { pDImage = dimg; updated(); }
+			virtual void render( Rect area );
 
-	/**
-	 * @see Popup::popup()
-	 */
-	virtual void popup( const int x, const int y, Gui& gui );
-	/**
-	 * @see Popup::close()
-	 */
-	virtual void close();
+			/**
+			 * Image to draw in the DragObject.
+			 *
+			 * @return the image.
+			 * @see denyImage() setImage().
+			 */
+			virtual ImageObject* image() const {
+				return pImage;
+			}
 
-	virtual void mouseMove( int x, int y, MouseButtons mb );
-	virtual void mousePressed( int x, int y, MouseButtons mb );
-	virtual void mouseReleased( int x, int y, MouseButtons mb );
+			/**
+			 * Setter for the image prperty.
+			 *
+			 * @param img The image to set.
+			 * @param adjustSize True if the size of the DragObject should be adjusted to fit the image.
+			 * @see image().
+			 */
+			virtual void setImage( ImageObject* img, bool adjustSize = true );
 
-private:
+			/**
+			 * Image to be displayed on top of image() when hovering Widget does not accept the drop.
+			 *
+			 * @return the deny image.
+			 * @see image() setDenyImage().
+			 */
+			virtual ImageObject* denyImage() const {
+				return pDImage;
+			}
 
-	bool pMoving;
-	bool pAccepts;
-	ImageObject* pImage;
-	ImageObject* pDImage;
-	ImageObject* pTmpDImage;
+			/**
+			 * Set the deny image to use.
+			 *
+			 * @param dimg the deny image.
+			 * @see denyImage().
+			 */
+			virtual void setDenyImage( ImageObject* dimg ) {
+				pDImage = dimg;
+				updated();
+			}
 
-};
+			virtual void popup( const int x, const int y, Gui& gui );
+
+			virtual void close();
+
+			virtual void mouseMove( int x, int y, MouseButtons mb );
+			virtual void mousePressed( int x, int y, MouseButtons mb );
+			virtual void mouseReleased( int x, int y, MouseButtons mb );
+
+		private:
+
+			bool pMoving;
+			bool pAccepts;
+			ImageObject* pImage;
+			ImageObject* pDImage;
+			ImageObject* pTmpDImage;
+
+	};
 
 }
 

@@ -28,128 +28,178 @@
 
 using namespace std;
 
-namespace Ui {
-
-enum HAlignment {
-  AL_RIGHT,
-  AL_LEFT,
-  AL_CENTER
-};
-
-enum VAlignment {
-  AL_TOP,
-  AL_BOTTOM,
-  AL_MIDDLE
-};
-
-/**
-Window class
-
-@author Tommy Carlsson
-*/
-class Window : public WindowFrame
+namespace Ui
 {
-public:
-  Window();
-  Window( Frame* parent );
 
-  ~Window();
+	enum HAlignment {
+		AL_RIGHT,
+		AL_LEFT,
+		AL_CENTER
+	};
 
-  virtual void setTheme( Theme& t, const string prefix = "" );
+	enum VAlignment {
+		AL_TOP,
+		AL_BOTTOM,
+		AL_MIDDLE
+	};
 
-  virtual Widget* mouseClick(int x, int y, MouseButtons mb);
-  virtual Widget* mouseDblClick(int x, int y, MouseButtons mb);
-  virtual Widget* mouseMove(int x, int y, MouseButtons mb);
-  virtual Widget* mousePressed(int x, int y, MouseButtons mb);
-  virtual Widget* mouseReleased(int x, int y, MouseButtons mb);
-
-	virtual MouseCursor* getCursor( const int& x, const int& y )
+	/**
+	 * Window class.
+	 */
+	class Window : public WindowFrame
 	{
-		return getCursorFromArea( resizeArea( x, y ) );
-	}
+		public:
+			Window();
+			Window( Frame* parent );
 
-	virtual void sizeChanged( const Rect& news );
+			~Window();
 
-	virtual bool resizable() { return pResizeable; }
-	virtual void setResizeable( const bool& r = true ) { pResizeable = r; }
+			virtual void setTheme( Theme& t, const string prefix = "" );
 
-	virtual bool isResizing() { return ( pDoResize != 0 ); }
+			virtual Widget* mouseClick( int x, int y, MouseButtons mb );
+			virtual Widget* mouseDblClick( int x, int y, MouseButtons mb );
+			virtual Widget* mouseMove( int x, int y, MouseButtons mb );
+			virtual Widget* mousePressed( int x, int y, MouseButtons mb );
+			virtual Widget* mouseReleased( int x, int y, MouseButtons mb );
 
-	virtual MouseCursor* resizeCursorRL() { return pResizeRL; }
-	virtual void setResizeCursorRL( MouseCursor* mc ) { pResizeRL = mc; }
-	virtual MouseCursor* resizeCursorTB() { return pResizeTB; }
-	virtual void setResizeCursorTB( MouseCursor* mc ) { pResizeTB = mc; }
-	virtual MouseCursor* resizeCursorTRBL() { return pResizeTRBL; }
-	virtual void setResizeCursorTRBL( MouseCursor* mc ) { pResizeTRBL = mc; }
-	virtual MouseCursor* resizeCursorTLBR() { return pResizeTLBR; }
-	virtual void setResizeCursorTLBR( MouseCursor* mc ) { pResizeTLBR = mc; }
+			virtual MouseCursor* getCursor( const int& x, const int& y ) {
+				return getCursorFromArea( resizeArea( x, y ) );
+			}
 
-  //virtual void updateRegion(const Rect& r);
+			virtual void sizeChanged( const Rect& news );
 
-	//TODO Should know when the window is active.
-	virtual Border* titleBorder() const;
-	virtual Border* titleBorderActive() const { return pActiveBorder; }
-	virtual Border* titleBorderInactive() const { return pInactiveBorder; }
-	virtual void setTitleBorderActive( Border* b ) { pActiveBorder = b; updated(); }
-	virtual void setTitleBorderInactive( Border* b ) { pActiveBorder = b; updated(); }
+			virtual bool resizable() {
+				return pResizeable;
+			}
+			virtual void setResizeable( const bool& r = true ) {
+				pResizeable = r;
+			}
 
-	virtual int titleHeight( ) const { return pTitleHeight; };
-	virtual void setTitleHeight( const int th ) { pTitleHeight = th; updated(); }
+			virtual bool isResizing() {
+				return ( pDoResize != 0 );
+			}
 
-	virtual wstring caption() const { return pCaption; }
-	virtual void setCaption( wstring c ) { pCaption = c; }
+			virtual MouseCursor* resizeCursorRL() {
+				return pResizeRL;
+			}
+			virtual void setResizeCursorRL( MouseCursor* mc ) {
+				pResizeRL = mc;
+			}
+			virtual MouseCursor* resizeCursorTB() {
+				return pResizeTB;
+			}
+			virtual void setResizeCursorTB( MouseCursor* mc ) {
+				pResizeTB = mc;
+			}
+			virtual MouseCursor* resizeCursorTRBL() {
+				return pResizeTRBL;
+			}
+			virtual void setResizeCursorTRBL( MouseCursor* mc ) {
+				pResizeTRBL = mc;
+			}
+			virtual MouseCursor* resizeCursorTLBR() {
+				return pResizeTLBR;
+			}
+			virtual void setResizeCursorTLBR( MouseCursor* mc ) {
+				pResizeTLBR = mc;
+			}
 
-	virtual Font* captionFont() const { if ( pCapFont != NULL ) return pCapFont; else return font(); }
-	virtual void setCaptionFont( Font* f ) { pCapFont = f; updated(); }
+			//TODO Should know when the window is active.
+			virtual Border* titleBorder() const;
+			virtual Border* titleBorderActive() const {
+				return pActiveBorder;
+			}
+			virtual Border* titleBorderInactive() const {
+				return pInactiveBorder;
+			}
+			virtual void setTitleBorderActive( Border* b ) {
+				pActiveBorder = b;
+				updated();
+			}
+			virtual void setTitleBorderInactive( Border* b ) {
+				pActiveBorder = b;
+				updated();
+			}
 
-	virtual Color captionColor() const { return pCapColor; }
-	virtual void setCaptionColor( const Color c ) { pCapColor = c; updated(); }
+			virtual int titleHeight( ) const {
+				return pTitleHeight;
+			};
+			virtual void setTitleHeight( const int th ) {
+				pTitleHeight = th;
+				updated();
+			}
 
-	virtual HAlignType captionAlignment() const { return pCapAlign; }
-	virtual void setCaptionAlignment( HAlignType al ) { pCapAlign = al; updated();}
+			virtual wstring caption() const {
+				return pCaption;
+			}
+			virtual void setCaption( wstring c ) {
+				pCaption = c;
+			}
 
-	virtual int borderTop( ) const { if ( pTitleHeight > WindowFrame::borderTop() ) return pTitleHeight; else return WindowFrame::borderTop(); }
-//	virtual int clientHeight( ) { return WindowFrame::clientHeight() - pTitleHeight + WindowFrame::borderTop(); }
+			virtual Font* captionFont() const {
+				if ( pCapFont != NULL ) return pCapFont;
+				else return font();
+			}
+			virtual void setCaptionFont( Font* f ) {
+				pCapFont = f;
+				updated();
+			}
 
-	virtual int clientVisibleWidth( );
-	virtual int clientVisibleHeight( );
+			virtual Color captionColor() const {
+				return pCapColor;
+			}
+			virtual void setCaptionColor( const Color c ) {
+				pCapColor = c;
+				updated();
+			}
 
-//	virtual Rect getClientRect();
-//	virtual Rect getClientVisibleRect();
+			virtual HAlignType captionAlignment() const {
+				return pCapAlign;
+			}
+			virtual void setCaptionAlignment( HAlignType al ) {
+				pCapAlign = al;
+				updated();
+			}
 
-	virtual void render( ImageObject& img, const Rect& r );
+			virtual int borderTop( ) const {
+				if ( pTitleHeight > WindowFrame::borderTop() ) return pTitleHeight;
+				else return WindowFrame::borderTop();
+			}
 
-//  virtual Rect getClientRect();
+			virtual int clientVisibleWidth( );
+			virtual int clientVisibleHeight( );
 
-private:
+			virtual void render( ImageObject& img, const Rect& r );
 
-	int resizeArea( const int& x, const int& y );
-	MouseCursor* getCursorFromArea( const int& a );
+		private:
 
-	MouseCursor* pResizeRL;
-	MouseCursor* pResizeTB;
-	MouseCursor* pResizeTLBR;
-	MouseCursor* pResizeTRBL;
+			int resizeArea( const int& x, const int& y );
+			MouseCursor* getCursorFromArea( const int& a );
 
-	Font* pCapFont;
+			MouseCursor* pResizeRL;
+			MouseCursor* pResizeTB;
+			MouseCursor* pResizeTLBR;
+			MouseCursor* pResizeTRBL;
 
-	Border* pActiveBorder;
-	Border* pInactiveBorder;
+			Font* pCapFont;
 
-	Color pCapColor;
+			Border* pActiveBorder;
+			Border* pInactiveBorder;
 
-	bool pResizeable;
+			Color pCapColor;
 
-	int pDoResize;
-	int pResizeX;
-	int pResizeY;
-	int pTitleHeight;
+			bool pResizeable;
 
-	HAlignType pCapAlign;
+			int pDoResize;
+			int pResizeX;
+			int pResizeY;
+			int pTitleHeight;
 
-	wstring pCaption;
+			HAlignType pCapAlign;
 
-};
+			wstring pCaption;
+
+	};
 
 }
 

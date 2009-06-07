@@ -30,124 +30,170 @@
 
 using namespace std;
 
-namespace Ui {
+namespace Ui
+{
 
-/**
- * Class representing an Ini-file key
- * @author Tommy Carlsson
- */
-class InifileKey {
-public:
+	/**
+	 * Class representing an Ini-file key.
+	 */
+	class InifileKey
+	{
+		public:
 
-  InifileKey() :pName("default"), pValue("") {}
-  InifileKey( const InifileKey& ik ) : pName( ik.name() ) {
-    const string s = ik.pValue;
-    pValue = s;
-  }
-  const InifileKey& operator= ( const InifileKey& right );
-  InifileKey( const string n, const string value ): pName(n) { setValueString(value); }
-  InifileKey( const string n, const int value ): pName(n) { setValueInt(value); }
-  InifileKey( const string n, const double value ): pName(n) { setValueFloat(value); }
+			InifileKey() :pName( "default" ), pValue( "" ) {}
+			InifileKey( const InifileKey& ik ) : pName( ik.name() ) {
+				const string s = ik.pValue;
+				pValue = s;
+			}
+			const InifileKey& operator= ( const InifileKey& right );
+			InifileKey( const string n, const string value ): pName( n ) {
+				setValueString( value );
+			}
+			InifileKey( const string n, const int value ): pName( n ) {
+				setValueInt( value );
+			}
+			InifileKey( const string n, const double value ): pName( n ) {
+				setValueFloat( value );
+			}
 
-  string name() const { return pName; }
-  void setName( const string newName ) { pName = newName; }
+			string name() const {
+				return pName;
+			}
+			void setName( const string newName ) {
+				pName = newName;
+			}
 
-  string valueString( ) { return pValue; }
-  int valueInt( ) { stringstream io; io << pValue; int i; io >> i; return i; }
-  double valueFloat( ) { stringstream io; io << pValue; double d; io >> d; return d; }
+			string valueString( ) {
+				return pValue;
+			}
+			int valueInt( ) {
+				stringstream io;
+				io << pValue;
+				int i;
+				io >> i;
+				return i;
+			}
+			double valueFloat( ) {
+				stringstream io;
+				io << pValue;
+				double d;
+				io >> d;
+				return d;
+			}
 
-  void setValueString( const string value ) { pValue = value; }
-  void setValueInt( const int value ) { stringstream io; io << value; pValue = io.str(); }
-  void setValueFloat( const double value ) { stringstream io; io << value; pValue = io.str(); }
+			void setValueString( const string value ) {
+				pValue = value;
+			}
+			void setValueInt( const int value ) {
+				stringstream io;
+				io << value;
+				pValue = io.str();
+			}
+			void setValueFloat( const double value ) {
+				stringstream io;
+				io << value;
+				pValue = io.str();
+			}
 
-  string& comment() { return pComment; }
+			string& comment() {
+				return pComment;
+			}
 
-private:
+		private:
 
-  string pName;
-  string pValue;
-  string pComment;
+			string pName;
+			string pValue;
+			string pComment;
 
-};
+	};
 
-/**
- * Class representing an Ini-file section
- * @author Tommy Carlsson
- */
-class InifileSection {
-public:
 
-  InifileSection( ): pName("default") {}
-	InifileSection( const InifileSection& is ) : keys( is.keys ), pName( is.name() ) {}
-  InifileSection( const string n ): pName(n) {}
-  ~InifileSection();
+	/**
+	 * Class representing an Ini-file section.
+	 */
+	class InifileSection
+	{
+		public:
 
-  string name() const { return pName; }
-  void setName( const string newName ) { pName = newName; }
+			InifileSection( ): pName( "default" ) {}
+			InifileSection( const InifileSection& is ) : keys( is.keys ), pName( is.name() ) {}
+			InifileSection( const string n ): pName( n ) {}
+			~InifileSection();
 
-  string keyComment( const string keyName );
+			string name() const {
+				return pName;
+			}
+			void setName( const string newName ) {
+				pName = newName;
+			}
 
-  string keyStringValue( const string keyName, const string def = "" );
-  int keyIntValue( const string keyName, const int def = 0 );
-  double keyFloatValue( const string keyName, const double def = 0.0 );
+			string keyComment( const string keyName );
 
-  void setKeyStringValue( const string keyName, const string value = "" );
-  void setKeyIntValue( const string keyName, const int value = 0 );
-  void setKeyFloatValue( const string keyName, const double value = 0.0 );
+			string keyStringValue( const string keyName, const string def = "" );
+			int keyIntValue( const string keyName, const int def = 0 );
+			double keyFloatValue( const string keyName, const double def = 0.0 );
 
-  int keyIndex( const string keyName );
+			void setKeyStringValue( const string keyName, const string value = "" );
+			void setKeyIntValue( const string keyName, const int value = 0 );
+			void setKeyFloatValue( const string keyName, const double value = 0.0 );
 
-  string& comment() { return pComment; }
+			int keyIndex( const string keyName );
 
-  List<InifileKey*> keys;
+			string& comment() {
+				return pComment;
+			}
 
-private:
+			List<InifileKey*> keys;
 
-  string pName;
-  string pComment;
+		private:
 
-};
+			string pName;
+			string pComment;
 
-/**
- * Class used to read and write Ini-files
- * @author Tommy Carlsson
-*/
-class Inifile {
-public:
-  Inifile( const string fname = "" );
-  ~Inifile();
+	};
 
-  InifileSection* section( const string sectionName, const bool create = true );
-  void setSection( const string sectionName );
 
-  string keyComment( const string keyName );
-  string& sectionComment( const string sectionName );
+	/**
+	 * Class used to read and write Ini-files.
+	 *
+	*/
+	class Inifile
+	{
+		public:
+			Inifile( const string fname = "" );
+			~Inifile();
 
-  string readString( const string keyName, const string def = "" );
-  int readInt( const string keyName, const int def = 0 );
-  double readFloat( const string keyName, const double def = 0.0 );
+			InifileSection* section( const string sectionName, const bool create = true );
+			void setSection( const string sectionName );
 
-  void writeString( const string keyName, const string data );
-  void writeInt( const string keyName, const int data );
-  void writeFloat( const string keyName, const double data );
+			string keyComment( const string keyName );
+			string& sectionComment( const string sectionName );
 
-  void deleteKey( const string keyName );
-  void deleteSection( const string sectionName );
+			string readString( const string keyName, const string def = "" );
+			int readInt( const string keyName, const int def = 0 );
+			double readFloat( const string keyName, const double def = 0.0 );
 
-  bool load( const string fname );
-  bool save( const string fname = "" );
+			void writeString( const string keyName, const string data );
+			void writeInt( const string keyName, const int data );
+			void writeFloat( const string keyName, const double data );
 
-  void clear(  );
+			void deleteKey( const string keyName );
+			void deleteSection( const string sectionName );
 
-  List<InifileSection*> sections;
+			bool load( const string fname );
+			bool save( const string fname = "" );
 
-private:
+			void clear(  );
 
-  string pFName;
-  InifileSection* pCurSec;
-  bool parseIniFile( const string fname );
+			List<InifileSection*> sections;
 
-};
+		private:
+
+			string pFName;
+			InifileSection* pCurSec;
+			bool parseIniFile( const string fname );
+
+	};
 
 }
 

@@ -20,9 +20,9 @@
 
 
 /**
-@file
-Headerfile for the UiScreen class
-*/
+ * @file
+ * Headerfile for the UiScreen class
+ */
 
 #ifndef UIGUI_H
 #define UIGUI_H
@@ -44,102 +44,111 @@ Headerfile for the UiScreen class
 
 using namespace std;
 
-namespace Ui {
-
-/**
-Root frame object
-
-@author Tommy Carlsson
-*/
-class Gui : public has_slots<>
+namespace Ui
 {
-public:
 
-  Gui( int width, int height );
-  ~Gui();
+	/**
+	 * Root frame object.
+	 */
+	class Gui : public has_slots<>
+	{
+		public:
+
+			Gui( int width, int height );
+			~Gui();
 
 // Properties
 
-  virtual Widget* bgWidget(  );
-  virtual void setBgWidget( Widget* o );
-  virtual Frame& fgFrame(  );
-  virtual void setFgFrame( Frame* f );
-  virtual Frame& topFrame(  );
-  virtual void setTopFrame( Frame* f );
+			virtual Widget* bgWidget(  );
+			virtual void setBgWidget( Widget* o );
+			virtual Frame& fgFrame(  );
+			virtual void setFgFrame( Frame* f );
+			virtual Frame& topFrame(  );
+			virtual void setTopFrame( Frame* f );
 
-  virtual Widget* mouseChannelWidget(  ) const;
-  virtual void setMouseChannelWidget( Widget& o );
-  virtual void unsetMouseChannelWidget( Widget& o );
+			virtual Widget* mouseChannelWidget(  ) const;
+			virtual void setMouseChannelWidget( Widget& o );
+			virtual void unsetMouseChannelWidget( Widget& o );
 
-	virtual Popup* mouseChannelPopup(  ) const { return pChannelPopup; }
-	virtual void setMouseChannelPopup( Popup* p ) { pChannelPopup = p; }
+			virtual Popup* mouseChannelPopup(  ) const {
+				return pChannelPopup;
+			}
+			virtual void setMouseChannelPopup( Popup* p ) {
+				pChannelPopup = p;
+			}
 
-	virtual Widget* lastMouseOverWidget() { return pLastMouseOver; }
+			virtual Widget* lastMouseOverWidget() {
+				return pLastMouseOver;
+			}
 
-  virtual ImageObject& screen(  );
-  virtual void setScreen( ImageObject* iobj );
+			virtual ImageObject& screen(  );
+			virtual void setScreen( ImageObject* iobj );
 
-  virtual KeyCursor& keyCursorObject(  );
-  virtual void setKeyCursorObject( KeyCursor* cursor );
+			virtual KeyCursor& keyCursorObject(  );
+			virtual void setKeyCursorObject( KeyCursor* cursor );
 
-  virtual Clipboard& clipboard(  );
-  virtual void setClipboard( Clipboard* c );
+			virtual Clipboard& clipboard(  );
+			virtual void setClipboard( Clipboard* c );
 
 // Functions
 
-  virtual void render(  );
-  virtual void setFocusedWidget( Widget* o );
-  virtual void objectDestroyed( Widget& o );
+			virtual void render(  );
+			virtual void setFocusedWidget( Widget* o );
+			virtual void objectDestroyed( Widget& o );
 
 // Popups
 
-  virtual Popup* popup( int index ) { return pPopups.get( index ); }
-  virtual int numPopups() { return pPopups.count(); }
-  virtual void addPopup( Popup* p );
-  virtual void removePopup( Popup* p );
+			virtual Popup* popup( int index ) {
+				return pPopups.get( index );
+			}
+			virtual int numPopups() {
+				return pPopups.count();
+			}
+			virtual void addPopup( Popup* p );
+			virtual void removePopup( Popup* p );
 
 // Events
 
-  virtual void mouseMove( int x, int y, MouseButtons mb );
-  virtual void mousePressed( int x, int y, MouseButtons mb );
-  virtual void mouseReleased( int x, int y, MouseButtons mb );
-  virtual void keyPressed( Key k );
-  virtual void keyReleased( Key k );
-  virtual void timerTick(  );
+			virtual void mouseMove( int x, int y, MouseButtons mb );
+			virtual void mousePressed( int x, int y, MouseButtons mb );
+			virtual void mouseReleased( int x, int y, MouseButtons mb );
+			virtual void keyPressed( Key k );
+			virtual void keyReleased( Key k );
+			virtual void timerTick(  );
 
-  static bool objectsListSortCallback( List<UpdateWidget*>& l, int i1, int i2 );
+			static bool objectsListSortCallback( List<UpdateWidget*>& l, int i1, int i2 );
 
-  signal0<> onTimerTick;
+			signal0<> onTimerTick;
 
-private:
+		private:
 
-  List<Popup*> pPopups;
+			List<Popup*> pPopups;
 
-  Widget* pBgWidget;
-  Frame* pFgFrame;
-  Frame* pTopFrame;
+			Widget* pBgWidget;
+			Frame* pFgFrame;
+			Frame* pTopFrame;
 
-  KeyCursor* pCursorObject;
-  Widget* pFocusedWidget;
-  Clipboard* pClipboard;
+			KeyCursor* pCursorObject;
+			Widget* pFocusedWidget;
+			Clipboard* pClipboard;
 
-  Widget* pLastMouseOver;
-  Widget* pMousePressedWidget;
-	Widget* pMouseDragWidget;
-	Widget* pMouseChannelWidget;
-	Popup* pChannelPopup;
+			Widget* pLastMouseOver;
+			Widget* pMousePressedWidget;
+			Widget* pMouseDragWidget;
+			Widget* pMouseChannelWidget;
+			Popup* pChannelPopup;
 
-  ImageObject* pScreen;
+			ImageObject* pScreen;
 
-  int pLastClick;
-  int pDblClickTicks;
+			int pLastClick;
+			int pDblClickTicks;
 
-	int pPressedX;
-	int pPressedY;
+			int pPressedX;
+			int pPressedY;
 
-  int pWidth;
-  int pHeight;
-};
+			int pWidth;
+			int pHeight;
+	};
 
 }
 

@@ -28,162 +28,206 @@
 #include <uiutils.h>
 #include <uilist.h>
 
-namespace Ui {
-
-class DropListItem;
-
-/**
- * A Popup class used with a Combobox widget
- * @author Tommy Carlsson
-*/
-class DropdownList : public Popup
+namespace Ui
 {
-public:
-  DropdownList();
-  virtual ~DropdownList();
 
-  virtual void setTheme( Theme & t, const string prefix = "" );
+	class DropListItem;
 
-  virtual void addItem( DropListItem* item );
-  virtual DropListItem* getItem( int index ) { return pChildren.get( index ); }
-  virtual void removeItem( int index ) { pChildren.remove( index ); updated(); }
-  virtual int getItemIndex( DropListItem* item ) const { return pChildren.getIndex( item ); }
+	/**
+	 * A Popup class used with a Combobox widget.
+	 */
+	class DropdownList : public Popup
+	{
+		public:
+			DropdownList();
+			virtual ~DropdownList();
 
-  virtual void popup( const int x, const int y, Gui& gui );
-  virtual void render( Rect area );
+			virtual void setTheme( Theme & t, const string prefix = "" );
 
-  virtual DropListItem* selectedItem() { return pSelected; }
-  virtual void setSelectedItem( DropListItem* item );
+			virtual void addItem( DropListItem* item );
+			virtual DropListItem* getItem( int index ) {
+				return pChildren.get( index );
+			}
+			virtual void removeItem( int index ) {
+				pChildren.remove( index );
+				updated();
+			}
+			virtual int getItemIndex( DropListItem* item ) const {
+				return pChildren.getIndex( item );
+			}
 
-  virtual void mouseMove(int x, int y, MouseButtons mb);
-  virtual void mousePressed(int x, int y, MouseButtons mb);
-  virtual void mouseReleased(int x, int y, MouseButtons mb);
+			virtual void popup( const int x, const int y, Gui& gui );
+			virtual void render( Rect area );
 
-  signal2<DropdownList&, DropListItem&> onItemClicked;
+			virtual DropListItem* selectedItem() {
+				return pSelected;
+			}
+			virtual void setSelectedItem( DropListItem* item );
 
-private:
+			virtual void mouseMove( int x, int y, MouseButtons mb );
+			virtual void mousePressed( int x, int y, MouseButtons mb );
+			virtual void mouseReleased( int x, int y, MouseButtons mb );
 
-  List<DropListItem*> pChildren;
-  DropListItem* pSelected;
+			signal2<DropdownList&, DropListItem&> onItemClicked;
 
-};
+		private:
 
-/**
- * Class used as an item inside a DropdownList
- * @author Tommy Carlsson
- */
-class DropListItem {
-public:
+			List<DropListItem*> pChildren;
+			DropListItem* pSelected;
 
-	DropListItem(  ): pText(L"Item"), pParent(NULL)
-  {
-    pFont = NULL;
-    pFontColor = Color( 0, 0, 0 );
-    pBgColor = Color( 128, 128, 128, 0 );
-    pSelBgColor = Color( 180,220,255 );
-    pIcon = NULL;
-    pHeight = 18;
-    pSelected = false;
-    setTheme( Theme::defaultTheme() );
-  }
+	};
 
-	DropListItem( DropdownList* p, wstring t = L"Item", string themeprefix = "" ): pText(t), pParent(p)
-  {
-    pFont = NULL;
-    pFontColor = Color( 0, 0, 0 );
-    pBgColor = Color( 128, 128, 128, 0 );
-    pSelBgColor = Color( 180,220,255 );
-    pIcon = NULL;
-    pHeight = 18;
-    pSelected = false;
-    setTheme( Theme::defaultTheme(), themeprefix );
-    if ( pParent != NULL )
-      pParent->addItem( this );
-  }
+	/**
+	 * Class used as an item inside a DropdownList.
+	 *
+	 * @todo Move to own .h .cpp files.
+	 */
+	class DropListItem
+	{
+		public:
 
-  virtual ~DropListItem()
-  {
+			DropListItem(  ): pText( L"Item" ), pParent( NULL ) {
+				init();
+				setTheme( Theme::defaultTheme() );
+			}
 
-    if ( pParent != NULL ) {
-      int index = pParent->getItemIndex( this );
-      if ( index >= 0 )
-        pParent->removeItem( index );
-    }
-  }
+			DropListItem( DropdownList* p, wstring t = L"Item", string themeprefix = "" ): pText( t ), pParent( p ) {
+				init();
+				setTheme( Theme::defaultTheme(), themeprefix );
+				if ( pParent != NULL )
+					pParent->addItem( this );
+			}
 
-  virtual void setTheme( Theme & t, const string prefix = "" )
-  {
-    setFont( t.getFont( prefix+"droplistitem" ) );
-    setFontColor( t.getColor( prefix+"droplistitem_font" ) );
-    setBgColor( t.getColor( prefix+"droplistitem_background" ) );
-    setSelectedBgColor( t.getColor( prefix+"droplistitem_background_selected" ) );
-    setIcon( t.getImage( prefix+"droplistitem_default_icon" ) );
-  }
+			virtual ~DropListItem() {
 
-  virtual DropdownList* parent() const { return pParent; }
-  virtual void setParent( DropdownList* dl ) { pParent = dl; }
+				if ( pParent != NULL ) {
+					int index = pParent->getItemIndex( this );
+					if ( index >= 0 )
+						pParent->removeItem( index );
+				}
+			}
 
-  virtual wstring text() const { return pText; }
-  virtual void setText( wstring s ) { pText = s; }
+			void init() {
+				pFont = NULL;
+				pFontColor = Color( 0, 0, 0 );
+				pBgColor = Color( 128, 128, 128, 0 );
+				pSelBgColor = Color( 180,220,255 );
+				pIcon = NULL;
+				pHeight = 18;
+				pSelected = false;
+			}
 
-  virtual Font* font(  ) const { return pFont; }
-  virtual void setFont( Font* f ) { pFont = f; updated(); }
-  virtual Color fontColor(  ) const { return pFontColor; }
-  virtual void setFontColor( Color c ) { pFontColor = c; updated(); }
+			virtual void setTheme( Theme & t, const string prefix = "" ) {
+				setFont( t.getFont( prefix+"droplistitem" ) );
+				setFontColor( t.getColor( prefix+"droplistitem_font" ) );
+				setBgColor( t.getColor( prefix+"droplistitem_background" ) );
+				setSelectedBgColor( t.getColor( prefix+"droplistitem_background_selected" ) );
+				setIcon( t.getImage( prefix+"droplistitem_default_icon" ) );
+			}
 
-  virtual Color bgColor(  ) const { return pBgColor; }
-  virtual void setBgColor( Color c ) { pBgColor = c; updated(); }
-  virtual Color selectedBgColor(  ) const { return pSelBgColor; }
-  virtual void setSelectedBgColor( Color c ) { pSelBgColor = c; updated(); }
+			virtual DropdownList* parent() const {
+				return pParent;
+			}
+			virtual void setParent( DropdownList* dl ) {
+				pParent = dl;
+			}
 
-  virtual ImageObject* icon() const { return pIcon; }
-  virtual void setIcon( ImageObject* img ) { pIcon = img; updated(); }
+			virtual wstring text() const {
+				return pText;
+			}
+			virtual void setText( wstring s ) {
+				pText = s;
+			}
 
-  virtual bool selected() const { return pSelected; }
-  virtual void setSelected( const bool sel ) { pSelected = sel; }
+			virtual Font* font(  ) const {
+				return pFont;
+			}
+			virtual void setFont( Font* f ) {
+				pFont = f;
+				updated();
+			}
+			virtual Color fontColor(  ) const {
+				return pFontColor;
+			}
+			virtual void setFontColor( Color c ) {
+				pFontColor = c;
+				updated();
+			}
 
-  virtual int height() const { return pHeight; }
-  virtual void setHeight( const int h ) { pHeight = h; }
+			virtual Color bgColor(  ) const {
+				return pBgColor;
+			}
+			virtual void setBgColor( Color c ) {
+				pBgColor = c;
+				updated();
+			}
+			virtual Color selectedBgColor(  ) const {
+				return pSelBgColor;
+			}
+			virtual void setSelectedBgColor( Color c ) {
+				pSelBgColor = c;
+				updated();
+			}
 
-  virtual void render( int x, int y, int width )
-  {
-    if ( pParent == NULL ) return;
-    Gui* gui = pParent->gui();
-    if ( gui == NULL ) return;
-    if ( !pParent->active() ) return;
-    if ( pSelected )
-      gui->screen().fillRect( Rect( x, y, width, height() ), pSelBgColor );
-    else
-      gui->screen().fillRect( Rect( x, y, width, height() ), pBgColor );
-    if ( pFont != NULL ) {
-      int tx;
-      if ( pIcon == NULL )
-        tx = 2;
-      else
-        tx = pIcon->width() + 2;
-      int ty = Utils::inMiddle( height(), pFont->textHeight() );
-      gui->screen().outText( pText, *pFont, x+tx, y+ty, pFontColor );
-    }
-  }
-  virtual void updated()
-  {
-    if ( pParent == NULL ) return;
-    if ( pParent->active() ) pParent->updated();
-  }
+			virtual ImageObject* icon() const {
+				return pIcon;
+			}
+			virtual void setIcon( ImageObject* img ) {
+				pIcon = img;
+				updated();
+			}
 
-private:
+			virtual bool selected() const {
+				return pSelected;
+			}
+			virtual void setSelected( const bool sel ) {
+				pSelected = sel;
+			}
 
-  bool pSelected;
-  wstring pText;
-  DropdownList* pParent;
-  Font* pFont;
-  Color pFontColor;
-  Color pBgColor;
-  Color pSelBgColor;
-  ImageObject* pIcon;
-  int pHeight;
+			virtual int height() const {
+				return pHeight;
+			}
+			virtual void setHeight( const int h ) {
+				pHeight = h;
+			}
 
-};
+			virtual void render( int x, int y, int width ) {
+				if ( pParent == NULL ) return;
+				Gui* gui = pParent->gui();
+				if ( gui == NULL ) return;
+				if ( !pParent->active() ) return;
+				if ( pSelected )
+					gui->screen().fillRect( Rect( x, y, width, height() ), pSelBgColor );
+				else
+					gui->screen().fillRect( Rect( x, y, width, height() ), pBgColor );
+				if ( pFont != NULL ) {
+					int tx;
+					if ( pIcon == NULL )
+						tx = 2;
+					else
+						tx = pIcon->width() + 2;
+					int ty = Utils::inMiddle( height(), pFont->textHeight() );
+					gui->screen().outText( pText, *pFont, x+tx, y+ty, pFontColor );
+				}
+			}
+			virtual void updated() {
+				if ( pParent == NULL ) return;
+				if ( pParent->active() ) pParent->updated();
+			}
+
+		private:
+
+			bool pSelected;
+			wstring pText;
+			DropdownList* pParent;
+			Font* pFont;
+			Color pFontColor;
+			Color pBgColor;
+			Color pSelBgColor;
+			ImageObject* pIcon;
+			int pHeight;
+
+	};
 
 }
 

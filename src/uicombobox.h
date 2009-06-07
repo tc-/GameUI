@@ -31,67 +31,91 @@
 #include <uidropdownlist.h>
 #include <uiimageobject.h>
 
-namespace Ui {
-
-/**
-A Combobox Widget
-
-@author Tommy Carlsson
-*/
-class Combobox : public Edit
+namespace Ui
 {
-public:
-  Combobox( Frame* p = NULL );
-  virtual ~Combobox();
 
-  virtual void setTheme( Theme & t, const string prefix = "" );
+	/**
+	 * A Combobox Widget
+	 */
+	class Combobox : public Edit
+	{
+		public:
+			Combobox( Frame* p = NULL );
+			virtual ~Combobox();
 
-	virtual MouseCursor* getCursor( const int & x, const int& y ) { if ( getEditArea().pointInside( x, y ) ) return cursor(); else return pButtonCursor; }
-	virtual MouseCursor* buttonCursor() { return pButtonCursor; }
-	virtual void setButtonCursor( MouseCursor* mc ) { pButtonCursor = mc; }
+			virtual void setTheme( Theme & t, const string prefix = "" );
 
-  virtual ImageObject* buttonGlyph() const { return pButtonGlyph; }
-  virtual void setButtonGlyph( ImageObject* img ) { pButtonGlyph = img; updated(); }
+			virtual MouseCursor* getCursor( const int & x, const int& y ) {
+				if ( getEditArea().pointInside( x, y ) ) return cursor();
+				else return pButtonCursor;
+			}
+			virtual MouseCursor* buttonCursor() {
+				return pButtonCursor;
+			}
+			virtual void setButtonCursor( MouseCursor* mc ) {
+				pButtonCursor = mc;
+			}
 
-  virtual Border* buttonBorder() const { return pButtonBorder; }
-  virtual void setButtonBorder( Border* b ) { pButtonBorder = b; updated(); }
+			virtual ImageObject* buttonGlyph() const {
+				return pButtonGlyph;
+			}
+			virtual void setButtonGlyph( ImageObject* img ) {
+				pButtonGlyph = img;
+				updated();
+			}
 
-  virtual Border* buttonPressedBorder() const { return pButtonPressedBorder; }
-  virtual void setButtonPressedBorder( Border* b ) { pButtonPressedBorder = b; updated(); }
+			virtual Border* buttonBorder() const {
+				return pButtonBorder;
+			}
+			virtual void setButtonBorder( Border* b ) {
+				pButtonBorder = b;
+				updated();
+			}
 
-  virtual DropdownList* dropdownLis() { return pDropDown; }
-  virtual void setDropdownList( DropdownList* dd );
+			virtual Border* buttonPressedBorder() const {
+				return pButtonPressedBorder;
+			}
+			virtual void setButtonPressedBorder( Border* b ) {
+				pButtonPressedBorder = b;
+				updated();
+			}
 
-  virtual void setFocused( bool f );
-// selectedItem
+			virtual DropdownList* dropdownLis() {
+				return pDropDown;
+			}
+			virtual void setDropdownList( DropdownList* dd );
 
-  virtual void render( ImageObject& img, const Rect& r );
-	virtual Rect getEditArea() { return Rect( 0, 0, clientVisibleWidth() - height(), clientVisibleHeight() );  }
+			virtual void setFocused( bool f );
 
-  virtual Widget* mouseClick(int x, int y, MouseButtons mb);
-  virtual Widget* mouseDblClick(int x, int y, MouseButtons mb);
-  virtual Widget* mousePressed(int x, int y, MouseButtons mb);
-  virtual Widget* mouseReleased(int x, int y, MouseButtons mb);
+			virtual void render( ImageObject& img, const Rect& r );
+			virtual Rect getEditArea() {
+				return Rect( 0, 0, clientVisibleWidth() - height(), clientVisibleHeight() );
+			}
 
-  signal3<Combobox&, DropdownList&, DropListItem&> onItemSelected;
+			virtual Widget* mouseClick( int x, int y, MouseButtons mb );
+			virtual Widget* mouseDblClick( int x, int y, MouseButtons mb );
+			virtual Widget* mousePressed( int x, int y, MouseButtons mb );
+			virtual Widget* mouseReleased( int x, int y, MouseButtons mb );
 
-private:
+			signal3<Combobox&, DropdownList&, DropListItem&> onItemSelected;
 
-  ImageObject* pButtonGlyph;
-  Border* pButtonBorder;
-  Border* pButtonPressedBorder;
+		private:
 
-	MouseCursor* pButtonCursor;
+			ImageObject* pButtonGlyph;
+			Border* pButtonBorder;
+			Border* pButtonPressedBorder;
 
-  bool pButtonPressed;
+			MouseCursor* pButtonCursor;
 
-  DropdownList* pDropDown;
+			bool pButtonPressed;
 
-  virtual void onDropdownDestroy( Popup& dd );
-  virtual void onDropdownClose( Popup& dd );
-  virtual void onItemClicked( DropdownList& l, DropListItem& item );
+			DropdownList* pDropDown;
 
-};
+			virtual void onDropdownDestroy( Popup& dd );
+			virtual void onDropdownClose( Popup& dd );
+			virtual void onItemClicked( DropdownList& l, DropListItem& item );
+
+	};
 
 }
 

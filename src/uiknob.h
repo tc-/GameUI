@@ -25,53 +25,52 @@
 #include <uiwidget.h>
 #include <uiimageobject.h>
 
-namespace Ui {
-
-/**
-A Knob Widget
-
-@author Tommy Carlsson <tc@coderworld.net>
-*/
-class Knob : public Widget
+namespace Ui
 {
-public:
-  Knob( Frame* parent = NULL );
-  ~Knob();
 
-  virtual void setTheme( Theme& t, const string prefix="" );
-  virtual void render( ImageObject& img, const Rect& r );
+	/**
+	 * A Knob Widget.
+	 */
+	class Knob : public Widget
+	{
+		public:
+			Knob( Frame* parent = NULL );
+			~Knob();
 
-  ImageList* imageList();
-  void setImageList( ImageList* imgl );
+			virtual void setTheme( Theme& t, const string prefix="" );
+			virtual void render( ImageObject& img, const Rect& r );
 
-  ImageObject* image();
-  void setImage( ImageObject* img );
+			ImageList* imageList();
+			void setImageList( ImageList* imgl );
 
-  int value();
-  void setValue( const int& val );
-  int numValues();
+			ImageObject* image();
+			void setImage( ImageObject* img );
 
-  int pixelsPerStep();
-  void setPixelsPerStep( const int& pps );
+			int value();
+			void setValue( const int& val );
+			int numValues();
 
-  virtual Widget* mouseMove( int x, int y, MouseButtons mb );
-  virtual Widget* mouseClick( int x, int y, MouseButtons mb );
-  virtual Widget* mousePressed( int x, int y, MouseButtons mb );
-  virtual Widget* mouseReleased( int x, int y, MouseButtons mb );
-  virtual Widget* keyPressed( Key key );
+			int pixelsPerStep();
+			void setPixelsPerStep( const int& pps );
 
-  signal2<Widget&,int> onChange;
+			virtual Widget* mouseMove( int x, int y, MouseButtons mb );
+			virtual Widget* mouseClick( int x, int y, MouseButtons mb );
+			virtual Widget* mousePressed( int x, int y, MouseButtons mb );
+			virtual Widget* mouseReleased( int x, int y, MouseButtons mb );
+			virtual Widget* keyPressed( Key key );
 
-private:
-  int pValue;
-  ImageList* pImages;
-  ImageObject* pImage;
-  int pStartY;
-  int pStartVal;
-  int pPPS;
-  bool pDrag;
-  bool pHasDrag;
-};
+			signal2<Widget&,int> onChange;
+
+		private:
+			int pValue;
+			ImageList* pImages;
+			ImageObject* pImage;
+			int pStartY;
+			int pStartVal;
+			int pPPS;
+			bool pDrag;
+			bool pHasDrag;
+	};
 
 }
 

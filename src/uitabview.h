@@ -26,66 +26,85 @@
 #include <uiutils.h>
 #include <uiborder.h>
 
-namespace Ui {
-
-/**
-A tab view Widget.
-
-	@author Tommy Carlsson <tc@coderworld.net>
-*/
-class TabView : public Frame
+namespace Ui
 {
-  public:
 
-    TabView(Frame* parent = NULL );
-    virtual ~TabView();
+	/**
+	 * A tab view Widget.
+	 */
+	class TabView : public Frame
+	{
+		public:
 
-//    virtual Rect getClientVisibleRect();
-		virtual int clientVisibleHeight();
+			TabView( Frame* parent = NULL );
+			virtual ~TabView();
 
-    virtual Widget* mouseClick(int x, int y, MouseButtons mb);
+			virtual int clientVisibleHeight();
 
-    virtual void setTheme(Theme& t, const string prefix = "");
+			virtual Widget* mouseClick( int x, int y, MouseButtons mb );
 
-		virtual void render( ImageObject& img, const Rect& r );
+			virtual void setTheme( Theme& t, const string prefix = "" );
 
-		virtual void tabsUpdated() { updated(); }
+			virtual void render( ImageObject& img, const Rect& r );
 
-		virtual int tabHeight() { return pTabHeight; }
-		virtual void tabHeight( int th ) { pTabHeight = th; updated(); }
+			virtual void tabsUpdated() {
+				updated();
+			}
 
-		virtual void setTabButtonBorder( Border* b ) { pTabButton = b; tabsUpdated(); }
-		virtual Border* tabButtonBorder() { if ( pTabButton != NULL ) return pTabButton; else return pTabButtonActive; }
-		virtual void setTabButtonActiveBorder( Border* b )  { pTabButtonActive = b; tabsUpdated(); }
-		virtual Border* tabButtonActiveBorder() { if ( pTabButtonActive != NULL ) return pTabButtonActive; else return pTabButton; }
+			virtual int tabHeight() {
+				return pTabHeight;
+			}
+			virtual void tabHeight( int th ) {
+				pTabHeight = th;
+				updated();
+			}
 
-		virtual Widget* activeTab() { return pActiveTab; }
-		virtual void setActiveTab( Widget* w );
+			virtual void setTabButtonBorder( Border* b ) {
+				pTabButton = b;
+				tabsUpdated();
+			}
+			virtual Border* tabButtonBorder() {
+				if ( pTabButton != NULL ) return pTabButton;
+				else return pTabButtonActive;
+			}
+			virtual void setTabButtonActiveBorder( Border* b )  {
+				pTabButtonActive = b;
+				tabsUpdated();
+			}
+			virtual Border* tabButtonActiveBorder() {
+				if ( pTabButtonActive != NULL ) return pTabButtonActive;
+				else return pTabButton;
+			}
+
+			virtual Widget* activeTab() {
+				return pActiveTab;
+			}
+			virtual void setActiveTab( Widget* w );
 
 
-		virtual int borderTop () const;
+			virtual int borderTop () const;
 
-		virtual Widget* mouseMove( int x, int y, MouseButtons mb );
-		virtual Widget* mousePressed( int x, int y, MouseButtons mb );
-		virtual Widget* mouseReleased( int x, int y, MouseButtons mb );
-		virtual Widget* mouseIn( MouseButtons mb );
-		virtual Widget* mouseOut( MouseButtons mb );
+			virtual Widget* mouseMove( int x, int y, MouseButtons mb );
+			virtual Widget* mousePressed( int x, int y, MouseButtons mb );
+			virtual Widget* mouseReleased( int x, int y, MouseButtons mb );
+			virtual Widget* mouseIn( MouseButtons mb );
+			virtual Widget* mouseOut( MouseButtons mb );
 
-  private:
+		private:
 
-		Widget* pActiveTab;
-		Border* pTabButton;
-		Border* pTabButtonActive;
-		int pTabHeight;
-		Widget* pButtonPressed;
-		bool pMouseInside;
+			Widget* pActiveTab;
+			Border* pTabButton;
+			Border* pTabButtonActive;
+			int pTabHeight;
+			Widget* pButtonPressed;
+			bool pMouseInside;
 
-	protected:
+		protected:
 
-		virtual Widget* getTabButtonAt( const int x );
-		virtual void childAdded( Widget* o );
+			virtual Widget* getTabButtonAt( const int x );
+			virtual void childAdded( Widget* o );
 
-};
+	};
 
 }
 

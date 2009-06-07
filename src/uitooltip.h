@@ -25,49 +25,68 @@
 #include <uipopup.h>
 #include <uigui.h>
 
-namespace Ui {
-
-/**
-Popup used with Tooltips.
-
-	@author Tommy Carlsson <tc@coderworld.net>
-*/
-class Tooltip : public Popup
+namespace Ui
 {
-public:
 
-  Tooltip();
-  ~Tooltip();
+	/**
+	 * Popup used with Tooltips.
+	 */
+	class Tooltip : public Popup
+	{
+		public:
 
-	virtual wstring text() const { return pText; }
-	virtual void setText( wstring t ) { pText = t; doAutoResize(); updated(); }
+			Tooltip();
+			~Tooltip();
 
-	virtual bool autoResize(  ) const { return pAutoResize; }
-	virtual void setAutoResize( const bool ar ) { pAutoResize = ar; }
+			virtual wstring text() const {
+				return pText;
+			}
+			virtual void setText( wstring t ) {
+				pText = t;
+				doAutoResize();
+				updated();
+			}
 
-	virtual Font* font(  ) const { return pFont; }
-	virtual void setFont( Font* f ) { pFont = f; doAutoResize(); updated(); }
+			virtual bool autoResize(  ) const {
+				return pAutoResize;
+			}
+			virtual void setAutoResize( const bool ar ) {
+				pAutoResize = ar;
+			}
 
-	virtual Color fontColor(  ) const { return pFontColor; }
-	virtual void setFontColor( Color c ) { pFontColor = c; updated(); }
-	//virtual void setText( wstring s, const bool autoresize = false );
+			virtual Font* font(  ) const {
+				return pFont;
+			}
+			virtual void setFont( Font* f ) {
+				pFont = f;
+				doAutoResize();
+				updated();
+			}
 
-  virtual bool passEvents();
-  virtual void mousePressed(int x, int y, MouseButtons mb);
-  virtual void render(Rect area);
-  virtual void setTheme(Theme& t, const string prefix = "" );
+			virtual Color fontColor(  ) const {
+				return pFontColor;
+			}
+			virtual void setFontColor( Color c ) {
+				pFontColor = c;
+				updated();
+			}
 
-	virtual void doAutoResize();
+			virtual bool passEvents();
+			virtual void mousePressed( int x, int y, MouseButtons mb );
+			virtual void render( Rect area );
+			virtual void setTheme( Theme& t, const string prefix = "" );
 
-private:
+			virtual void doAutoResize();
 
-	wstring pText;
-	Font* pFont;
-	Color pFontColor;
-	bool pPressed;
-	bool pAutoResize;
+		private:
 
-};
+			wstring pText;
+			Font* pFont;
+			Color pFontColor;
+			bool pPressed;
+			bool pAutoResize;
+
+	};
 
 }
 

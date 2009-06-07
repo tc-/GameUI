@@ -51,7 +51,7 @@ namespace Ui {
 /**
 A Graph Widget
 
-@author Tommy Carlsson <tc@coderworld.net>
+
 */
 class Graph : public Frame
 {

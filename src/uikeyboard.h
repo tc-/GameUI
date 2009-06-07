@@ -20,9 +20,9 @@
 
 
 /**
-@file
-Header and implementationfile for the Ui::Keyboard class.
-*/
+ * @file
+ * Header and implementationfile for the Ui::Keyboard class.
+ */
 
 #ifndef UIKEYBOARD_H
 #define UIKEYBOARD_H
@@ -32,55 +32,60 @@ Header and implementationfile for the Ui::Keyboard class.
 #include <uikey.h>
 #include <sigslot.h>
 
-namespace Ui {
-
-/**
-Abstract class used to implement a keyboard control.
-
-@author Tommy Carlsson
-*/
-class Keyboard : public has_slots<>
+namespace Ui
 {
-public:
-  Keyboard( Gui* g = NULL ) { pGui = g; };
-  virtual ~Keyboard() {  };
 
-  virtual void update() = 0;
+	/**
+	 * Abstract class used to implement a keyboard control.
+	 */
+	class Keyboard : public has_slots<>
+	{
+		public:
+			Keyboard( Gui* g = NULL ) {
+				pGui = g;
+			};
+			virtual ~Keyboard() {  };
 
-  /**
-   * Sets the repeat values for the keyboard.
-   * If not called keyboard repeat will be disabled.
-   * @note If you set delay to 0, repeat will be disabled.
-   * @note If you set delay to -1, default values will be assigned.
-   * @param delay the delay in ms.
-   * @param interval the interval in ms.
-   */
-  virtual void setRepeat( int delay = 0, int interval = 0 ) = 0;
+			virtual void update() = 0;
 
-  virtual Gui* gui() {  return pGui; }
-  virtual void setGui( Gui* s ) {  pGui = s; }
+			/**
+			 * Sets the repeat values for the keyboard.
+			 * If not called keyboard repeat will be disabled.
+			 * @note If you set delay to 0, repeat will be disabled.
+			 * @note If you set delay to -1, default values will be assigned.
+			 * @param delay the delay in ms.
+			 * @param interval the interval in ms.
+			 */
+			virtual void setRepeat( int delay = 0, int interval = 0 ) = 0;
 
-  virtual void keyPressed( Key k ) {
-    if ( gui() != NULL ) {
-      gui()->keyPressed( k );
-    }
-    onKeyPressed( k );
-  }
+			virtual Gui* gui() {
+				return pGui;
+			}
+			virtual void setGui( Gui* s ) {
+				pGui = s;
+			}
 
-  virtual void keyReleased( Key k ) {
-    if ( gui() != NULL ) {
-      gui()->keyReleased( k );
-    }
-    onKeyReleased( k );
-  }
+			virtual void keyPressed( Key k ) {
+				if ( gui() != NULL ) {
+					gui()->keyPressed( k );
+				}
+				onKeyPressed( k );
+			}
 
-  signal1< Key > onKeyPressed;
-  signal1< Key > onKeyReleased;
+			virtual void keyReleased( Key k ) {
+				if ( gui() != NULL ) {
+					gui()->keyReleased( k );
+				}
+				onKeyReleased( k );
+			}
 
-private:
-  Gui* pGui;
+			signal1< Key > onKeyPressed;
+			signal1< Key > onKeyReleased;
 
-};
+		private:
+			Gui* pGui;
+
+	};
 
 }
 

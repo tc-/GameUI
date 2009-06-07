@@ -20,9 +20,9 @@
 
 
 /**
-@file
-Headerfile for the Ui::Frame class
-*/
+ * @file
+ * Headerfile for the Frame class.
+ */
 
 #ifndef UIFRAME_H
 #define UIFRAME_H
@@ -32,135 +32,133 @@ Headerfile for the Ui::Frame class
 #include <uilist.h>
 
 
-namespace Ui {
-
-enum LineUpType { lineHorizontal, lineVertical, lineFill, lineNone };
-
-/**
-Class used for framed objects able to manage child objects
-
-@author Tommy Carlsson
-*/
-class Frame : public Widget
+namespace Ui
 {
-public:
 
-  Frame(  );
-  Frame( Frame* parent );
-  virtual ~Frame(  );
+	enum LineUpType { lineHorizontal, lineVertical, lineFill, lineNone };
 
-	virtual void setTheme( Theme& t, const string prefix = "" );
+	/**
+	 * Class used for framed objects able to manage child objects.
+	 */
+	class Frame : public Widget
+	{
+		public:
 
-  virtual void setGui( Gui* s );
+			Frame(  );
+			Frame( Frame* parent );
+			virtual ~Frame(  );
 
-  virtual void childUpdated( Widget& o );
+			virtual void setTheme( Theme& t, const string prefix = "" );
 
-  virtual void arrangeChildren(  );
+			virtual void setGui( Gui* s );
 
-  virtual Rect getClientClipRect();
-//  virtual Rect getClientVisibleRect();
-//  virtual Rect getClientRect();
+			virtual void childUpdated( Widget& o );
 
-	virtual Widget* getWidgetAt( int x, int y, bool recursive = false );
+			virtual void arrangeChildren(  );
 
-  //virtual void updateRegion( const Rect& r );
-  virtual void updated(  );
-  virtual void renderBackground( const Rect& r );
+			virtual Rect getClientClipRect();
 
-	virtual void resize( int newwidth, int newheight );
+			virtual Widget* getWidgetAt( int x, int y, bool recursive = false );
 
-  virtual int scrollX( ) const { return 0; }
-  virtual int scrollY( ) const { return 0; }
+			virtual void updated(  );
+			virtual void renderBackground( const Rect& r );
 
-  virtual int zIndex( );
-  virtual int setZIndex( const int z );
+			virtual void resize( int newwidth, int newheight );
 
-	virtual void getWidgetsInRect( List<Widget*>& l, const Rect r, bool recursive = true );
+			virtual int scrollX( ) const {
+				return 0;
+			}
+			virtual int scrollY( ) const {
+				return 0;
+			}
 
-  virtual Widget* mouseMove( int x, int y, MouseButtons mb );
-  virtual Widget* mouseClick( int x, int y, MouseButtons mb );
-  virtual Widget* mouseDblClick( int x, int y, MouseButtons mb );
-  virtual Widget* mousePressed( int x, int y, MouseButtons mb );
-  virtual Widget* mouseReleased( int x, int y, MouseButtons mb );
-  virtual Widget* mouseIn( MouseButtons mb );
-  virtual Widget* mouseOut( MouseButtons mb );
-  virtual Widget* keyPressed( Key key );
-  virtual Widget* keyReleased( Key key );
+			virtual int zIndex( );
+			virtual int setZIndex( const int z );
 
-  virtual void moveWidgetToTop( Widget* obj ) {
-    int pos = pChildList.getIndex( obj );
-    if ( pos != -1 ) {
-      pChildList.remove( pos );
-      pChildList.insert( obj, 0 );
-      setZIndex( zIndex() );
-    }
-  }
+			virtual void getWidgetsInRect( List<Widget*>& l, const Rect r, bool recursive = true );
 
-  virtual void moveWidgetToBottom( Widget* obj ) {
-    int pos = pChildList.getIndex( obj );
-    if ( pos != -1 ) {
-      pChildList.remove( pos );
-      pChildList.insert( obj, pChildList.count() - 1 );
-      setZIndex( zIndex() );
-    }
-  }
+			virtual Widget* mouseMove( int x, int y, MouseButtons mb );
+			virtual Widget* mouseClick( int x, int y, MouseButtons mb );
+			virtual Widget* mouseDblClick( int x, int y, MouseButtons mb );
+			virtual Widget* mousePressed( int x, int y, MouseButtons mb );
+			virtual Widget* mouseReleased( int x, int y, MouseButtons mb );
+			virtual Widget* mouseIn( MouseButtons mb );
+			virtual Widget* mouseOut( MouseButtons mb );
+			virtual Widget* keyPressed( Key key );
+			virtual Widget* keyReleased( Key key );
 
-  virtual Widget* child( int index ) const {
-    return pChildList.get( index );
-  }
+			virtual void moveWidgetToTop( Widget* obj ) {
+				int pos = pChildList.getIndex( obj );
+				if ( pos != -1 ) {
+					pChildList.remove( pos );
+					pChildList.insert( obj, 0 );
+					setZIndex( zIndex() );
+				}
+			}
 
-  virtual void addChild( Widget& o ) {
-    //cout << "* UiFrame::addChild(  )" << endl;
-    if ( pChildList.getIndex( &o ) == -1 ) {
-      Widget* p = &o;
-      pChildList.append( p );
-			setZIndex( zIndex() );
-			//o.moveToTop();
-			childAdded( &o );
-		}
-    //cout << "* UiFrame::addChild(  ) done" << endl;
-  }
+			virtual void moveWidgetToBottom( Widget* obj ) {
+				int pos = pChildList.getIndex( obj );
+				if ( pos != -1 ) {
+					pChildList.remove( pos );
+					pChildList.insert( obj, pChildList.count() - 1 );
+					setZIndex( zIndex() );
+				}
+			}
 
-  virtual void removeChild( Widget* o ) {
-    pChildList.remove( pChildList.getIndex( o ) );
-    setZIndex( zIndex() );
-    onChildRemoved( o );
-  }
+			virtual Widget* child( int index ) const {
+				return pChildList.get( index );
+			}
 
-  virtual void removeChild( int index ) {
-    Widget* o = pChildList.get( index );
-    pChildList.remove( index );
-    setZIndex( zIndex() );
-    onChildRemoved( o );
-  }
+			virtual void addChild( Widget& o ) {
+				//cout << "* UiFrame::addChild(  )" << endl;
+				if ( pChildList.getIndex( &o ) == -1 ) {
+					Widget* p = &o;
+					pChildList.append( p );
+					setZIndex( zIndex() );
+					childAdded( &o );
+				}
+				//cout << "* UiFrame::addChild(  ) done" << endl;
+			}
 
-  virtual bool hasChildren() const {
-    return ( numChildren() > 0 );
-  }
+			virtual void removeChild( Widget* o ) {
+				pChildList.remove( pChildList.getIndex( o ) );
+				setZIndex( zIndex() );
+				onChildRemoved( o );
+			}
 
-  virtual int numChildren() const {
-    return pChildList.count();
-  }
+			virtual void removeChild( int index ) {
+				Widget* o = pChildList.get( index );
+				pChildList.remove( index );
+				setZIndex( zIndex() );
+				onChildRemoved( o );
+			}
 
-  signal1<Widget*> onChildAdded;
-  signal1<Widget*> onChildRemoved;
+			virtual bool hasChildren() const {
+				return ( numChildren() > 0 );
+			}
 
-private:
+			virtual int numChildren() const {
+				return pChildList.count();
+			}
 
-  //WidgetList pChildList;
-	Widget* pCur;
+			signal1<Widget*> onChildAdded;
+			signal1<Widget*> onChildRemoved;
 
-	static bool sortWidgetsByLeft(List< Widget* > & l, int i1, int i2);
-	static bool sortWidgetsByTop(List< Widget* > & l, int i1, int i2);
+		private:
 
-protected:
+			Widget* pCur;
 
-  List<Widget*> pChildList;
+			static bool sortWidgetsByLeft( List< Widget* > & l, int i1, int i2 );
+			static bool sortWidgetsByTop( List< Widget* > & l, int i1, int i2 );
 
-	virtual void childAdded( Widget* o );
-	virtual void childRemoved( Widget* o );
+		protected:
 
-};
+			List<Widget*> pChildList;
+
+			virtual void childAdded( Widget* o );
+			virtual void childRemoved( Widget* o );
+
+	};
 
 }
 

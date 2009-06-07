@@ -27,83 +27,125 @@
 #include "uiborder.h"
 #include "uitheme.h"
 
-namespace Ui {
-
-class Gui;
-
-/**
-The base Popup class
-
-@author Tommy Carlsson
-*/
-class Popup : public has_slots<>
+namespace Ui
 {
-public:
 
-  Popup();
-  virtual ~Popup();
+	class Gui;
 
-  virtual void setTheme( Theme & t, const string prefix = "" );
+	/**
+	 * The base Popup class.
+	 */
+	class Popup : public has_slots<>
+	{
+		public:
 
-  virtual int top(  ) const { return pTop; }
-  virtual void setTop( int t ) { pTop = t; updated(); }
+			Popup();
+			virtual ~Popup();
 
-  virtual int left(  ) const { return pLeft; }
-  virtual void setLeft( int l ) { pLeft = l; updated(); }
+			virtual void setTheme( Theme & t, const string prefix = "" );
 
-	virtual void setPosition( int l, int t );
+			virtual int top(  ) const {
+				return pTop;
+			}
+			virtual void setTop( int t ) {
+				pTop = t;
+				updated();
+			}
 
-  virtual int width() const { return pWidth; }
-  virtual void setWidth( const int w ) { pWidth = w; updated(); }
-  virtual int height() const { return pHeight; }
-  virtual void setHeight( const int h ) { pHeight = h; updated(); }
-  virtual Rect getRect() const { return Rect( left(), top(), width(), height() ); }
+			virtual int left(  ) const {
+				return pLeft;
+			}
+			virtual void setLeft( int l ) {
+				pLeft = l;
+				updated();
+			}
 
-  virtual Drawmode drawmode() const { return pDrawmode; }
-  virtual void setDrawmode( const Drawmode dm ) { pDrawmode = dm; updated(); }
-  virtual bool active() const { return pActive; }
-  virtual void setActive( const bool a ) { pActive = a; updated(); }
+			virtual void setPosition( int l, int t );
 
-  virtual Border* border() const { return pBorder; }
-  virtual void setBorder( Border* bs ) { pBorder = bs; updated(); }
+			virtual int width() const {
+				return pWidth;
+			}
+			virtual void setWidth( const int w ) {
+				pWidth = w;
+				updated();
+			}
+			virtual int height() const {
+				return pHeight;
+			}
+			virtual void setHeight( const int h ) {
+				pHeight = h;
+				updated();
+			}
+			virtual Rect getRect() const {
+				return Rect( left(), top(), width(), height() );
+			}
 
-  virtual void popup( const int x, const int y, Gui& gui );
-  virtual void close();
+			virtual Drawmode drawmode() const {
+				return pDrawmode;
+			}
+			virtual void setDrawmode( const Drawmode dm ) {
+				pDrawmode = dm;
+				updated();
+			}
+			virtual bool active() const {
+				return pActive;
+			}
+			virtual void setActive( const bool a ) {
+				pActive = a;
+				updated();
+			}
 
-  virtual void updated();
-	virtual void updated( Rect r );
-	virtual void beginUpdate();
-  virtual void endUpdate( const bool doRender = true );
+			virtual Border* border() const {
+				return pBorder;
+			}
+			virtual void setBorder( Border* bs ) {
+				pBorder = bs;
+				updated();
+			}
 
-  virtual void render( Rect area );
+			virtual void popup( const int x, const int y, Gui& gui );
+			virtual void close();
 
-  virtual Gui* gui() { return pGui; }
+			virtual void updated();
+			virtual void updated( Rect r );
+			virtual void beginUpdate();
+			virtual void endUpdate( const bool doRender = true );
 
-	virtual bool passEvents() { return false; }
+			virtual void render( Rect area );
 
-  virtual void mouseMove( int x, int y, MouseButtons mb ) {}
-  virtual void mousePressed( int x, int y, MouseButtons mb ){ close(); }
-  virtual void mouseReleased( int x, int y, MouseButtons mb ){}
+			virtual Gui* gui() {
+				return pGui;
+			}
 
-  signal1<Popup&> onClose;
-  signal1<Popup&> onDestroy;
-  signal2<Popup&, MouseButtons> onMousePressed;
-  signal2<Popup&, MouseButtons> onMouseReleased;
-  signal4<Popup&, int, int, MouseButtons> onMouseMove;
+			virtual bool passEvents() {
+				return false;
+			}
 
-private:
+			virtual void mouseMove( int x, int y, MouseButtons mb ) {}
+			virtual void mousePressed( int x, int y, MouseButtons mb ) {
+				close();
+			}
+			virtual void mouseReleased( int x, int y, MouseButtons mb ) {}
 
-  int pTop;
-  int pLeft;
-  int pWidth;
-  int pHeight;
-  Border* pBorder;
-  Drawmode pDrawmode;
-  Gui* pGui;
-  bool pActive;
-  int pDoUpdate;
+			signal1<Popup&> onClose;
+			signal1<Popup&> onDestroy;
+			signal2<Popup&, MouseButtons> onMousePressed;
+			signal2<Popup&, MouseButtons> onMouseReleased;
+			signal4<Popup&, int, int, MouseButtons> onMouseMove;
 
-};
+		private:
+
+			int pTop;
+			int pLeft;
+			int pWidth;
+			int pHeight;
+			Border* pBorder;
+			Drawmode pDrawmode;
+			Gui* pGui;
+			bool pActive;
+			int pDoUpdate;
+
+	};
 
 }
 

@@ -25,40 +25,38 @@
 #include <uiframe.h>
 #include <uigui.h>
 
-namespace Ui {
-
-/**
-Frame control behaving like a window.
-
-@author Tommy Carlsson
-*/
-class WindowFrame : public Frame
+namespace Ui
 {
-public:
-  WindowFrame();
-  WindowFrame( Frame* parent );
 
-  virtual ~WindowFrame();
+	/**
+	 *Frame control behaving like a window.
+	 */
+	class WindowFrame : public Frame
+	{
+		public:
+			WindowFrame();
+			WindowFrame( Frame* parent );
 
-  virtual void setTheme( Theme& t, const string prefix = "" );
+			virtual ~WindowFrame();
+
+			virtual void setTheme( Theme& t, const string prefix = "" );
 
 
-  virtual void renderBackground(const Rect& r);
- // virtual void updateRegion(const Rect& r);
+			virtual void renderBackground( const Rect& r );
 
-  virtual Widget* mouseClick(int x, int y, MouseButtons mb);
-  virtual Widget* mouseDblClick(int x, int y, MouseButtons mb);
-  virtual Widget* mousePressed(int x, int y, MouseButtons mb);
-  virtual Widget* mouseReleased(int x, int y, MouseButtons mb);
-  virtual Widget* mouseMove( int x, int y, MouseButtons mb );
+			virtual Widget* mouseClick( int x, int y, MouseButtons mb );
+			virtual Widget* mouseDblClick( int x, int y, MouseButtons mb );
+			virtual Widget* mousePressed( int x, int y, MouseButtons mb );
+			virtual Widget* mouseReleased( int x, int y, MouseButtons mb );
+			virtual Widget* mouseMove( int x, int y, MouseButtons mb );
 
-private:
+		private:
 
-  int pLastMouseX;
-  int pLastMouseY;
-  bool pLeftMouseDown;
+			int pLastMouseX;
+			int pLastMouseY;
+			bool pLeftMouseDown;
 
-};
+	};
 
 }
 
