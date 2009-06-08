@@ -28,7 +28,6 @@
 #include <uiwidget.h>
 #include "uiimageobject.h"
 #include "uigui.h"
-#include "uigraph.h"
 #include "uisdlkeyboard.h"
 #include "uilist.h"
 #include "uiedit.h"
@@ -186,7 +185,7 @@ int main(int argc, char *argv[])
 	f3->setName( "Labels" );
 
 
-	// scrollframe2 - A ScrollFrame, contains 4 Knobs, a HScrollbar and a Graph
+	// scrollframe2 - A ScrollFrame, contains 4 Knobs and a HScrollbar
   Utils::startTask( "Creating Scrollframe2 object" );
 	ScrollFrame* f2 = new ScrollFrame( tv1 );
   f2->setTheme( Theme::defaultTheme() );
@@ -204,17 +203,6 @@ int main(int argc, char *argv[])
 	hsb1->setTheme( Theme::defaultTheme() );
 	hsb1->setName( "Scrollframe2Hscrollbar" );
 	f2->setHScroll( hsb1 );
-
-
-	Utils::startTask( "Creating Graph1 object" );
-  Graph* g1 = new Graph( f2 );
-  g1->setTheme( Theme::defaultTheme() );
-	g1->setTop( 0 );
-	g1->setLeft( 0 );
-	g1->setWidth( 200 );
-	g1->setHeight( 100 );
-	g1->setVisible( true );
-	g1->setName( "Graph1" );
 
   Utils::startTask( "Creating Knob1 object" );
   Knob* k1 = new Knob( f2 );
@@ -655,8 +643,6 @@ int main(int argc, char *argv[])
 	delete k2;
 	Utils::startTask( "Destroying Knob1 Object" );
 	delete k1;
-	Utils::startTask( "Destroying Graph1 Object" );
-	delete g1;
 	Utils::startTask( "Destroying VScrollBar1 Object" );
 	delete sb1;
 	Utils::startTask( "Destroying ScrollFrame2 Object" );

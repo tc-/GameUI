@@ -16,10 +16,9 @@ add_library(gameui
   uisdlimageobject.cpp uisdlkeyboard.cpp uisdlmouse.cpp 
   uitheme.cpp uitileview.cpp uitimer.cpp uivscrollbar.cpp 
   uiwindow.cpp uiwindowframe.cpp uiinifile.cpp uiborder.cpp 
-  uiutils.cpp uiknob.cpp uigraph.cpp uiimageobject.cpp 
+  uiutils.cpp uiknob.cpp uiimageobject.cpp 
   uisdltimercontrol.cpp uiwidget.cpp uimouse.cpp uikey.cpp 
   uifont.cpp uidragobject.cpp uitooltip.cpp uitabview.cpp 
-  uigraphdata.cpp uigraphcursor.cpp
   gameui.h sigslot.h uiborder.h uiclipboard.h uicolor.h
   uicombobox.h uidropdownlist.h uiedit.h uifont.h uiframe.h
   uigui.h uihscrollbar.h uiimageborder.h uiimageobject.h
@@ -28,7 +27,7 @@ add_library(gameui
   uirect.h uiscrollframe.h uisdlcontrol.h uisdlfont.h 
   uisdlimageobject.h uisdlkeyboard.h uisdlmouse.h uitheme.h
   uitileview.h uitimer.h uivscrollbar.h uiwindow.h 
-  uiwindowframe.h uiinifile.h uiutils.h uiknob.h uigraph.h
+  uiwindowframe.h uiinifile.h uiutils.h uiknob.h
   uisdltimercontrol.h uiwidget.h uidragobject.h uitooltip.h
   uitabview.h uispriteview.cpp uispriteview.h
 )

@@ -26,7 +26,7 @@ Implementation of the Ui::SDLImageObject class
 
 #include <uisdlimageobject.h>
 #include <SDL.h>
-#include "SDL_image.h"
+#include <SDL_image.h>
 
 using namespace Ui;
 
@@ -363,9 +363,6 @@ void SDLImageObject::fillRect( const Rect& r, const Color& color )
   dr.h = r.height;
 
   Color c = color;
-
-	//TODO: Fulhac
-	c.setA(255);
 
 	if ( c.getA() == 255 )
 	  SDL_FillRect( s, &dr, getColor( c.getR(), c.getG(), c.getB() ) );

@@ -32,7 +32,7 @@
 #include <uitheme.h>
 #include <uiinifile.h>
 #include <string>
-#include "SDL_ttf.h"
+#include <SDL_ttf.h>
 
 using std::string;
 
