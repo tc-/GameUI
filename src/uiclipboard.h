@@ -47,9 +47,11 @@ public:
 
   /**
    * Returns corresponding action to the Ui::Key object passed.
+   *
    * The keys ctrl+c(copy) ctrl+x(cut) ctrl+v(paste) are hardcoded.
    * @param k key to check.
    * @return UICA_NONE if key is not a key to cutnpaste otherwise returns UICA_COPY, UICA_CUT or UICA_PASTE.
+   * @see setPlainText().
    */
   virtual ClipboardAction getClipAction( Key& k ) {
     if ( (k.keysym() == KEY_c) && (k.isCtrlPressed()) ) {
@@ -65,34 +67,39 @@ public:
 
   /**
    * Clears the clipboard from any data.
+   *
    * @note This function should be called before any new data is pasted into the clipboard.
-   * @see Ui::Clipboard::clear()
+   * @see clear().
    */
   virtual void clear() { pPlainText = L""; }
+
   /**
-   * Returns true if clipboard is empty.
-   * @see Ui::Clipboard::clear()
-   * @return true if the clipboard is empty.
+   * True if clipboard is empty.
+   *
+   * @see clear().
    */
   virtual bool isEmpty() { return (pPlainText.length() == 0); }
 
   /**
    * Pastes a plaintext text into clipboard.
+   *
    * @note Before pasting new data into the clipboard clear() should be called to erace all data previously in clipboard.
-   * @see Ui::Clipboard::plainText() Ui::Clipboard::clear()
    * @param text The text to paste into clipboard.
+   * @see plainText() clear().
    */
   virtual void setPlainText( wstring text ) { pPlainText = text; };
+
   /**
-   * Returns the plaintext element in the clipboard.
-   * @see Ui::Clipboard::setPlainText()
-   * @return plaintext element of the clipboard.
+   * The plaintext element in the clipboard.
+   *
+   * @see setPlainText().
    */
   virtual wstring plainText() { return pPlainText; }
+
   /**
-   * Returns true if the clipboard has been assigned a plaintext element.
-   * @see Ui::Clipboard::plainText()
-   * @return true if the clipboard has been assigned a plaintext element.
+   * True if the clipboard has been assigned a plaintext element.
+   *
+   * @see plainText().
    */
   virtual bool hasPlainText() { return (pPlainText.length() == 0); }
 
