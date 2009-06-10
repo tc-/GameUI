@@ -89,71 +89,90 @@ namespace Ui
 			Color( const unsigned char R, const unsigned char G, const unsigned char B, const unsigned char A ) {
 				setColor( R, G, B, A );
 			};
-			virtual ~Color() { };
+			~Color() { };
 
-			virtual void setColor( const unsigned char R, const unsigned char G, const unsigned char B, const unsigned char A = ColorOpaque ) {
+			/**
+			 * Sets the color to be held by the Color class.
+			 *
+			 * @param col the color, if rgba the first byte should contain the red color, the second green, the third blue and the fourth is the alpha.
+			 * @see getColor(), getColorType().
+			 */
+			inline void setColor( const unsigned char R, const unsigned char G, const unsigned char B, const unsigned char A = ColorOpaque ) {
 				c.rgba[ColorType_r] = R;
 				c.rgba[ColorType_g] = G;
 				c.rgba[ColorType_b] = B;
 				c.rgba[ColorType_a] = A;
 			};
 
-			/**
-			 * Sets the color to be held by the Color class.
-			 * @param col the color, if rgba the first byte should contain the red color, the second green, the third blue and the fourth is the alpha.
-			 */
-			virtual void setColor( const unsigned long col ) {
+			inline void setColor( const unsigned long col ) {
 				c.c = col;
 			}
 
-			virtual void setColor( const ColorType col ) {
+			inline void setColor( const ColorType& col ) {
 				c.c = col.c;
 			}
 
-			virtual unsigned char getR() const {
+			inline unsigned char getR() const {
 				return c.rgba[ColorType_r];
 			}
-			virtual unsigned char getG() const {
+			inline unsigned char getG() const {
 				return c.rgba[ColorType_g];
 			}
-			virtual unsigned char getB() const {
+			inline unsigned char getB() const {
 				return c.rgba[ColorType_b];
 			}
-			virtual unsigned char getA() const {
+			inline unsigned char getA() const {
 				return c.rgba[ColorType_a];
 			}
 
-			virtual void setR( const unsigned char& r ) {
+			inline void setR( const unsigned char& r ) {
 				c.rgba[ColorType_r] = r;
 			}
-			virtual void setG( const unsigned char& g ) {
+			inline void setG( const unsigned char& g ) {
 				c.rgba[ColorType_g] = g;
 			}
-			virtual void setB( const unsigned char& b ) {
+			inline void setB( const unsigned char& b ) {
 				c.rgba[ColorType_b] = b;
 			}
-			virtual void setA( const unsigned char& a ) {
+			inline void setA( const unsigned char& a ) {
 				c.rgba[ColorType_a] = a;
 			}
 
-			virtual unsigned long getColor(  ) const {
+			/**
+			 * Gets the color contained by this Color object as long.
+			 *
+			 * @see setColor() getColorType().
+			 */
+			inline unsigned long getColor(  ) const {
 				return c.c;
 			}
-			virtual ColorType getColorType(  ) const {
+
+			/**
+			 * Gets the color contained by this Color object as a ColorType.
+			 *
+			 * @see Color() getColor() ColorType.
+			 */
+			inline ColorType getColorType(  ) const {
 				return c;
 			}
 
-			virtual bool operator==( const Color& c2 ) const {
+			/**
+			 * Two colors are equal if all the color components of one Color object are equal to the respective color component of the other Color object.
+			 */
+			inline bool operator==( const Color& c2 ) const {
 				return ( ( getR() == c2.getR() ) && ( getG() == c2.getG() ) && ( getB() == c2.getB() ) && ( getA() == c2.getA() ) );
 			}
 
-			virtual bool operator!=( const Color& c2 ) const {
+			/**
+			 * Two colors are not equal if any of the color components of one Color object is not equal to the respective color component of the other Color object.
+			 */
+			inline bool operator!=( const Color& c2 ) const {
 				return ( ( getR() != c2.getR() ) || ( getG() != c2.getG() ) || ( getB() != c2.getB() ) || ( getA() != c2.getA() ) );
 			}
 
 		private:
 
-			ColorType c;
+			ColorType c; //!< Internal repressentation of the color.
 
 	};
 
