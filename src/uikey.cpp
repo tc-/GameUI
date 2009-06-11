@@ -28,39 +28,8 @@ Implementation of the Ui::Key class
 
 namespace Ui {
 
-Key::Key() {
-	pKeysym = KEY_NONE;
-	pUnicode = 0;
-	pLShift = false;
-	pRShift = false;
-	pLCtrl = false;
-	pRCtrl = false;
-	pLAlt = false;
-	pRAlt = false;
-	pLMeta = false;
-	pRMeta = false;
-	pNumlock = false;
-	pCapslock = false;
-	pMode = false;
-}
 
-Key::~Key() {
-}
-
-bool Key::operator== ( const Key& k ) const {
-	return (
-		(k.pKeysym == pKeysym) &&
-		(k.pUnicode == pUnicode) &&
-		(k.pLShift == pLShift) && (k.pRShift == pRShift) &&
-		(k.pLCtrl == pLCtrl) && (k.pRCtrl == pRCtrl) &&
-		(k.pLAlt == pLAlt) && (k.pRAlt == pRAlt) &&
-		(k.pLMeta == pLMeta) && (k.pRMeta == pRMeta) &&
-		(k.pNumlock == pNumlock) && (k.pCapslock == pCapslock) &&
-		(k.pMode == pMode)
-	);
-}
-
-wstring Key::keysymWString( Keysym k ) {
+wstring Key::keysymWString( const Keysym& k ) {
 	switch ( k ) {
 		case KEY_NONE: return L"NONE";
 		case KEY_BACKSPACE : return L"BACKSPACE";
@@ -203,7 +172,7 @@ wstring Key::keysymWString( Keysym k ) {
 }
 
 
-string Key::keysymString( const Keysym k ) {
+string Key::keysymString( const Keysym& k ) {
 	switch ( k ) {
 		case KEY_NONE: return "NONE";
 		case KEY_BACKSPACE : return "BACKSPACE";

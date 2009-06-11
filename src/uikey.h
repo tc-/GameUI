@@ -177,158 +177,184 @@ namespace Ui
 
 
 	/**
-	 * Class that contians a single key.
+	 * Class that contians a single keystroke.
 	 */
 	class Key
 	{
 		public:
 
-			Key();
-			virtual ~Key();
+			Key():
+				pKeysym(KEY_NONE), pUnicode(0), pLShift(false), pRShift(false), pLCtrl(false), pRCtrl(false),
+				pLAlt(false), pRAlt(false), pLMeta(false), pRMeta(false), pNumlock(false), pCapslock(false), pMode(false)
+			{ }
 
 			/**
-			 * Returns true if k has same key and mods as the Ui::Key object.
+			 * Two Key objects are equal if they hold the same Keysym and the same mods.
+			 *
 			 * @param k the key to compare with.
-			 * @return true if k has same key and mods as the Ui::Key object.
 			 */
-			virtual bool operator== ( const Key& k ) const;
+			inline bool operator== ( const Key& k ) const {
+				return ( (k.pKeysym == pKeysym) && (k.pUnicode == pUnicode) && (k.pLShift == pLShift) && (k.pRShift == pRShift) &&
+					(k.pLCtrl == pLCtrl) && (k.pRCtrl == pRCtrl) && (k.pLAlt == pLAlt) && (k.pRAlt == pRAlt) &&
+					(k.pLMeta == pLMeta) && (k.pRMeta == pRMeta) && (k.pNumlock == pNumlock) && (k.pCapslock == pCapslock) &&
+					(k.pMode == pMode)
+				);
+			}
 
 			/**
-			 * Returns the keysym associated with the key.
+			 * The keysym associated with the key.
+			 *
 			 * @note do not hardcode any keysyms since these can vary from one caracterset to another. If you have to hardcode some, only use the once available on all keyboards.
 			 * @note If unset the function returns Ui::Keysym::KEY_NONE
-			 * @see Ui::Key::setKeysym() Ui::Key::unicode()
-			 * @return the keysym associated with the key.
+			 * @see setKeysym() unicode().
 			 */
-			virtual Keysym keysym() {
+			inline Keysym keysym() {
 				return pKeysym;
 			};
 
 			/**
 			 * Returns unicode value of the key.
+			 *
 			 * @note will return 0 if key does not have an associated unicode value.
-			 * @see Ui::Key::setUnicode() Ui::Key::keysym()
 			 * @return Unicode value of the key.
+			 * @see setUnicode() keysym().
 			 */
-			virtual wchar_t unicode() {
+			inline wchar_t unicode() {
 				return pUnicode;
 			};
 
 
 			/**
-			 * Sets the keysym for the Ui::Key Object.
-			 * @note If not set the Ui::Key::keysym() will return Ui::Keysym::KEY_NONE
-			 * @see Ui::Key::keysym() Ui::Key::setUnicode()
-			 * @param ks the new keysym
+			 * Sets the keysym for the Key Object.
+			 *
+			 * @note If not set the keysym() will return Keysym::KEY_NONE.
+			 * @param ks the new keysym.
+			 * @see keysym() setUnicode().
 			 */
-			virtual void setKeysym( Keysym ks ) {
+			inline void setKeysym( const Keysym& ks ) {
 				pKeysym = ks;
 			};
 
 			/**
 			 * Assigns a unicode value to the key.
-			 * @note If no unicode value is assigned Ui::Key::unicode() will return 0
-			 * @see Ui::Key::unicode() Ui::Key::setKeysym()
+			 *
+			 * @note If no unicode value is assigned unicode() will return 0.
 			 * @param uc the unicode value to assign.
+			 * @see unicode() setKeysym().
 			 */
-			virtual void setUnicode( wchar_t uc ) {
+			inline void setUnicode( wchar_t uc ) {
 				pUnicode = uc;
 			};
 
-			virtual bool isLShiftPressed() {
+			inline bool isLShiftPressed() {
 				return pLShift;
 			}
-			virtual bool isRShiftPressed() {
+			inline bool isRShiftPressed() {
 				return pRShift;
 			}
-			virtual bool isLCtrlPressed() {
+			inline bool isLCtrlPressed() {
 				return pLCtrl;
 			}
-			virtual bool isRCtrlPressed() {
+			inline bool isRCtrlPressed() {
 				return pRCtrl;
 			}
-			virtual bool isLAltPressed() {
+			inline bool isLAltPressed() {
 				return pLAlt;
 			}
-			virtual bool isRAltPressed() {
+			inline bool isRAltPressed() {
 				return pRAlt;
 			}
-			virtual bool isLMetaPressed() {
+			inline bool isLMetaPressed() {
 				return pLMeta;
 			}
-			virtual bool isRMetaPressed() {
+			inline bool isRMetaPressed() {
 				return pRMeta;
 			}
-			virtual bool isNumlockPressed() {
+			inline bool isNumlockPressed() {
 				return pNumlock;
 			}
-			virtual bool isCapslockPressed() {
+			inline bool isCapslockPressed() {
 				return pCapslock;
 			}
-			virtual bool isModePressed() {
+			inline bool isModePressed() {
 				return pMode;
 			}
 
-			virtual void setLShiftPressed( bool p ) {
+			inline void setLShiftPressed( bool p ) {
 				pLShift = p;
 			}
-			virtual void setRShiftPressed( bool p ) {
+			inline void setRShiftPressed( bool p ) {
 				pRShift = p;
 			}
-			virtual void setLCtrlPressed( bool p ) {
+			inline void setLCtrlPressed( bool p ) {
 				pLCtrl = p;
 			}
-			virtual void setRCtrlPressed( bool p ) {
+			inline void setRCtrlPressed( bool p ) {
 				pRCtrl = p;
 			}
-			virtual void setLAltPressed( bool p ) {
+			inline void setLAltPressed( bool p ) {
 				pLAlt = p;
 			}
-			virtual void setRAltPressed( bool p ) {
+			inline void setRAltPressed( bool p ) {
 				pRAlt = p;
 			}
-			virtual void setLMetaPressed( bool p ) {
+			inline void setLMetaPressed( bool p ) {
 				pLMeta = p;
 			}
-			virtual void setRMetaPressed( bool p ) {
+			inline void setRMetaPressed( bool p ) {
 				pRMeta = p;
 			}
-			virtual void setNumlockPressed( bool p ) {
+			inline void setNumlockPressed( bool p ) {
 				pNumlock = p;
 			}
-			virtual void setCapslockPressed( bool p ) {
+			inline void setCapslockPressed( bool p ) {
 				pCapslock = p;
 			}
-			virtual void setModePressed( bool p ) {
+			inline void setModePressed( bool p ) {
 				pMode = p;
 			}
 
-			virtual bool isCtrlPressed() {
+			inline bool isCtrlPressed() {
 				return ( pLCtrl || pRCtrl );
 			}
-			virtual bool isShiftPressed() {
+			inline bool isShiftPressed() {
 				return ( pLShift || pRShift );
 			}
-			virtual bool isAltPressed() {
+			inline bool isAltPressed() {
 				return ( pLAlt || pRAlt );
 			}
-			virtual bool isMetaPressed() {
+			inline bool isMetaPressed() {
 				return ( pLMeta || pRMeta );
 			}
-			virtual bool isAnyModsPressed() {
+			inline bool isAnyModsPressed() {
 				return ( pLShift || pRShift || pLCtrl || pRCtrl || pLAlt || pRAlt || pLMeta || pRMeta || pNumlock || pCapslock || pMode );
 			}
 
-			virtual wstring keysymWString( Keysym k );
-			virtual string keysymString( const Keysym k );
+			/**
+			 * Generates a wstring with the name on the Keysym provided as parameter.
+			 *
+			 * @see keysymString().
+			 */
+			wstring keysymWString( const Keysym& k );
 
-			virtual void debugString( );
+			/**
+			 * Generates a string with the name on the Keysym provided as parameter.
+			 *
+			 * @see keysymString().
+			 */
+			string keysymString( const Keysym& k );
+
+			/**
+			 * Output debug info about this Key object.
+			 */
+			void debugString( );
 
 		private:
 
 			Keysym pKeysym;
 			wchar_t pUnicode;
 
+			//! @todo Should make a Keymod class to contain the key mods.
 			bool pLShift;
 			bool pRShift;
 			bool pLCtrl;
