@@ -647,6 +647,7 @@ bool Widget::isManaged(  ) const
 	}
 }
 
+
 void Widget::tooltipTimerCallback( Timer& t, int& to )
 {
 	// Tooltip Should Now Be Shown.
@@ -668,6 +669,7 @@ void Widget::tooltipTimerCallback( Timer& t, int& to )
 		tobj->popup( pLastX + this->absoluteXPos() + 1, pLastY + this->absoluteYPos() + 20, gui() );
 	}
 }
+
 
 Widget* Widget::mouseMove( int x, int y, MouseButtons mb )
 {
@@ -840,14 +842,7 @@ void Widget::releaseMouseInput()
 {
 	gui().unsetMouseChannelWidget( *this );
 }
-/*
-void Widget::updatedWidget( Widget* o )
-{
-	if ( o == NULL ) return;
-	Rect r = Rect( 0 - o->borderLeft(), 0 - o->borderTop(), o->width(), o->height() );
-	updatedWidget( o, r );
-}
-*/
+
 
 void Widget::updatedWidget( Widget* o, const Rect r )
 {

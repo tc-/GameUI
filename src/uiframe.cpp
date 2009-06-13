@@ -365,7 +365,7 @@ void Frame::getWidgetsInRect( List<Widget*>& l, const Rect r, bool recursive )
 			if ( r.intersects( Rect( o->absoluteXPos(), o->absoluteYPos(), o->width(), o->height() ) ) ) {
 				o->getWidgetsInRect( l, r );
 			}
-		} else {
+		} else if ( r.intersects( Rect( o->absoluteXPos(), o->absoluteYPos(), o->width(), o->height() ) ) ) {
 			l.append( o );
 		}
 	}
