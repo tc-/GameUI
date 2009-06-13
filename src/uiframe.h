@@ -87,6 +87,10 @@ namespace Ui
 			virtual Widget* keyPressed( Key key );
 			virtual Widget* keyReleased( Key key );
 
+			virtual bool isWidgetTop( Widget& obj ) {
+				return pChildList.getIndex( &obj ) == 0;
+			}
+
 			virtual void moveWidgetToTop( Widget* obj ) {
 				int pos = pChildList.getIndex( obj );
 				if ( pos != -1 ) {

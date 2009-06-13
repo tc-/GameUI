@@ -589,9 +589,12 @@ void SDLImageObject::setAlpha(unsigned short int a )
   }
 }
 
+
+bool SDLImageObject::visualdebug = false;
+
 void SDLImageObject::visDebug( const Rect& r )
 {
-  return;
+  if ( !visualdebug ) return;
   SDL_Surface* tmps = SDL_CreateRGBSurface( SDL_SWSURFACE, r.width, r.height, s->format->BitsPerPixel,
                                   s->format->Rmask, s->format->Gmask, s->format->Bmask, s->format->Amask );
   SDL_Rect* sr = new SDL_Rect;
@@ -611,7 +614,7 @@ void SDLImageObject::visDebug( const Rect& r )
   SDL_FillRect( s, sr, SDL_MapRGB( s->format, 255, 0, 0 ) );
 
   SDL_Flip( s );
-  SDL_Delay( 20 );
+  SDL_Delay( 50 );
 
   SDL_BlitSurface( tmps, dr, s, sr );
   SDL_Flip( s );

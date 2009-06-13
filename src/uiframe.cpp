@@ -20,9 +20,9 @@
 
 
 /**
-@file
-Implementation of the Ui::Frame class
-*/
+ * @file
+ * Implementation of the Ui::Frame class
+ */
 
 #include "uiframe.h"
 
@@ -42,23 +42,23 @@ Frame::Frame( Frame* parent )
 {
 	pCur = NULL;
 
-  setParent( parent );
+	setParent( parent );
 }
 
 Frame::~Frame()
 {
-  int i;
-  for( i = 0; i < numChildren(); i++ ) {
-    Widget* o = child( i );
-    assert( o != NULL );
-    o->setParent( NULL );
-  }
+	int i;
+	for( i = 0; i < numChildren(); i++ ) {
+		Widget* o = child( i );
+		assert( o != NULL );
+		o->setParent( NULL );
+	}
 
-  for( int i = 0; i < pChildList.count(); i++ ) {
-    Widget* o = pChildList.get( i );
-    assert( o != NULL );
-    o->setParent( NULL );
-  }
+	for( int i = 0; i < pChildList.count(); i++ ) {
+		Widget* o = pChildList.get( i );
+		assert( o != NULL );
+		o->setParent( NULL );
+	}
 }
 
 void Frame::setTheme( Theme& t, const string prefix )
@@ -73,14 +73,14 @@ void Frame::setTheme( Theme& t, const string prefix )
 
 void Frame::setGui( Gui* s )
 {
-  //cout << "* Ui::Frame::setScreen(  )" << endl;
-  Widget::setGui( s );
-  int i;
-  for( i = 0; i < numChildren(); i++ ) {
-    Widget* o = child( i );
-    assert( o != NULL );
-    o->setGui( s );
-  }
+	//cout << "* Ui::Frame::setScreen(  )" << endl;
+	Widget::setGui( s );
+	int i;
+	for( i = 0; i < numChildren(); i++ ) {
+		Widget* o = child( i );
+		assert( o != NULL );
+		o->setGui( s );
+	}
  // cout << "* Ui::Frame::setScreen(  ) done" << endl;
 }
 
@@ -89,31 +89,27 @@ void Frame::childUpdated( Widget& o )
 {
 	if ( &o == pCur ) return;
 
-  arrangeChildren();
-	updated();
+	arrangeChildren();
+	//updated();
 }
 
 bool Frame::sortWidgetsByLeft(List< Widget* > & l, int i1, int i2)
 {
-	if ( l.get(i1)->relativeLeft() <= l.get(i2)->relativeLeft() )
-		return true;
-	return false;
+	if ( l.get(i1)->relativeLeft() <= l.get(i2)->relativeLeft() ) return true;
+	else return false;
 }
 
 
 bool Frame::sortWidgetsByTop(List< Widget* > & l, int i1, int i2)
 {
-	if ( l.get(i1)->relativeTop() <= l.get(i2)->relativeTop() )
-		return true;
-	return false;
+	if ( l.get(i1)->relativeTop() <= l.get(i2)->relativeTop() ) return true;
+	else return false;
 }
 
 
 
 void Frame::arrangeChildren(  )
 {
-	// enum WidgetAlign { walignNone, walignLeft, walignRight, walignTop, walignBottom, walignClient };
-//	Rect clientArea = getClientRect();//( 0, 0, clientWidth(), clientHeight() );
 	Rect clientArea(0, 0, clientWidth(), clientHeight() );
 	List< Widget* > wl;
 
@@ -287,87 +283,63 @@ void Frame::arrangeChildren(  )
 Rect Frame::getClientClipRect()
 {
 
-  Rect r;
+	Rect r;
 	Rect cr( borderLeft(), borderTop(), width() - borderLeft() - borderRight(), height() - borderTop() - borderBottom() );
 
-  if ( hasParent() ) {
+	if ( hasParent() ) {
 
-    Rect pr = parent()->getClientClipRect( );
+		Rect pr = parent()->getClientClipRect( );
 
-    r.top = absoluteYPos() + cr.top;
-    r.left = absoluteXPos() + cr.left;
-    r.width = cr.width;
-    r.height = cr.height;
+		r.top = absoluteYPos() + cr.top;
+		r.left = absoluteXPos() + cr.left;
+		r.width = cr.width;
+		r.height = cr.height;
 
-    r.crop( pr );
+		r.crop( pr );
 
-    return r;
+		return r;
 
-  } else {
+	} else {
 
-    r.top = absoluteYPos() + cr.top;
-    r.left = absoluteXPos() + cr.left;
-    r.width = cr.width;
-    r.height = cr.height;
+		r.top = absoluteYPos() + cr.top;
+		r.left = absoluteXPos() + cr.left;
+		r.width = cr.width;
+		r.height = cr.height;
 
-    return r;
-  }
+		return r;
+	}
 }
 
 
-
-/*Rect Frame::getClientVisibleRect()
-{
-  Rect r;
-//  if ( border() != NULL ) {
-    r.top = borderTop();
-    r.left = borderLeft();
-    r.width = width() - r.left - borderRight();
-    r.height = height() - r.top - borderBottom();
-/*  } else {
-    r.top = 0;
-    r.left = 0;
-    r.width = width();
-    r.height = height();
-}*/
- // return r;
-//}
-
-/*Rect Frame::getClientRect()
-{
-	return Rect( borderLeft(), borderTop(), width() - borderLeft() - borderRight(), height() - borderTop() - borderBottom() );
-}*/
-
 Widget* Frame::getWidgetAt( int x, int y, bool recursive )
 {
-	//Utils::setNotice( "getWidgetAt( " + Utils::toString(x) + ", " + Utils::toString(y) + " ) by " + name() );
 	Rect r( borderLeft(), borderTop(), width() - borderLeft() - borderRight(), height() - borderTop() - borderBottom() );
 	x -= r.left;
 	y -= r.top;
 	Widget* o;
-  int i;
+	int i;
 
-  for( i = 0; i < numChildren(); i++ ) {
-    o = child( i );
-    assert( o != NULL );
+	for( i = 0; i < numChildren(); i++ ) {
+		o = child( i );
+		assert( o != NULL );
 
 		if (( o->relativeTop() <= y ) && ( o->relativeLeft() <= x ) &&
 						( o->relativeLeft()+o->width() >= x ) && ( o->relativeTop() + o->height() >= y ) )
-    {
+		{
 			if ( o->visible() ) {
 				if ( recursive )
 					return o->getWidgetAt( x - o->relativeLeft(), y - o->relativeTop() );
 				else
-        	return o;
+					return o;
 			}
-    }
-  }
-  return this;
+		}
+	}
+	return this;
 }
 
 int Frame::zIndex( )
 {
-  return Widget::zIndex();
+	return Widget::zIndex();
 }
 
 
@@ -375,24 +347,24 @@ int Frame::setZIndex( const int z )
 {
 	int index = z + 1;
 	if ( z != zIndex() )
-    Widget::setZIndex( z );
-  for( int i = pChildList.count() - 1; i >= 0; i-- ) {
+		Widget::setZIndex( z );
+	for( int i = pChildList.count() - 1; i >= 0; i-- ) {
 		Widget* o = pChildList.get( i );
-    index += o->setZIndex( index );
-  }
-  return index - z;
+		index += o->setZIndex( index );
+	}
+	return index - z;
 }
 
 
 void Frame::getWidgetsInRect( List<Widget*>& l, const Rect r, bool recursive )
 {
-  l.append( this );
-  for( int i = 0; i < numChildren(); i++ ) {
-    Widget* o = child( i );
+	l.append( this );
+	for( int i = 0; i < numChildren(); i++ ) {
+		Widget* o = child( i );
 		if ( recursive ) {
 			if ( r.intersects( Rect( o->absoluteXPos(), o->absoluteYPos(), o->width(), o->height() ) ) ) {
-        o->getWidgetsInRect( l, r );
-      }
+				o->getWidgetsInRect( l, r );
+			}
 		} else {
 			l.append( o );
 		}
@@ -402,28 +374,28 @@ void Frame::getWidgetsInRect( List<Widget*>& l, const Rect r, bool recursive )
 
 void Frame::renderBackground( const Rect& r )
 {
-  if ( !visible() ) return;
+	if ( !visible() ) return;
 
-  screen().pushClipRect( Rect( r.left + absoluteXPos(), r.top + absoluteYPos(), r.width, r.height ) );
+	screen().pushClipRect( Rect( r.left + absoluteXPos(), r.top + absoluteYPos(), r.width, r.height ) );
 
-  if ( drawmode() == drawTransparent ) {
-    if ( hasParent() ) {
-      parent()->renderBackground( r );
-    }
-  }
+	if ( drawmode() == drawTransparent ) {
+		if ( hasParent() ) {
+			parent()->renderBackground( r );
+		}
+	}
 
-  if ( border() != NULL ) {
+	if ( border() != NULL ) {
 		border()->render( Rect( absoluteXPos(), absoluteYPos(), width(), height() ), screen() );
-  } else {
-    screen().fillRect( Rect ( absoluteXPos(), absoluteYPos(), width(), height() ), Color( 200,200,200 ) );
-  }
-  screen().popClipRect();
+	} else {
+		screen().fillRect( Rect ( absoluteXPos(), absoluteYPos(), width(), height() ), Color( 200,200,200 ) );
+	}
+	screen().popClipRect();
 }
 
 
 void Frame::updated()
 {
-  Widget::updated();
+	Widget::updated();
 }
 
 
@@ -437,106 +409,96 @@ void Frame::resize( int newwidth, int newheight )
 void Frame::childAdded( Widget* o )
 {
 	onChildAdded( o );
-
-  //cout << "* Ui::Frame::childAdded(  )" << endl;
-/*  if ( o == NULL ) return;
-  o->setGui( &gui() );
-  if ( o->parent() != this )
-    o->setParent( this );
-	if ( o->isManaged() )
-		arrangeChildren();*/
 }
 
 void Frame::childRemoved( Widget* o )
 {
-  //cout << "* Ui::Frame::childRemoved(  )" << endl;
-  if ( o == NULL ) return;
-	if ( o->isManaged() )
-  	arrangeChildren();
+	if ( o == NULL ) return;
+	if ( o->isManaged() ) arrangeChildren();
 }
 
 
 Widget* Frame::mouseMove( int x, int y, MouseButtons mb )
 {
-  Widget* obj = getWidgetAt( x, y );
-  if (( obj == this ) || ( obj == NULL )) {
-    return Widget::mouseMove( x, y, mb );
-  } else {
+	Widget* obj = getWidgetAt( x, y );
+	if (( obj == this ) || ( obj == NULL )) {
+		return Widget::mouseMove( x, y, mb );
+	} else {
 		Rect r( borderLeft(), borderTop(), width() - borderLeft() - borderRight(), height() - borderTop() - borderBottom() );
 		return obj->mouseMove( x - obj->relativeLeft() - r.left, y - obj->relativeTop() - r.top, mb );
-  }
+	}
 }
 
 
 Widget* Frame::mouseClick( int x, int y, MouseButtons mb )
 {
-  Widget* obj = getWidgetAt( x, y );
-  if (( obj == this ) || ( obj == NULL )) {
-    return Widget::mouseClick( x, y, mb );
-  } else {
+	Widget* obj = getWidgetAt( x, y );
+	if (( obj == this ) || ( obj == NULL )) {
+		return Widget::mouseClick( x, y, mb );
+	} else {
 		Rect r( borderLeft(), borderTop(), width() - borderLeft() - borderRight(), height() - borderTop() - borderBottom() );
 		return obj->mouseClick( x - obj->relativeLeft() - r.left, y - obj->relativeTop() - r.top, mb );
-  }
+	}
 }
 
 
 Widget* Frame::mouseDblClick( int x, int y, MouseButtons mb )
 {
-  Widget* obj = getWidgetAt( x, y );
-  if (( obj == this ) || ( obj == NULL )) {
-    return Widget::mouseDblClick( x, y, mb );
-  } else {
+	Widget* obj = getWidgetAt( x, y );
+	if (( obj == this ) || ( obj == NULL )) {
+		return Widget::mouseDblClick( x, y, mb );
+	} else {
 		Rect r( borderLeft(), borderTop(), width() - borderLeft() - borderRight(), height() - borderTop() - borderBottom() );
 		return obj->mouseDblClick( x - obj->relativeLeft() - r.left, y - obj->relativeTop() - r.top, mb );
-  }
+	}
 }
 
 
 Widget* Frame::mousePressed( int x, int y, MouseButtons mb )
 {
 	Widget* obj = getWidgetAt( x, y );
-  if (( obj == this ) || ( obj == NULL )) {
-    return Widget::mousePressed( x, y, mb );
-  } else {
+	if (( obj == this ) || ( obj == NULL )) {
+		return Widget::mousePressed( x, y, mb );
+	} else {
 		Rect r( borderLeft(), borderTop(), width() - borderLeft() - borderRight(), height() - borderTop() - borderBottom() );
 		return obj->mousePressed( x - obj->relativeLeft() - r.left, y - obj->relativeTop() - r.top, mb );
-  }
+	}
 }
 
 
 Widget* Frame::mouseReleased( int x, int y, MouseButtons mb )
 {
 	Widget* obj = getWidgetAt( x, y );
-  if (( obj == this ) || ( obj == NULL )) {
-    return Widget::mouseReleased( x, y, mb );
-  } else {
+	if (( obj == this ) || ( obj == NULL )) {
+		return Widget::mouseReleased( x, y, mb );
+	} else {
 		Rect r( borderLeft(), borderTop(), width() - borderLeft() - borderRight(), height() - borderTop() - borderBottom() );
 		return obj->mouseReleased( x - obj->relativeLeft() - r.left, y - obj->relativeTop() - r.top, mb );
-  }
+	}
 }
 
 
 Widget* Frame::mouseIn( MouseButtons mb )
 {
-  return Widget::mouseIn( mb );
+	return Widget::mouseIn( mb );
 }
 
 
 Widget* Frame::mouseOut( MouseButtons mb )
 {
-  return Widget::mouseOut( mb );
+	return Widget::mouseOut( mb );
 }
 
 
 Widget* Frame::keyPressed( Key key )
 {
-  return Widget::keyPressed( key );
+	return Widget::keyPressed( key );
 }
 
 
 Widget* Frame::keyReleased( Key key )
 {
-  return Widget::keyReleased( key );
+	return Widget::keyReleased( key );
 }
 
 

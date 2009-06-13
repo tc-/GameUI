@@ -180,6 +180,7 @@ wstring PushButton::text()
 
 void PushButton::setText( wstring s )
 {
+	if ( pText == s ) return;
 	pText = s;
 	updated();
 }

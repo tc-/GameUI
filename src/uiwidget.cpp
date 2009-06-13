@@ -565,11 +565,11 @@ void Widget::setBorder( Border* bs )
 
 void Widget::setFocused( bool f )
 {
-	if (( pFocused != f ) && ( f ) ) {
-		gui().setFocusedWidget( this );
+	if ( pFocused != f ) {
+		if ( f ) gui().setFocusedWidget( this );
+		pFocused = f;
+		updated();
 	}
-	pFocused = f;
-	updated();
 }
 
 
@@ -593,6 +593,7 @@ void Widget::renderBorder( ImageObject& img )
 
 void Widget::move( const int newleft, const int newtop )
 {
+	if ((newleft == pLeft) && (newtop == pTop)) return;
 	if ( visible() ) {
 		Rect updateRect( absoluteXPos(), absoluteYPos(), width(), height() );
 
@@ -776,6 +777,7 @@ void Widget::timerTick()
 
 void Widget::resize( int newwidth, int newheight )
 {
+	if ( (newwidth == pWidth) && (newheight == pHeight) ) return;
 	int oldw = pWidth;
 	int oldh = pHeight;
 	newwidth = min( max( newwidth, minWidth() ), maxWidth() );
@@ -810,9 +812,11 @@ void Widget::getWidgetsInRect( List<Widget*>& l, const Rect r, bool recursive )
 
 void Widget::moveToTop()
 {
-	if ( parent() != NULL ) {
-		parent()->moveWidgetToTop( this );
-	}
+	if ( parent() == NULL ) return;
+	if ( parent()->isWidgetTop(*this) ) return;
+
+	parent()->moveWidgetToTop( this );
+	updated();
 }
 
 

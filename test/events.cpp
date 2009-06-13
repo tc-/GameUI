@@ -21,6 +21,8 @@
 
 #include "events.h"
 
+#include "uisdlimageobject.h"
+
 Events::Events()
 {
 }
@@ -47,6 +49,7 @@ void Events::b1mPressed( Widget& w, MouseButtons mb )
 	} else {
 		btn.setText( L"Blipp" );
 	}
+	SDLImageObject::visualdebug = true;
 }
 
 void Events::transbuttonPressed( PushButton& btn )

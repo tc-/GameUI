@@ -78,7 +78,7 @@ Widget* WindowFrame::mouseDblClick(int x, int y, MouseButtons mb)
 Widget* WindowFrame::mousePressed( int x, int y, MouseButtons mb )
 {
   moveToTop();
-  updated();
+  //updated();
 
   Widget* obj = Frame::mousePressed( x, y, mb );
   if ( obj == this ) {

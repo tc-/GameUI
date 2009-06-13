@@ -90,6 +90,8 @@ namespace Ui
 
 			static ImageObject* themeSDLImageObjectLoader( const string fname, InifileSection* iniSec, const ThemeLoadOptions& op );
 			static ImageObject* sdlImageObjectFactory( const int& width = 0, const int& height = 0 );
+
+			static bool visualdebug;
 		private:
 
 			SDL_Surface *s;
