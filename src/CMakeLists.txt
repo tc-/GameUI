@@ -30,5 +30,6 @@ add_library(gameui
   uiwindowframe.h uiinifile.h uiutils.h uiknob.h
   uisdltimercontrol.h uiwidget.h uidragobject.h uitooltip.h
   uitabview.h uispriteview.cpp uispriteview.h
+  uiposition.h
 )
 

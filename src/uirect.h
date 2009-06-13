@@ -31,6 +31,8 @@ Headerfile for the UiRect class
 #include <string>
 #include <stdlib.h>
 
+#include "uiposition.h"
+
 using namespace std;
 
 namespace Ui
@@ -119,6 +121,10 @@ namespace Ui
 			 */
 			inline bool pointInside( const int& pleft, const int& ptop ) const {
 				return ( (ptop >= top) && (pleft >= left) && (ptop <= top+height) && (pleft <= left+width));
+			}
+
+			inline Position position() const {
+				return Position( left, top );
 			}
 
 			/**
