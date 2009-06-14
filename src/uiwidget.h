@@ -37,6 +37,7 @@ Headerfile for the Ui::Widget class
 #include <sigslot.h>
 
 #include <string>
+#include "uiposition.h"
 
 using std::string;
 
@@ -304,12 +305,14 @@ namespace Ui
 			virtual void setMaxHeight( int mh );
 
 			/**
-			 * The position in the y axis of the widget relative to parent frame.
+			 * The position of the widget relative to parent frame.
 			 *
 			 * @return the position in the y axis of the widget relative to parent frame.
-			 * @see setTop() parent() absoluteYPos() left() height()
+			 * @see setPosition() parent() absoluteYPos() height().
 			 */
-			virtual int top(  ) const;
+			virtual Position position(  ) const {
+				return pPos;
+			}
 
 			/**
 			 * The vertical position of this Widget relative to parent frame scroll.
@@ -320,20 +323,15 @@ namespace Ui
 			virtual int relativeTop(  ) const;
 
 			/**
-			 * Setter for the top property.
+			 * Setter for the position property.
 			 *
 			 * @param t the new top value.
 			 * @see top().
 			 */
-			virtual void setTop( int t );
-
-			/**
-			 * The horizontal position of this Widget relative to parent frame.
-			 *
-			 * @return the position in the x axis of the widget relative to parent frame.
-			 * @see setLeft() parent() absoluteYPos() top() width() relativeLeft().
-			 */
-			virtual int left(  ) const;
+			virtual void setPosition( const Position& pos );
+			inline void setPosition( const int& left, const int& top ) {
+				setPosition( Position(left, top) );
+			}
 
 			/**
 			 * The horizontal position of this Widget relative to parent frame scroll.
@@ -342,14 +340,6 @@ namespace Ui
 			 * @see left() Ui::Frame::scrollX().
 			 */
 			virtual int relativeLeft(  ) const;
-
-			/**
-			 * Setter for the left property.
-			 *
-			 * @param l the new left value.
-			 * @see left().
-			 */
-			virtual void setLeft( int l );
 
 			/**
 			 * The width of this Widget.
@@ -700,7 +690,6 @@ namespace Ui
 			 */
 			virtual void setSizeLimit( int minw, int minh, int maxw, int maxh );
 			virtual void setBounds( int left, int top, int width, int height );
-			virtual void move( const int newleft, const int newtop );
 
 			/**
 			 * Is this Widget managed by a Ui::Frame parent?
@@ -855,8 +844,9 @@ namespace Ui
 			int pMinHeight;
 			int pMaxWidth;
 			int pMaxHeight;
-			int pTop;
-			int pLeft;
+
+			Position pPos;
+
 			int pWidth;
 			int pHeight;
 			int pZIndex;

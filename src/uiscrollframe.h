@@ -51,7 +51,10 @@ namespace Ui
 			virtual void render( ImageObject& img, const Rect& r );
 
 			virtual void resize( int newwidth, int newheight );
-			virtual void move( const int newleft, const int newtop );
+			virtual void setPosition( const Position& pos );
+			inline void setPosition( const int left, const int top ) {
+				setPosition( Position(left, top) );
+			}
 
 			virtual void scroll( const int dx, const int dy );
 			virtual void scrollTo( const int top, const int left );

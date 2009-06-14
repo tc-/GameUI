@@ -177,8 +177,7 @@ int main(int argc, char *argv[])
 	Utils::startTask( "Creating Scrollframe3 object" );
 	ScrollFrame* f3 = new ScrollFrame( tv1 );
 	f3->setTheme( Theme::defaultTheme() );
-	f3->setLeft( 0 );
-	f3->setTop( 0 );
+	f3->setPosition( 0, 0 );
 	f3->setWidth( 246 );
 	f3->setHeight( 196 );
 	f3->setVisible( true );
@@ -207,8 +206,7 @@ int main(int argc, char *argv[])
   Utils::startTask( "Creating Knob1 object" );
   Knob* k1 = new Knob( f2 );
   k1->setTheme( Theme::defaultTheme() );
-	k1->setTop( 105 );
-	k1->setLeft( 10 );
+	k1->setPosition( 10, 105 );
 	k1->setWidth( 35 );
 	k1->setHeight( 35 );
 	k1->setVisible( true );
@@ -217,8 +215,7 @@ int main(int argc, char *argv[])
 	Utils::startTask( "Creating Knob2 object" );
   Knob* k2 = new Knob( f2 );
 	k2->setTheme( Theme::defaultTheme() );
-	k2->setTop( 105 );
-	k2->setLeft( 55 );
+	k2->setPosition( 55, 105 );
 	k2->setWidth( 35 );
 	k2->setHeight( 35 );
 	k2->setVisible( true );
@@ -227,8 +224,7 @@ int main(int argc, char *argv[])
 	Utils::startTask( "Creating Knob3 object" );
   Knob* k3 = new Knob( f2 );
 	k3->setTheme( Theme::defaultTheme() );
-	k3->setTop( 105 );
-	k3->setLeft( 100 );
+	k3->setPosition( 100, 105 );
 	k3->setWidth( 35 );
 	k3->setHeight( 35 );
 	k3->setVisible( true );
@@ -237,8 +233,7 @@ int main(int argc, char *argv[])
 	Utils::startTask( "Creating Knob4 object" );
   Knob* k4 = new Knob( f2 );
 	k4->setTheme( Theme::defaultTheme() );
-	k4->setTop( 105 );
-	k4->setLeft( 145 );
+	k4->setPosition( 145, 105 );
 	k4->setWidth( 35 );
 	k4->setHeight( 35 );
 	k4->setVisible( true );
@@ -258,8 +253,7 @@ int main(int argc, char *argv[])
 	Utils::startTask( "Creating HScrollbar1 object" );
 	HScrollbar* sc1 = new HScrollbar( &g->fgFrame() );
 	sc1->setTheme( Theme::defaultTheme() );
-	sc1->setTop( 208 );
-	sc1->setLeft( 2 );
+	sc1->setPosition( 2, 208 );
 	sc1->setWidth( 244 );
 	sc1->setVisible( true );
 	sc1->setScrollerMaxPos( 180+80 );
@@ -289,9 +283,8 @@ int main(int argc, char *argv[])
   Utils::startTask( "Creating Edit1 object" );
   Edit* e1 = new Edit( &g->fgFrame() );
   e1->setTheme( Theme::defaultTheme() );
-	e1->setTop( 2 );
+	e1->setPosition( 270, 2 );
 	e1->setWidth( 200 );
-	e1->setLeft( 270 );
 	e1->setText( L"Test1" );
 	e1->setVisible( true );
 	e1->setName( "Edit1" );
@@ -299,9 +292,8 @@ int main(int argc, char *argv[])
   Utils::startTask( "Creating Edit2 object" );
   Edit* e2 = new Edit( &g->fgFrame() );
 	e2->setTheme( Theme::defaultTheme() );
-	e2->setTop( 28 );
+	e2->setPosition( 270, 28 );
 	e2->setWidth( 300 );
-	e2->setLeft( 270 );
 	e2->setText( L"Bla Bla Blaaa" );
 	e2->setVisible( true );
 	e2->setName( "Edit2" );
@@ -313,8 +305,7 @@ int main(int argc, char *argv[])
   Utils::startTask( "Creating Window1 object" );
   Window* wf1 = new Window( &g->fgFrame() );
   wf1->setTheme( Theme::defaultTheme() );
-	wf1->setLeft( 210 );
-	wf1->setTop( 210 );
+	wf1->setPosition( 210, 210 );
 	wf1->setWidth( 200 );
 	wf1->setHeight( 184 );
 	wf1->setCaption( L"Test Caption" );
@@ -341,8 +332,7 @@ int main(int argc, char *argv[])
   Utils::startTask( "Creating Button5 object" );
   PushButton* b5 = new PushButton( wf1 );
   b5->setTheme( Theme::defaultTheme(), "trans_" );
-	b5->setLeft( 36 );
-	b5->setTop( 124 );
+	b5->setPosition( 36, 124 );
 	b5->setWidth( 120 );
 	b5->setMaxWidth( 140 );
 	b5->setMinWidth( 80 );
@@ -471,8 +461,7 @@ int main(int argc, char *argv[])
 	Utils::startTask( "Creating WindowFrame2 object" );
   WindowFrame* wf2 = new WindowFrame( &g->fgFrame() );
   wf2->setTheme( Theme::defaultTheme() );
-	wf2->setLeft( 270 );
-	wf2->setTop( 75 );
+	wf2->setPosition( 270, 75 );
 	wf2->setWidth( 150 );
 	wf2->setVisible( true );
 	wf2->setName( "ResWindowFrame" );
@@ -501,10 +490,8 @@ int main(int argc, char *argv[])
   Combobox* cb1 = new Combobox( wf2 );
   cb1->setTheme( Theme::defaultTheme() );
 	cb1->setDropdownList( dl1 );
-	cb1->setTop( 20 );
+	cb1->setPosition( 4, 20 );
 	cb1->setWidth( 120 );
-	cb1->setLeft( 4 );
-  //cb1.setReadOnly();
 	cb1->setText( L"- select one -" );
 	cb1->setVisible( true );
 	cb1->setName( "ResCombobox" );
@@ -516,8 +503,7 @@ int main(int argc, char *argv[])
   Utils::startTask( "Creating NetwalkWindow object" );
   NetwalkWindow* nw = new NetwalkWindow( &g->fgFrame(), NULL );
   nw->setTheme( Theme::defaultTheme() );
-	nw->setTop( 100 );
-	nw->setLeft( 450 );
+	nw->setPosition( 450, 100 );
 	nw->setSkill( 0 );
 	nw->newGame();
 	nw->moveToTop();

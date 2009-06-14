@@ -80,8 +80,7 @@ void Gui::setBgWidget( Widget* o )
 {
   pBgWidget = o;
   pBgWidget->setGui( this );
-  pBgWidget->setTop( 0 );
-  pBgWidget->setLeft( 0 );
+  pBgWidget->setPosition( Position() );
   pBgWidget->setWidth( pWidth );
   pBgWidget->setHeight( pHeight );
 //  pBgWidget->setPreferredWidth( pWidth );
@@ -107,8 +106,7 @@ void Gui::setFgFrame( Frame* f )
 {
   pFgFrame = f;
   pFgFrame->setGui( this );
-  pFgFrame->setTop( 0 );
-  pFgFrame->setLeft( 0 );
+  pFgFrame->setPosition( Position() );
   pFgFrame->setWidth( pWidth );
   pFgFrame->setHeight( pHeight );
 //  pFgFrame->setPreferredWidth( pWidth );
@@ -133,8 +131,7 @@ void Gui::setTopFrame( Frame* f )
 {
   pTopFrame = f;
   pFgFrame->setGui( this );
-  pTopFrame->setTop( 0 );
-  pTopFrame->setLeft( 0 );
+  pTopFrame->setPosition( Position() );
   pTopFrame->setWidth( pWidth );
   pTopFrame->setHeight( pHeight );
 //  pTopFrame->setPreferredWidth( pWidth );

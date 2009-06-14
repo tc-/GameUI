@@ -33,8 +33,16 @@
 namespace Ui
 {
 
+	class RelPosition;
+	class AbsPosition;
+
 	/**
-	 * Class containing a position.
+	 * Class containing a relative position.
+	 *
+	 * There are two types of positions used in GameUI, relative and absolute.
+	 * Position is relative and AbsPosition is absolute.
+	 *
+	 * @see AbsPosition.
 	 */
 	class Position
 	{
@@ -44,11 +52,11 @@ namespace Ui
 			Position( const Position& pos ): pTop(pos.pTop), pLeft(pos.pLeft) {}
 			Position( int left, int top ): pTop(top), pLeft(left) {}
 
-			inline int top() {
+			inline int top() const {
 				return pTop;
 			}
 
-			inline int left() {
+			inline int left() const {
 				return pLeft;
 			}
 
@@ -64,6 +72,7 @@ namespace Ui
 				pTop = top;
 				pLeft = left;
 			}
+
 
 			Position & operator=(const Position &rhs) {
 				pTop = rhs.pTop;
@@ -114,23 +123,13 @@ namespace Ui
 
 
 	/**
-	 * Class containing a relative position.
-	 */
-	class RelPosition: public Position
-	{
-		public:
-			RelPosition( ): Position() {}
-			RelPosition( const Position& pos ): Position(pos) {}
-			RelPosition( int left, int top ): Position(left,top) {}
-	};
-
-	/**
 	 * Class containing a absolute position.
 	 */
 	class AbsPosition: public Position
 	{
 		public:
 			AbsPosition( ): Position() {}
+			AbsPosition( const AbsPosition& pos ): Position(pos) {}
 			AbsPosition( const Position& pos ): Position(pos) {}
 			AbsPosition( int left, int top ): Position(left,top) {}
 	};

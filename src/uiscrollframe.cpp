@@ -166,9 +166,9 @@ void ScrollFrame::resize( int newwidth, int newheight )
 	updateScrollbars();
 }
 
-void ScrollFrame::move( const int newleft, const int newtop )
+void ScrollFrame::setPosition( const Position& pos )
 {
-	Frame::move( newleft, newtop );
+	Frame::setPosition( pos );
 	updateScrollbars();
 }
 

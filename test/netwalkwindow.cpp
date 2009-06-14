@@ -63,16 +63,14 @@ NetwalkWindow::NetwalkWindow(Frame* parent, Font* f)
   mapView.setTheme( Theme::defaultTheme() );
   mapView.setName( "nw.mapView" );
 
-  titleLabel.setTop( 0 );
-  titleLabel.setLeft( 0 );
+  titleLabel.setPosition( Position() );
   titleLabel.setWidth( 80 );
   titleLabel.setHeight( 20 );
 //  titleLabel.setFont( f );
   titleLabel.setText( L"Netwalk" );
   titleLabel.setName( "nw.titleLabel" );
 
-  scoreLabel.setTop( 20 );
-  scoreLabel.setLeft( 0 );
+  scoreLabel.setPosition( 0, 20 );
   scoreLabel.setWidth( 40 );
   scoreLabel.setHeight( 20 );
   scoreLabel.setTheme( Theme::defaultTheme(), "score_" );
@@ -80,21 +78,18 @@ NetwalkWindow::NetwalkWindow(Frame* parent, Font* f)
   scoreLabel.setName( "nw.scoreLabel" );
 
   newButton.setTheme( Theme::defaultTheme() );
-  newButton.setTop( 20 );
-  newButton.setLeft( 42 );
+  newButton.setPosition( 42, 20 );
   newButton.setWidth( 40 );
   newButton.setHeight( 20 );
   newButton.setText( L"New" );
   newButton.setName( "nw.newButton" );
 
-  skillCombo.setTop( 20 );
-  skillCombo.setLeft( 84 );
+  skillCombo.setPosition( 84, 20 );
   skillCombo.setWidth( 78 );
   skillCombo.setText( L"Easy" );
   skillCombo.setReadOnly( true );
 
-  mapView.setTop( 40 );
-  mapView.setLeft( 0 );
+  mapView.setPosition( 0, 40 );
   mapView.setTheme( Theme::defaultTheme() );
 
   string datadir;

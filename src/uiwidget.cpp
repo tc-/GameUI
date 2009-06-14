@@ -61,8 +61,8 @@ Widget::Widget( Frame* parent, int x, int y, int width, int height )
 {
 	setParent( parent );
 	Init();
-	pTop = y;
-	pLeft = x;
+	pPos.setTop( y );
+	pPos.setLeft( x );
 	pWidth = width;
 	pHeight = height;
 }
@@ -71,8 +71,8 @@ Widget::Widget( Frame* parent, Theme& theme, int x, int y, int width, int height
 {
 	setParent( parent );
 	Init();
-	pTop = y;
-	pLeft = x;
+	pPos.setTop( y );
+	pPos.setLeft( x );
 	pWidth = width;
 	pHeight = height;
 	setTheme(theme);
@@ -104,8 +104,8 @@ void Widget::Init()
 	pMaxWidth = INT_MAX;
 	pMaxHeight = INT_MAX;
 
-	pTop = 0;
-	pLeft = 0;
+	pPos.setTop( 0 );
+	pPos.setLeft( 0 );
 	pWidth = 100;
 	pHeight = 100;
 	pZIndex = 0;
@@ -327,52 +327,25 @@ void Widget::setMaxHeight( int mh )
 }
 
 
-int Widget::top( ) const
-{
-//	cout << " -- top()"<< endl;
-	return pTop;
-}
-
-
-int Widget::left( ) const
-{
-//	cout << " -- left()"<< endl;
-	return pLeft;
-}
-
-
 int Widget::relativeTop(  ) const
 {
 	if ( hasParent() ) {
-		return pTop - parent()->scrollY();
+		return pPos.top() - parent()->scrollY();
 	} else {
-		return pTop;
+		return pPos.top();
 	}
 }
 
 int Widget::relativeLeft(  ) const
 {
 	if ( hasParent() ) {
-		return pLeft - parent()->scrollX();
+		return pPos.left() - parent()->scrollX();
 	} else {
-		return pLeft;
+		return pPos.left();
 	}
 }
 
 
-void Widget::setTop( int t )
-{
-	move( left(), t );
-//  pTop = t;
-//  updated();
-}
-
-void Widget::setLeft( int l )
-{
-	move( l, top() );
-//  pLeft = l;
-//  updated();
-}
 
 void Widget::setWidth( int w )
 {
@@ -591,20 +564,18 @@ void Widget::renderBorder( ImageObject& img )
 }
 
 
-void Widget::move( const int newleft, const int newtop )
+void Widget::setPosition( const Position& pos )
 {
-	if ((newleft == pLeft) && (newtop == pTop)) return;
+	if ((pos.left() == pPos.left()) && (pos.top() == pPos.top())) return;
 	if ( visible() ) {
 		Rect updateRect( absoluteXPos(), absoluteYPos(), width(), height() );
 
 		Rect tmpRect = updateRect;
 
-		tmpRect.top = newtop;
-		tmpRect.left = newleft;
+		tmpRect.top = pos.top();
+		tmpRect.left = pos.left();
 
-		pTop = newtop;
-		pLeft = newleft;
-
+		pPos = pos;
 
 		updateRect.merge( tmpRect );
 
@@ -614,8 +585,7 @@ void Widget::move( const int newleft, const int newtop )
 		updated( updateRect );
 
 	} else {
-		pTop = newtop;
-		pLeft = newleft;
+		pPos = pos;
 	}
 }
 
@@ -633,7 +603,7 @@ void Widget::setSizeLimit( int minw, int minh, int maxw, int maxh )
 
 void Widget::setBounds( int left, int top, int width, int height )
 {
-	move( left, top );
+	setPosition( left, top );
 	resize( width, height );
 }
 

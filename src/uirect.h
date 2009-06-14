@@ -20,9 +20,9 @@
 
 
 /**
-@file
-Headerfile for the UiRect class
-*/
+ * @file
+ * Headerfile for the UiRect class.
+ */
 
 #ifndef UIRECT_H
 #define UIRECT_H
@@ -46,9 +46,9 @@ namespace Ui
 	class Rect
 	{
 		public:
-			Rect();
-			Rect( int nLeft, int nTop, int nWidth, int nHeight );
-			~Rect();
+			Rect(): top(0), left(0), width(0), height(0) { }
+			Rect( int nLeft, int nTop, int nWidth, int nHeight ):
+				top(nTop), left(nLeft), width(nWidth), height(nHeight) { }
 
 			int top;		//!< Vertical position.
 			int left;		//!< Horizontal position.
@@ -104,7 +104,11 @@ namespace Ui
 			 * @return true if the Rect objects have a common area.
 			 * @see encloses() pointInside().
 			 */
-			bool intersects( const Rect ir ) const;
+			inline bool intersects( const Rect& ir ) const {
+				Rect r2 = *this;
+				r2.crop( ir );
+				return ( r2.area() > 0 );
+			}
 
 			/**
 			 * Does this Rect enclose er.
@@ -112,7 +116,7 @@ namespace Ui
 			 * @return true if er is completely enclosed inside this Rect.
 			 * @see intersects() pointInside().
 			 */
-			bool encloses( const Rect er ) const;
+			bool encloses( const Rect& er ) const;
 
 			/**
 			 * Is specified point inside this Rect.
@@ -132,22 +136,26 @@ namespace Ui
 			 *
 			 * @todo Change to a "toString" method instead.
 			 */
-			void debug( string ds ) const;
+			void debug( const string& ds ) const;
 
 			/**
 			 * Rect objects are equal if left, top, width, and height are equal.
 			 */
-			int operator==( const Rect& r ) const;
+			int operator==( const Rect& r ) const {
+				return ( ( left == r.left ) && ( top == r.top ) && ( width == r.width ) && ( height == r.height ) );
+			}
 
 			/**
 			 * Rect objects are not equal if any of left, top, width, and height are not equal.
 			 */
-			int operator!=( const Rect& r ) const;
-
+			int operator!=( const Rect& r ) const {
+				return (( left != r.left ) || ( top != r.top ) || ( width != r.width ) || ( height != r.height ) );
+			}
 
 	};
 
 	const Rect NULL_RECT = Rect( -1, -1, -1, -1 ); //!< Rect to use in the same way as null.
+
 }
 
 #endif

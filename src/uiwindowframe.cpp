@@ -97,7 +97,7 @@ Widget* WindowFrame::mouseReleased(int x, int y, MouseButtons mb)
 {
   if ( pLeftMouseDown ) {
 		releaseMouseInput();
-		move( relativeLeft() + ( x - pLastMouseX ), relativeTop() + ( y - pLastMouseY ) );
+		setPosition( relativeLeft() + ( x - pLastMouseX ), relativeTop() + ( y - pLastMouseY ) );
   }
 
   pLeftMouseDown = false;
@@ -109,7 +109,7 @@ Widget* WindowFrame::mouseMove( int x, int y, MouseButtons mb )
 {
 
   if ( pLeftMouseDown ) {
-		move( relativeLeft() + ( x - pLastMouseX ), relativeTop() + ( y - pLastMouseY ) );
+		setPosition( relativeLeft() + ( x - pLastMouseX ), relativeTop() + ( y - pLastMouseY ) );
   }
 	return Frame::mouseMove( x, y, mb );
 }
