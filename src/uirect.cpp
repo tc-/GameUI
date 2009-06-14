@@ -29,31 +29,6 @@ Implementation of the Ui::Rect class
 
 using namespace Ui;
 
-Rect::Rect()
-{
-  top = 0;
-  left = 0;
-  width = 0;
-  height = 0;
-}
-
-
-
-Rect::Rect( int nLeft, int nTop, int nWidth, int nHeight )
-{
-  top = nTop;
-  left = nLeft;
-  width = nWidth;
-  height = nHeight;
-}
-
-
-
-Rect::~Rect()
-{
-}
-
-
 
 void Rect::crop( const Rect cr )
 {
@@ -86,20 +61,6 @@ void Rect::crop( const Rect cr )
 
 void Rect::merge( const Rect cr )
 {
-/*  if ( cr.top < top) {
-    cout << "!!! dfg: " << top << " " << cr.top << " " << (top - cr.top) << endl;
-
-    height += 1*(top - cr.top);
-    top = cr.top;
-  } else {
-    height += cr.top - top;
-  }
-  if ( cr.left < left) {
-    width += left - cr.left;
-    left = cr.left;
-  } else {
-    width += cr.left - left;
-  }*/
   if ( top < cr.top ) {
 		int th = cr.top - top + Utils::max( height, cr.height );//cr.height;
     if ( height < th ) {
@@ -135,14 +96,8 @@ void Rect::applyBorder( const Border& b )
 	height -= b.heightTop + b.heightBottom;
 }
 
-bool Rect::intersects( const Rect ir ) const
-{
-	Rect r2 = *this;
-	r2.crop( ir );
-	return ( r2.area() > 0 );
-}
 
-bool Rect::encloses( const Rect er ) const
+bool Rect::encloses( const Rect& er ) const
 {
   if (( pointInside( er.left, er.top ) ) && ( pointInside( er.left+er.width, er.top ) ) &&
         ( pointInside( er.left, er.top+er.height ) ) && ( pointInside( er.left+er.width, er.top+er.height ) )) {
@@ -153,18 +108,8 @@ bool Rect::encloses( const Rect er ) const
 }
 
 
-void Rect::debug( string ds ) const
+void Rect::debug( const string& ds ) const
 {
   cout << "!!! " << ds << " Rect::" << "top: " << top << " left: " << left << " width: " << width << " height: " << height << endl;
 }
 
-int Rect::operator==( const Rect& r ) const
-{
-  return ( ( left == r.left ) && ( top == r.top ) && ( width == r.width ) && ( height == r.height ) );
-}
-
-
-int Rect::operator!=( const Rect& r ) const
-{
-  return (( left != r.left ) || ( top != r.top ) || ( width != r.width ) || ( height != r.height ) );
-}
